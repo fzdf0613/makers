@@ -17,8 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={openSans.className}>
-      <body className="w-full flex flex-col items-center  overflow-auto">
-        <header className="w-full max-w-[640px]">
+      <body className="w-full flex flex-col items-center overflow-auto">
+        <header className="w-full sticky top-0 max-w-[640px]">
           <NavBar />
         </header>
         <main className="w-full h-full max-w-[640px] bg-slate-200">
