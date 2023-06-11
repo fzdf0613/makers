@@ -1,6 +1,7 @@
 import NavBar from "@/components/NavBar";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
+import MenuBar from "@/components/MenuBar";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -20,10 +21,9 @@ export default function RootLayout({
       <body className="w-full flex flex-col items-center overflow-auto">
         <header className="w-full sticky top-0 max-w-[640px]">
           <NavBar />
+          <MenuBar />
         </header>
-        <main className="w-full h-full max-w-[640px] bg-slate-200">
-          {children}
-        </main>
+        <main className="w-full h-full max-w-[640px]">{children}</main>
         <footer className="w-full max-w-[640px] bg-slate-400">footer</footer>
       </body>
     </html>
