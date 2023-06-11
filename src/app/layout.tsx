@@ -1,3 +1,4 @@
+import NavBar from "@/components/NavBar";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
 
@@ -16,7 +17,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={openSans.className}>
-      <body>{children}</body>
+      <body className="w-full flex flex-col items-center  overflow-auto">
+        <header className="w-full max-w-[640px]">
+          <NavBar />
+        </header>
+        <main className="w-full h-full max-w-[640px] bg-slate-200">
+          {children}
+        </main>
+        <footer className="w-full max-w-[640px] bg-slate-400">footer</footer>
+      </body>
     </html>
   );
 }
