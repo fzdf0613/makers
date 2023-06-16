@@ -1,3 +1,9 @@
+import HomeCategoryBar from "@/components/home/HomeCategoryBar";
+
 export default function Home() {
-  return <main>Hi !</main>;
+  return (
+    <main>
+      <HomeCategoryBar />
+    </main>
+  );
 }
