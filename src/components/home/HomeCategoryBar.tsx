@@ -49,8 +49,9 @@ export default function HomeCategoryBar() {
       slidesPerView={"auto"}
       freeMode={true}
       modules={[FreeMode]}
-      threshold={2}
+      threshold={30}
       setWrapperSize
+      touchStartForcePreventDefault
       onClick={(swiper, event) => {
         console.log("hi");
         if (!swiper.clickedSlide) {
@@ -74,7 +75,6 @@ export default function HomeCategoryBar() {
           pos = selectTargetPos - boxHarf;
         }
         swiper.translateTo(-pos, 0);
-        // console.log(swiper.clickedSlide.clientWidth);
       }}
     >
       {categories.map((item, index) => (
