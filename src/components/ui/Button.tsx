@@ -1,14 +1,14 @@
 "use client";
 
 type Props = {
-  text: string;
+  children: React.ReactNode;
   selectedStyle?: string;
   onClick?: () => void;
   selected?: boolean;
 };
 
 export default function Button({
-  text,
+  children,
   selectedStyle,
   selected = false,
   onClick = () => {},
@@ -22,7 +22,7 @@ export default function Button({
         onClick();
       }}
     >
-      {text}
+      {children}
     </button>
   );
 }

@@ -28,22 +28,6 @@ const categories = [
 
 export default function HomeCategoryBar() {
   const [category, setCategory] = useState("전체");
-  //   return (
-  //     <div className="flex justify-around text-sm px-1.5 py-3">
-  //       {categories.map((item, index) => (
-  //         <Link
-  //           href={item.url}
-  //           key={index}
-  //           onClick={() => {
-  //             setCategory(item.title);
-  //           }}
-  //         >
-  //           <Button text={item.title} />
-  //           <RedDot />
-  //         </Link>
-  //       ))}
-  //     </div>
-  //   );
   return (
     <>
       <Swiper
@@ -82,12 +66,13 @@ export default function HomeCategoryBar() {
         {categories.map((item, index) => (
           <SwiperSlide key={index} className="!w-auto !mx-1 ">
             <Button
-              text={item.title}
               onClick={() => setCategory(item.title)}
               selected={category === item.title}
               selectedStyle="bg-[#1a1a1a] font-bold text-white"
-            />
-            <RedDot />
+            >
+              <span>{item.title}</span>
+              <RedDot />
+            </Button>
           </SwiperSlide>
         ))}
         <div className="absolute right-0 top-0 w-16 h-full z-10 bg-gradient-to-r from-transparent to-white pointer-events-none"></div>
