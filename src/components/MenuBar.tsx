@@ -15,7 +15,7 @@ const menus = [
 export default function MenuBar() {
   const [menu, setMenu] = useState("최근 본");
   return (
-    <div className="border-b border-neutral-200 flex justify-around text-sm">
+    <div className="border-b border-neutral-200 flex justify-around text-sm h-[40px]">
       {menus.map((item, index) => (
         <Link
           href={item.url}

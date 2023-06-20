@@ -23,7 +23,7 @@ export default function RootLayout({
           <NavBar />
           <MenuBar />
         </header>
-        <main className="w-full h-full max-w-[640px]">{children}</main>
+        <main className="w-full max-w-[640px] grow">{children}</main>
         <footer className="w-full max-w-[640px] bg-slate-400">footer</footer>
       </body>
     </html>
