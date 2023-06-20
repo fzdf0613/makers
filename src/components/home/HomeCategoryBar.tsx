@@ -11,7 +11,6 @@ import { FreeMode } from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
-import Dropdown from "../ui/Dropdown";
 
 const categories = [
   { title: "전체", url: "/" },
@@ -31,7 +30,7 @@ export default function HomeCategoryBar() {
   return (
     <>
       <Swiper
-        className="!py-3 relative !first:ml-4"
+        className="!py-3 !first:ml-4"
         slidesPerView={"auto"}
         freeMode={true}
         modules={[FreeMode]}
@@ -77,9 +76,6 @@ export default function HomeCategoryBar() {
         ))}
         <div className="absolute right-0 top-0 w-16 h-full z-10 bg-gradient-to-r from-transparent to-white pointer-events-none"></div>
       </Swiper>
-      <div>
-        <Dropdown />
-      </div>
     </>
   );
 }

@@ -18,8 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={openSans.className}>
-      <body className="w-full flex flex-col items-center overflow-auto">
-        <header className="w-full sticky top-0 max-w-[640px]">
+      <body className="w-full flex flex-col items-center overflow-auto realtive">
+        <header className="w-full sticky top-0 max-w-[640px] z-10 bg-white">
           <NavBar />
           <MenuBar />
         </header>
