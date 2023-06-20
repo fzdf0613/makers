@@ -22,7 +22,6 @@ const defaultOptions = [
 export default function Dropdown({ options = defaultOptions }: Props) {
   const [selected, setSelected] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen);
   return (
     <div className="w-full px-4 flex relative justify-end text-sm font-extralight text-neutral-500">
       <div

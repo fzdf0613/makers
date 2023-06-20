@@ -5,7 +5,7 @@ import { DummyHomeItems } from "@/Dummy/dummydata";
 
 export default function Home() {
   return (
-    <section className="relative pt-[58px] w-full">
+    <section className="relative pt-[153px] w-full">
       <div className="fixed top-[95px] w-full max-w-[640px] z-10 bg-white">
         <HomeCategoryBar />
       </div>
@@ -14,7 +14,7 @@ export default function Home() {
       </div>
       <div>
         {DummyHomeItems.map((item) => (
-          <HomeItem item={item} />
+          <HomeItem key={item.name} item={item} />
         ))}
       </div>
     </section>
