@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import RedDot from "./ui/RedDot";
 import useScrollYHandler from "@/hooks/scrollYHandler";
+import { useScrollYContext } from "@/context/ScrollYContext";
 
 const menus = [
   { title: "임팩트", url: "/impact" },
@@ -47,11 +48,13 @@ export default function MenuBar() {
   //     window.removeEventListener("scroll", handleScroll);
   //   };
   // }, [Y]);
-  const [Y, isScrolled] = useScrollYHandler();
+
+  // const { isScrolled } = useScrollYHandler();
+  const { isScrollDown } = useScrollYContext();
   return (
     <div
       className={`relative h-[40px] bg-white border-b border-neutral-200 flex justify-around text-sm ease-in duration-100 -z-10 ${
-        isScrolled ? "my-[-40px]" : ""
+        isScrollDown ? "my-[-40px]" : ""
       }`}
     >
       {menus.map((item, index) => (

@@ -2,6 +2,9 @@ import NavBar from "@/components/NavBar";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
 import MenuBar from "@/components/MenuBar";
+import ScrollYContextProvider, {
+  useScrollYContext,
+} from "@/context/ScrollYContext";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -19,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="ko" className={openSans.className}>
       <body className="w-full flex flex-col items-center overflow-auto realtive">
-        <header className="w-full fixed top-0 max-w-[640px] z-10">
-          <NavBar />
-          <MenuBar />
-        </header>
-        <main className="w-full max-w-[640px] grow">{children}</main>
+        <ScrollYContextProvider>
+          <header className="w-full fixed top-0 max-w-[640px] z-10">
+            <NavBar />
+            <MenuBar />
+          </header>
+          <main className="w-full max-w-[640px] grow">{children}</main>
+        </ScrollYContextProvider>
         <footer className="w-full max-w-[640px] bg-slate-400">footer</footer>
       </body>
     </html>

@@ -33,5 +33,5 @@ export default function useScrollYHandler(threshhold: number = 40) {
     };
   }, [Y, throttledCallback]);
 
-  return [Y, isScrolled];
+  return { Y, isScrolled };
 }
