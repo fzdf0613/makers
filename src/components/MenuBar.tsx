@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import RedDot from "./ui/RedDot";
+import useScrollYHandler from "@/hooks/scrollYHandler";
 
 const menus = [
   { title: "임팩트", url: "/impact" },
@@ -13,40 +14,40 @@ const menus = [
 ];
 
 export default function MenuBar() {
-  const [Y, setY] = useState(0);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [throttle, setThrottle] = useState(false);
+  // const [Y, setY] = useState(0);
+  // const [isScrolled, setIsScrolled] = useState(false);
+  // const [throttle, setThrottle] = useState(false);
   const [menu, setMenu] = useState("최근 본");
-  useEffect(() => {
-    const handleScroll = () => {
-      if (throttle) {
-        return;
-      }
-      setThrottle(true);
-      setTimeout(() => {
-        const currentY = window.scrollY;
-        if (currentY - Y < 0) {
-          // 스크롤 올렸을 때
-          setIsScrolled(false);
-        } else {
-          //스크롤 내렸을 때
-          if (currentY >= 40) {
-            setIsScrolled(true);
-          } else {
-            setIsScrolled(false);
-          }
-        }
-        setY(currentY);
-        setThrottle(false);
-      }, 200);
-    };
-    window.addEventListener("scroll", handleScroll);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (throttle) {
+  //       return;
+  //     }
+  //     setThrottle(true);
+  //     setTimeout(() => {
+  //       const currentY = window.scrollY;
+  //       if (currentY - Y < 0) {
+  //         // 스크롤 올렸을 때
+  //         setIsScrolled(false);
+  //       } else {
+  //         //스크롤 내렸을 때
+  //         if (currentY >= 40) {
+  //           setIsScrolled(true);
+  //         } else {
+  //           setIsScrolled(false);
+  //         }
+  //       }
+  //       setY(currentY);
+  //       setThrottle(false);
+  //     }, 200);
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [Y]);
-
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [Y]);
+  const [Y, isScrolled] = useScrollYHandler();
   return (
     <div
       className={`relative h-[40px] bg-white border-b border-neutral-200 flex justify-around text-sm ease-in duration-100 -z-10 ${
