@@ -34,7 +34,7 @@ export default function Dropdown({ options = defaultOptions }: Props) {
         <MdOutlineKeyboardArrowDown className="text-base" />
       </div>
       <ul
-        className={`py-2 ${
+        className={`py-2 z-10 bg-white ${
           !isOpen && "hidden"
         } absolute right-4 top-6 border border-neutral-200`}
       >

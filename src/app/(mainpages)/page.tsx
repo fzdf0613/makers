@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <section className="relative pt-[153px] w-full">
       <div
-        className={`fixed ${
+        className={`fixed z-30 ${
           isScrollDown ? "top-[55px]" : "top-[95px]"
         } w-full max-w-[640px] z-10 bg-white ease-in duration-100`}
       >
