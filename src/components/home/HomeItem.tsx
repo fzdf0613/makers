@@ -20,7 +20,7 @@ type Props = {
 export default function HomeItem({ item }: Props) {
   return (
     <div className="mb-9">
-      <div className="relative w-[640px] h-[360px]">
+      <div className="relative w-full pb-[56.25%]">
         <Image
           src={item.image}
           alt={item.title}
