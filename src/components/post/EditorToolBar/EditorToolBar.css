@@ -1,0 +1,32 @@
+.ql-picker.ql-insertTitleBars {
+  width: 90px;
+}
+
+.ql-picker.ql-insertTitleBars .ql-picker-item::before,
+.ql-picker.ql-insertTitleBars .ql-picker-label::before {
+  content: "타이틀바";
+}
+
+.ql-picker.ql-insertTitleBars [data-value="default"]::before {
+  content: "TitleBar";
+  font-weight: bold;
+  pointer-events: none;
+}
+.ql-picker.ql-insertTitleBars [data-value="story"]::before {
+  content: "스토리";
+}
+.ql-picker.ql-insertTitleBars [data-value="caution"]::before {
+  content: "주의사항";
+}
+.ql-picker.ql-insertTitleBars [data-value="options"]::before {
+  content: "옵션";
+}
+.ql-picker.ql-insertTitleBars [data-value="package"]::before {
+  content: "패키지";
+}
+.ql-picker.ql-insertTitleBars [data-value="size"]::before {
+  content: "사이즈";
+}
+.ql-picker.ql-insertTitleBars [data-value="howtocook"]::before {
+  content: "조리법";
+}
