@@ -13,12 +13,12 @@ type Props = {
 };
 
 const defaultOptions = [
-  "추천순",
   "최신순",
   "마감 임박 순",
   "주문 많은 순",
   "만족도 높은 순",
 ];
+
 export default function Dropdown({ options = defaultOptions }: Props) {
   const [selected, setSelected] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);

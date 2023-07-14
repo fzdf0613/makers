@@ -82,7 +82,7 @@ export const Editor = () => {
         onChange={(v) => setValue(v)}
         modules={modules}
         formats={formats}
-        style={{ height: "400px" }}
+        style={{ height: "600px" }}
       />
     </div>
   );
