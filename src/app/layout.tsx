@@ -56,6 +56,7 @@ export default function RootLayout({
       <body className="w-full flex flex-col items-center overflow-auto realtive">
         {children}
         <footer className="w-full max-w-[640px] bg-slate-400">footer</footer>
+        <div id="portal" />
       </body>
     </html>
   );
