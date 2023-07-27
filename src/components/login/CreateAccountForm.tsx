@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Button from "../ui/Button";
 import AddImageIcon from "../ui/icons/AddImageIcon";
+import { signIn } from "next-auth/react";
 
 export default function CreateAccountForm() {
   const router = useRouter();
@@ -47,7 +48,11 @@ export default function CreateAccountForm() {
             setAlert(json.error);
           });
         }
-        router.push("/");
+        signIn("credentials", {
+          callbackUrl: "/",
+          userid: id,
+          password,
+        });
       })
       .catch((err) => window.alert(err.toString()));
   };
@@ -100,7 +105,7 @@ export default function CreateAccountForm() {
         <input
           type="password"
           name="password"
-          placeholder="비밀번호 (4글자 이상, 30자 미만)"
+          placeholder="비밀번호 (4글자 이상, 30자 이내)"
           title="4자 이상, 30자 이하로 입력해주세요."
           minLength={4}
           maxLength={30}
@@ -111,9 +116,9 @@ export default function CreateAccountForm() {
         <input
           type="text"
           name="username"
-          placeholder="이름 (12자 이하)"
-          title="12자 이하로 입력해주세요."
-          maxLength={12}
+          placeholder="이름 (2자 이상, 10자 이내)"
+          title="10자 이하로 입력해주세요."
+          maxLength={10}
           ref={nameRef}
           className="border-neutral-300 border-b pb-2 mb-5 outline-none focus:border-black"
           required

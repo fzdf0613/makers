@@ -25,7 +25,7 @@ const inputLists = [
 export default function PostUploadPage() {
   return (
     <>
-      <div className="border-neutral-200 border-t my-2">
+      <div className="border-neutral-200 my-2">
         <Divider text="홈화면 상품 설명" customStyle="mt-0" />
         <HomeInfoInputs />
         <Divider text="상품 정보" />
