@@ -35,6 +35,7 @@
 //   );
 // }
 
+import AuthWrapper from "@/components/AuthWrapper";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
 
@@ -54,9 +55,11 @@ export default function RootLayout({
   return (
     <html lang="ko" className={openSans.className}>
       <body className="w-full flex flex-col items-center overflow-auto realtive">
-        {children}
-        <footer className="w-full max-w-[640px] bg-slate-400">footer</footer>
-        <div id="portal" />
+        <AuthWrapper>
+          {children}
+          <footer className="w-full max-w-[640px] bg-slate-400">footer</footer>
+          <div id="portal" />
+        </AuthWrapper>
       </body>
     </html>
   );

@@ -17,7 +17,7 @@ export default function Button({
 }: Props) {
   return (
     <button
-      className={`flex items-center border border-neutral-200 py-1.5 px-4 text-sm -z-10 ${
+      className={`outline-none cursor-pointer flex items-center justify-center border border-neutral-200 py-1.5 px-4 text-sm ${
         selected && selectedStyle
       } ${customStyle}`}
       onClick={(e) => {
