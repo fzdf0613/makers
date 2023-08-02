@@ -9,9 +9,6 @@ const HomeInfoInputs = forwardRef<
 >((_, homeInfoRef) => {
   const [dragging, setDragging] = useState(false);
   const [file, setFile] = useState<File>();
-  const [error, setError] = useState<string>();
-  const [loading, setLoading] = useState(false);
-  const textRef = useRef<HTMLTextAreaElement>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -38,28 +35,9 @@ const HomeInfoInputs = forwardRef<
       setFile(files[0]);
     }
   };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!file) return;
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("text", textRef.current?.value ?? "");
-  };
-
   return (
     <section className="w-full max-w-xl flex flex-col items-center mt-6 mx-auto mb-10">
-      {loading && (
-        <div className="absolute inset-0 z-20 text-center pt-[30%] bg-sky-500/20">
-          Loading...
-        </div>
-      )}
-      {error && (
-        <p className="w-full bg-red-100 text-red-600 text-center p-4 mb-4 font-bold">
-          {error}
-        </p>
-      )}
-      <form className="w-full flex flex-col mt-2" onSubmit={handleSubmit}>
+      <div className="w-full flex flex-col mt-2">
         <input
           className="hidden"
           name="input"
@@ -131,7 +109,7 @@ const HomeInfoInputs = forwardRef<
             }
           }}
         />
-      </form>
+      </div>
     </section>
   );
 });

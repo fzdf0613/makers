@@ -6,7 +6,7 @@ import Input from "@/components/post/Input";
 import Button from "@/components/ui/Button";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { FormEvent, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -52,7 +52,7 @@ const inputLists = [
     isRequired: true,
   },
   {
-    name: "옵션명",
+    name: "옵션명(','로 구분)",
     type: "text",
     key: "itemOptions",
     belongTo: "post",
@@ -76,18 +76,25 @@ export default function PostUploadPage() {
   const inputListsRef = useRef<(null | HTMLInputElement)[]>([]);
   const quillRef = useRef<ReactQuill>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const file = (homeInfoRef.current[0] as HTMLInputElement).files![0];
+    const homeTitle = homeInfoRef.current[1]?.value;
+    const description = homeInfoRef.current[2]?.value;
+
+    if (!file) {
+      window.alert("상품 이미지를 등록해주세요.");
+      return;
+    }
+
     const id = Date.now().toString();
     const formData = new FormData();
-    formData.append(
-      "file",
-      (homeInfoRef.current[0] as HTMLInputElement).files![0]
-    );
+    formData.append("file", file);
     let postData: any = { id, htmlText: quillRef.current?.getEditorContents() };
     let productData: any = {
       id,
-      homeTitle: homeInfoRef.current[1]?.value,
-      description: homeInfoRef.current[2]?.value,
+      homeTitle,
+      description,
       category: categoryInputRef.current[0]?.value,
       subcategory: categoryInputRef.current[1]?.value,
     };
@@ -115,7 +122,7 @@ export default function PostUploadPage() {
 
   return (
     <>
-      <div className="border-neutral-200 my-2">
+      <form className="border-neutral-200 my-2" onSubmit={handleSubmit}>
         <Divider text="홈화면 상품 설명" customStyle="mt-0" />
         <HomeInfoInputs ref={homeInfoRef} />
         <Divider text="상품 정보" />
@@ -133,15 +140,10 @@ export default function PostUploadPage() {
         <div className="w-full max-w-[640px] grow my-4">
           <Editor editorRef={quillRef} />
         </div>
-        <Button
-          customStyle="bg-blue-600 text-white font-semibold cursor-pointer mb-10 p-10 mx-auto hover:bg-blue-700"
-          onClick={() => {
-            handleSubmit();
-          }}
-        >
+        <Button customStyle="bg-blue-600 text-white font-semibold cursor-pointer mb-10 p-10 mx-auto hover:bg-blue-700">
           <span>등록</span>
         </Button>
-      </div>
+      </form>
     </>
   );
 }
