@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { ChangeEvent, DragEvent, FormEvent, useRef } from "react";
 import Image from "next/image";
 import AddImageIcon from "../ui/icons/AddImageIcon";
 
-export default function HomeInfoInputs() {
+const HomeInfoInputs = forwardRef<
+  (HTMLInputElement | HTMLTextAreaElement | null)[]
+>((_, homeInfoRef) => {
   const [dragging, setDragging] = useState(false);
   const [file, setFile] = useState<File>();
   const [error, setError] = useState<string>();
@@ -64,6 +66,11 @@ export default function HomeInfoInputs() {
           id="input-upload"
           type="file"
           accept="image/*"
+          ref={(el) => {
+            if (homeInfoRef && typeof homeInfoRef !== "function") {
+              homeInfoRef.current && (homeInfoRef.current[0] = el);
+            }
+          }}
           onChange={handleChange}
         />
         <label
@@ -99,6 +106,17 @@ export default function HomeInfoInputs() {
             </div>
           )}
         </label>
+        <input
+          className="border border-neutral-300 outline-none p-2 text-md w-full my-2"
+          placeholder="홈 화면에 보일 제목을 적어주세요"
+          required
+          ref={(el) => {
+            if (homeInfoRef && typeof homeInfoRef !== "function") {
+              homeInfoRef.current && (homeInfoRef.current[1] = el);
+            }
+          }}
+          type="text"
+        />
         <textarea
           className="outline-none text-lg border border-neutral-300 resize-none p-1 mt-1"
           name="text"
@@ -106,9 +124,18 @@ export default function HomeInfoInputs() {
           required
           rows={10}
           placeholder={"  홈 화면에 보일 상품 설명을 적어주세요"}
-          ref={textRef}
+          // ref={textRef}
+          ref={(el) => {
+            if (homeInfoRef && typeof homeInfoRef !== "function") {
+              homeInfoRef.current && (homeInfoRef.current[2] = el);
+            }
+          }}
         />
       </form>
     </section>
   );
-}
+});
+
+HomeInfoInputs.displayName = "HomeInfoInputs";
+
+export default HomeInfoInputs;

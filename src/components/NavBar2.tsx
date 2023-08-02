@@ -8,7 +8,6 @@ import { usePathname, useRouter } from "next/navigation";
 export default function NavBar2() {
   const pathname = usePathname();
   const router = useRouter();
-  console.log(pathname);
   return (
     <nav className="h-[55px] flex justify-between items-center bg-white border-b border-neutral-200 px-2">
       <div className="flex">

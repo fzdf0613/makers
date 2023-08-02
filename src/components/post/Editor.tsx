@@ -1,4 +1,11 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, {
+  Ref,
+  forwardRef,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import ReactQuill from "react-quill";
 import { Quill } from "react-quill";
 import EditorToolbar from "./EditorToolBar/EditorToolBar";
@@ -31,29 +38,85 @@ const formats = [
   "color",
 ];
 
-export const Editor = () => {
-  const [value, setValue] = useState("");
-  const quillRef = useRef<ReactQuill>(null);
+type Props = {
+  editorRef: Ref<ReactQuill>;
+};
 
+export default function Editor({ editorRef: quillRef }: Props) {
   // 커스텀 툴바에 추가한 타이틀바 핸들러 (타이틀바 이미지를 추가함)
-  const handleInsertTitleBars = (value: string) => {
-    if (!quillRef || !quillRef.current) {
+  const handleInsertTitleBars = useCallback(
+    (value: string) => {
+      if (!quillRef || typeof quillRef === "function" || !quillRef.current) {
+        return;
+      }
+
+      const quill = quillRef.current.getEditor();
+      const currentSelection = quill.getSelection();
+      const cursorPosition = currentSelection?.index;
+      const titleBar = titleBars.find((item) => item.value === value);
+      if (!titleBar) {
+        throw new Error(
+          `타이틀바 설정이 잘못되었습니다. (지원하지 않는 타이틀 바 value)`
+        );
+      }
+      quill.insertEmbed(cursorPosition || 0, "image", {
+        src: titleBar.imgUrl,
+        alt: titleBar.name,
+      });
+
+      if (cursorPosition) {
+        quill.setSelection({ index: cursorPosition + 1, length: 0 });
+      } else {
+        quill.setSelection({ index: 1, length: 0 });
+      }
+    },
+    [quillRef]
+  );
+
+  const imageHandler = useCallback(() => {
+    if (!quillRef || typeof quillRef === "function" || !quillRef.current) {
       return;
     }
 
     const quill = quillRef.current.getEditor();
-    const cursorPosition = quill.getSelection()!.index;
-    const titleBar = titleBars.find((item) => item.value === value);
-    if (!titleBar) {
-      throw new Error(
-        `타이틀바 설정이 잘못되었습니다. (지원하지 않는 타이틀 바 value)`
-      );
-    }
-    quill.insertEmbed(cursorPosition, "image", {
-      src: titleBar.imgUrl,
-      alt: titleBar.name,
-    });
-  };
+    const currentSelection = quill.getSelection();
+    const cursorPosition = currentSelection?.index;
+
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.setAttribute("name", "image");
+    input.click();
+
+    input.onchange = async () => {
+      if (!input.files) {
+        return;
+      }
+      const file = input.files[0];
+
+      const formData = new FormData();
+      formData.append("file", file);
+      try {
+        const url = await fetch("/api/image/post", {
+          method: "POST",
+          body: formData,
+        }).then((res) => res.json());
+
+        quill.insertEmbed(cursorPosition || 0, "image", {
+          src: url,
+          alt: "content-image",
+        });
+
+        if (cursorPosition) {
+          quill.setSelection({ index: cursorPosition + 1, length: 0 });
+        } else {
+          quill.setSelection({ index: 1, length: 0 });
+        }
+      } catch (e) {
+        window.alert("이미지 업로드에 실패하였습니다.");
+      }
+    };
+  }, [quillRef]);
 
   const modules = useMemo(
     () => ({
@@ -61,6 +124,7 @@ export const Editor = () => {
         container: "#toolbar",
         handlers: {
           insertTitleBars: handleInsertTitleBars,
+          image: imageHandler,
         },
       },
       history: {
@@ -69,7 +133,7 @@ export const Editor = () => {
         userOnly: true,
       },
     }),
-    []
+    [handleInsertTitleBars, imageHandler]
   );
 
   return (
@@ -78,14 +142,10 @@ export const Editor = () => {
       <ReactQuill
         ref={quillRef}
         theme="snow"
-        value={value}
-        onChange={(v) => setValue(v)}
         modules={modules}
         formats={formats}
         style={{ height: "600px" }}
       />
     </div>
   );
-};
-
-export default Editor;
+}

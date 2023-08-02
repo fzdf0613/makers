@@ -28,7 +28,6 @@ export const QuillToolbar = () => (
     <span className="ql-formats">
       <select className="ql-align" />
       <select className="ql-color" />
-      <select className="ql-background" />
     </span>
     <span className="ql-formats">
       <button className="ql-link" />

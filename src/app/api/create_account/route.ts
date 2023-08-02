@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   if (file) {
     url = await uploadProfileImageWithUserid(userid, file);
   } else {
-    url = "";
+    url = "/images/defaultAvatar.png";
   }
 
   const createResult = await createUserByCredential(

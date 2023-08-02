@@ -1,13 +1,11 @@
 "use client";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Button from "../ui/Button";
 import AddImageIcon from "../ui/icons/AddImageIcon";
 import { signIn } from "next-auth/react";
 
 export default function CreateAccountForm() {
-  const router = useRouter();
   const [alert, setAlert] = useState<string>();
   const [file, setFile] = useState<File>();
   const idRef = useRef<HTMLInputElement>(null);
