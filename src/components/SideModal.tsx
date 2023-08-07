@@ -19,7 +19,6 @@ const sideModalMenus = [
 ];
 
 export default function SideModal({ closeModal, user }: Props) {
-  console.log("user: ", user);
   const [openAnimation, setOpenAnimation] = useState(true);
   const handleClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {

@@ -74,6 +74,7 @@ export async function POST(req: NextRequest) {
     ...product,
     imageUrl,
     currentOrderCount: 0,
+    likeCount: 0,
     itemCount: parseInt(product.itemCount),
     price: parseInt(product.price),
   };

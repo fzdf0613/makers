@@ -59,7 +59,7 @@ const inputLists = [
     key: "optionsPrices",
     belongTo: "post",
     isRequired: false,
-  }, // state 저장시엔 분리 후 number값으로 바꿔야함
+  },
 ];
 
 const Editor = dynamic(() => import("@/components/post/Editor"), {

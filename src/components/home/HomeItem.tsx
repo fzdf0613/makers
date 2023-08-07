@@ -5,25 +5,19 @@ import Heading from "../ui/Heading";
 import Description from "../ui/Description";
 import Feature from "../ui/Feature";
 import Badge from "../ui/Badge";
-
-type HomeItem = {
-  image: any;
-  title: string;
-  desc: string;
-  feature: string;
-};
+import { Product } from "@/customType/product";
 
 type Props = {
-  item: HomeItem;
+  product: Product;
 };
 
-export default function HomeItem({ item }: Props) {
+export default function HomeItem({ product }: Props) {
   return (
     <div className="mb-9">
       <div className="relative w-full pb-[56.25%]">
         <Image
-          src={item.image}
-          alt={item.title}
+          src={product.imageUrl}
+          alt={product.name}
           fill
           className="object-cover"
         />
@@ -32,10 +26,10 @@ export default function HomeItem({ item }: Props) {
         </div>
       </div>
       <div className="p-4 flex flex-col">
-        <Heading text={item.title} />
-        <Description text={item.desc} />
-        <Feature text={item.feature} customStyle="pt-2" />
-        <LikeButton count={197} />
+        <Heading text={product.homeTitle} />
+        <Description text={product.description} />
+        {/* <Feature text={item.feature} customStyle="pt-2" /> */}
+        <LikeButton count={product.likeCount} />
       </div>
     </div>
   );

@@ -1,12 +1,14 @@
 "use client";
 import HomeCategoryBar from "@/components/home/HomeCategoryBar";
 import HomeItem from "@/components/home/HomeItem";
+import HomeItemLists from "@/components/home/HomeItemLists";
 import Dropdown from "@/components/ui/Dropdown";
 import { useScrollYContext } from "@/context/ScrollYContext";
 import { DummyHomeItems } from "@/Dummy/dummydata";
 
 export default function Home() {
   const { isScrollDown } = useScrollYContext();
+
   return (
     <section className="relative pt-[153px] w-full">
       <div
@@ -19,11 +21,12 @@ export default function Home() {
       <div className="pb-3">
         <Dropdown />
       </div>
-      <div>
+      {/* <div>
         {DummyHomeItems.map((item) => (
           <HomeItem key={item.name} item={item} />
         ))}
-      </div>
+      </div> */}
+      <HomeItemLists />
     </section>
   );
 }

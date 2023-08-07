@@ -1,6 +1,6 @@
 "use client";
 import { useState, forwardRef } from "react";
-import { ChangeEvent, DragEvent, FormEvent, useRef } from "react";
+import { ChangeEvent, DragEvent } from "react";
 import Image from "next/image";
 import AddImageIcon from "../ui/icons/AddImageIcon";
 
@@ -102,7 +102,6 @@ const HomeInfoInputs = forwardRef<
           required
           rows={10}
           placeholder={"  홈 화면에 보일 상품 설명을 적어주세요"}
-          // ref={textRef}
           ref={(el) => {
             if (homeInfoRef && typeof homeInfoRef !== "function") {
               homeInfoRef.current && (homeInfoRef.current[2] = el);

@@ -38,6 +38,7 @@
 import AuthWrapper from "@/components/AuthWrapper";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
+import SWRContext from "@/context/SWRContext";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -56,9 +57,13 @@ export default function RootLayout({
     <html lang="ko" className={openSans.className}>
       <body className="w-full flex flex-col items-center overflow-auto realtive">
         <AuthWrapper>
-          {children}
-          <footer className="w-full max-w-[640px] bg-slate-400">footer</footer>
-          <div id="portal" />
+          <SWRContext>
+            {children}
+            <footer className="w-full max-w-[640px] bg-slate-400">
+              footer
+            </footer>
+            <div id="portal" />
+          </SWRContext>
         </AuthWrapper>
       </body>
     </html>

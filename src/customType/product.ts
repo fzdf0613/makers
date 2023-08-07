@@ -10,5 +10,6 @@ export type Product = {
   homeTitle: string;
   description: string;
   currentOrderCount: number;
+  likeCount: number;
   itemCount: number;
 };
