@@ -5,7 +5,7 @@ import Button from "../ui/Button";
 import { useState } from "react";
 
 type Props = {
-  count?: number;
+  count?: string;
 };
 
 export default function LikeButton({ count }: Props) {
@@ -18,7 +18,7 @@ export default function LikeButton({ count }: Props) {
       onClick={() => setIsActvie((prev) => !prev)}
     >
       {isActive ? <FaHeart className="text-red-500" /> : <FiHeart />}
-      {count && <span className="ml-2 font-semibold text-xs">{count}</span>}
+      <span className="ml-2 font-semibold text-xs">{count || 0}</span>
     </Button>
   );
 }

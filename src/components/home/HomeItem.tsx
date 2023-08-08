@@ -29,7 +29,7 @@ export default function HomeItem({ product }: Props) {
         <Heading text={product.homeTitle} />
         <Description text={product.description} />
         {/* <Feature text={item.feature} customStyle="pt-2" /> */}
-        <LikeButton count={product.likeCount} />
+        <LikeButton count={product.likeCount.toLocaleString()} />
       </div>
     </div>
   );
