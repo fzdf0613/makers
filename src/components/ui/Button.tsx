@@ -1,28 +1,35 @@
 "use client";
 
-type Props = {
+import { ButtonHTMLAttributes } from "react";
+
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
   selectedStyle?: string;
-  customStyle?: string;
-  onClick?: () => void;
+  className?: string;
   selected?: boolean;
 };
 
 export default function Button({
   children,
   selectedStyle,
-  customStyle,
+  className,
   selected = false,
-  onClick = () => {},
+  ...props
 }: Props) {
   return (
+    // <button
+    //   className={`outline-none cursor-pointer flex items-center justify-center border border-neutral-200 py-1.5 px-4 text-sm ${
+    //     selected && selectedStyle
+    //   } ${className}`}
+    //   onClick={(e) => {
+    //     onClick();
+    //   }}
+    // >
     <button
       className={`outline-none cursor-pointer flex items-center justify-center border border-neutral-200 py-1.5 px-4 text-sm ${
         selected && selectedStyle
-      } ${customStyle}`}
-      onClick={(e) => {
-        onClick();
-      }}
+      } ${className}`}
+      {...props}
     >
       {children}
     </button>

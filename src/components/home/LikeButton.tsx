@@ -12,7 +12,7 @@ export default function LikeButton({ count }: Props) {
   const [isActive, setIsActvie] = useState(false);
   return (
     <Button
-      customStyle="py-3 w-fit"
+      className="py-3 w-fit"
       selectedStyle="bg-[#FAFAFA]"
       selected={isActive}
       onClick={() => setIsActvie((prev) => !prev)}

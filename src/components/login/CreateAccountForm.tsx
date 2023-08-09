@@ -126,7 +126,7 @@ export default function CreateAccountForm() {
             {alert}
           </span>
         )}
-        <Button customStyle="bg-blue-200 h-[50px] border-0 text-md rounded hover:brightness-95 mt-[30px]">
+        <Button className="bg-blue-200 h-[50px] border-0 text-md rounded hover:brightness-95 mt-[30px]">
           회원가입
         </Button>
       </form>

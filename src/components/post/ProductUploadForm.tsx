@@ -139,7 +139,7 @@ export default function ProductUploadForm() {
         <div className="w-full max-w-[640px] grow my-4">
           <Editor editorRef={quillRef} />
         </div>
-        <Button customStyle="bg-blue-600 text-white font-semibold cursor-pointer mb-10 p-10 mx-auto hover:bg-blue-700">
+        <Button className="bg-blue-600 text-white font-semibold cursor-pointer mb-10 p-10 mx-auto hover:bg-blue-700">
           <span>등록</span>
         </Button>
       </form>

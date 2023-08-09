@@ -68,7 +68,7 @@ export default function LogInForm({ callbackUrl }: Props) {
           </span>
         )}
         <Button
-          customStyle="bg-[#fee500] h-[50px] border-0 text-md rounded mt-[50px] hover:brightness-95"
+          className="bg-[#fee500] h-[50px] border-0 text-md rounded mt-[50px] hover:brightness-95"
           onClick={handleLogin}
         >
           로그인
@@ -78,7 +78,7 @@ export default function LogInForm({ callbackUrl }: Props) {
         >
           <span className="mx-2 whitespace-nowrap">또는</span>
         </span>
-        <Button customStyle="bg-[#f0f0f0] h-[50px] border-0 text-md rounded hover:brightness-95 w-full">
+        <Button className="bg-[#f0f0f0] h-[50px] border-0 text-md rounded hover:brightness-95 w-full">
           <Link href="/login/create_account">회원가입</Link>
         </Button>
       </div>
