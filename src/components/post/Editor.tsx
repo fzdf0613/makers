@@ -1,11 +1,4 @@
-import React, {
-  Ref,
-  forwardRef,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { Ref, useCallback, useMemo } from "react";
 import ReactQuill from "react-quill";
 import { Quill } from "react-quill";
 import EditorToolbar from "./EditorToolBar/EditorToolBar";
@@ -62,6 +55,7 @@ export default function Editor({ editorRef: quillRef }: Props) {
       quill.insertEmbed(cursorPosition || 0, "image", {
         src: titleBar.imgUrl,
         alt: titleBar.name,
+        id: titleBar.value,
       });
 
       if (cursorPosition) {

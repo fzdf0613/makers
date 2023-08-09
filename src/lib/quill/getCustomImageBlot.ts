@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 type CustomImageBlotProps = {
   alt: string;
   src: string;
+  id: string;
   dataSrc?: string;
 };
 
@@ -13,6 +14,7 @@ export function getCustomImageBlot(QuillComponent: typeof ReactQuill) {
       const node: HTMLElement = super.create(value);
       node.setAttribute("alt", value.alt);
       node.setAttribute("src", value.src);
+      node.setAttribute("id", value.id);
       node.dataset.src = value.dataSrc;
       return node;
     }
@@ -21,6 +23,7 @@ export function getCustomImageBlot(QuillComponent: typeof ReactQuill) {
       return {
         alt: domNode.getAttribute("alt") || "",
         src: domNode.getAttribute("src") || "",
+        id: domNode.getAttribute("id") || "",
         dataSrc: domNode.dataset.src || "",
       };
     }
