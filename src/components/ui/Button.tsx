@@ -2,7 +2,7 @@
 
 import { ButtonHTMLAttributes } from "react";
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
   selectedStyle?: string;
   className?: string;
@@ -15,16 +15,8 @@ export default function Button({
   className,
   selected = false,
   ...props
-}: Props) {
+}: ButtonProps) {
   return (
-    // <button
-    //   className={`outline-none cursor-pointer flex items-center justify-center border border-neutral-200 py-1.5 px-4 text-sm ${
-    //     selected && selectedStyle
-    //   } ${className}`}
-    //   onClick={(e) => {
-    //     onClick();
-    //   }}
-    // >
     <button
       className={`outline-none cursor-pointer flex items-center justify-center border border-neutral-200 py-1.5 px-4 text-sm ${
         selected && selectedStyle
