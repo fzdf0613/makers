@@ -79,7 +79,7 @@ export default function SideModal({ closeModal, user }: Props) {
           ))}
         </ul>
         <div className="px-[20px]">
-          <Button customStyle="w-full bg-black text-white justify-center h-[45px] mb-2">
+          <Button className="w-full bg-black text-white justify-center h-[45px] mb-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://t1.daumcdn.net/makers/static/web/shared/makers_app_download.png"
@@ -92,8 +92,10 @@ export default function SideModal({ closeModal, user }: Props) {
           </Button>
           {user && (
             <Button
-              customStyle="w-full bg-white justify-center h-[45px] !border-black"
-              onClick={signOut}
+              className="w-full bg-white justify-center h-[45px] !border-black"
+              onClick={() => {
+                signOut;
+              }}
             >
               로그아웃
             </Button>

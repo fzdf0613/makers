@@ -1,8 +1,6 @@
 import NavBar from "@/components/NavBar";
 import MenuBar from "@/components/MenuBar";
-import ScrollYContextProvider, {
-  useScrollYContext,
-} from "@/context/ScrollYContext";
+import ScrollYContextProvider from "@/context/ScrollYContext";
 
 export default function MainPagesLayout({
   children,
