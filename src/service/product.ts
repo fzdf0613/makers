@@ -7,6 +7,7 @@ import {
   startAfter,
   limit,
   getDocs,
+  getDoc,
   doc,
   setDoc,
   QueryDocumentSnapshot,
@@ -28,6 +29,11 @@ export async function getProducts() {
     limit(10)
   );
   return getDocs(productQuery);
+}
+
+export async function getProduct(productId: string) {
+  const productRef = doc(db, "products", productId);
+  return getDoc(productRef);
 }
 
 export async function getProductsWithCursor(cursor: QueryDocumentSnapshot) {

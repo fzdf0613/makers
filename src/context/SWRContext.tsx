@@ -10,6 +10,7 @@ export default function SWRContext({ children }: Props) {
     <SWRConfig
       value={{
         fetcher: (url: string) => fetch(url).then((res) => res.json()),
+        revalidateOnFocus: false,
       }}
     >
       {children}

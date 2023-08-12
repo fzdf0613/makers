@@ -1,6 +1,6 @@
 import { Post } from "@/customType/post";
 import { db } from "@/service/firebase";
-import { doc, setDoc, runTransaction, writeBatch } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 export async function addPost(post: Post) {
   try {
@@ -9,4 +9,9 @@ export async function addPost(post: Post) {
     console.log("Error :", e);
     return null;
   }
+}
+
+export async function getPost(postId: string) {
+  const postRef = doc(db, "posts", postId);
+  return getDoc(postRef);
 }
