@@ -56,6 +56,7 @@ export default function Editor({ editorRef: quillRef }: Props) {
         src: titleBar.imgUrl,
         alt: titleBar.name,
         id: titleBar.value,
+        class: "anchor",
       });
 
       if (cursorPosition) {

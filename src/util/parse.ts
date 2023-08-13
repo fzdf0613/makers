@@ -9,11 +9,10 @@ export function parseOptions(input: string) {
 export function parseOptionsPrices(input: string) {
   const parsed = input.replace(/\s/g, "").split(",");
   const parsedNumbers = parsed.map((item) => parseInt(item));
-  if (
-    parsedNumbers.every((item, i) => {
-      item.toString().length === parsed[i].length;
-    })
-  ) {
+  const isValidPrices = parsedNumbers.every((item, i) => {
+    return item.toString().length === parsed[i].length;
+  });
+  if (isValidPrices) {
     return parsedNumbers;
   }
   return undefined;

@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
   if (post.itemOptions && post.optionsPrices) {
     const parsedOptions = parseOptions(post.itemOptions);
     const parsedPrices = parseOptionsPrices(post.optionsPrices);
+    console.log("parsedPrices : ", parsedPrices);
     if (!parsedOptions || !parsedPrices) {
       return NextResponse.json(
         { error: "상품 옵션 설정이 올바르지 않습니다." },

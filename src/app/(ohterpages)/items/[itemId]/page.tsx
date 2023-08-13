@@ -1,4 +1,5 @@
 "use client";
+import AnchorBar from "@/components/items/AnchorBar";
 import BaseInfo from "@/components/items/BaseInfo";
 import ItemImage from "@/components/items/ItemImage";
 import ItemNavBar from "@/components/items/ItemNavBar";
@@ -7,9 +8,11 @@ import OrderInfo from "@/components/items/OrderInfo";
 import usePost from "@/hooks/post";
 import useProduct from "@/hooks/product";
 import useScrollYHandler from "@/hooks/scrollYHandler";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 
 export default function ItemPage({ params }: { params: { itemId: string } }) {
+  const [activeAnchor, setActiveAnchor] = useState<string>("");
+  const [anchors, setAnchors] = useState<{ name: string; y: number }[]>();
   const navRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const { Y, isScrolled: isScrollDown } = useScrollYHandler(0);
@@ -29,6 +32,51 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
     setIsOverlap(navBottomY >= contentTopY - 12);
   }, [Y]);
 
+  useLayoutEffect(() => {
+    const elements = document.getElementsByClassName("anchor");
+    if (!elements || !contentRef.current) {
+      return;
+    }
+    let l = [
+      {
+        name: "요약",
+        y: contentRef.current.getBoundingClientRect().top + Y - 121,
+      },
+    ];
+    for (let i = 0; i < elements.length; i++) {
+      if (!elements) {
+        return;
+      }
+      const el = elements.item(i);
+      if (!el) {
+        return;
+      }
+      const anchor = {
+        name: (el as HTMLImageElement).alt,
+        y: el.getBoundingClientRect().top + Y - 121,
+      };
+      l.push(anchor);
+    }
+    setAnchors(l);
+  }, [post, Y]);
+
+  useLayoutEffect(() => {
+    if (!anchors) {
+      return;
+    }
+    for (let i = 0; i < anchors.length; i++) {
+      if (i == 0 && Y < anchors[i].y - 10) {
+        setActiveAnchor("");
+        return;
+      }
+      if (Y < anchors[i].y - 10) {
+        setActiveAnchor(anchors[i - 1].name);
+        return;
+      }
+    }
+    setActiveAnchor(anchors[anchors.length - 1].name);
+  }, [Y, anchors]);
+
   return (
     <div className="w-full">
       {post && product && (
@@ -46,24 +94,14 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
           />
           {/* 본문(컨텐츠) */}
           <div>
-            {/* 앵커 */}
-            <div
-              className={`h-16 flex gap-2 py-3 px-4 sticky bg-white ${
-                isOverlap ? "z-[5]" : "z-[4]"
-              } ${
-                isScrollDown ? "top-[53px]" : "top-[110px]"
-              } ease-in duration-100`}
-            >
-              <div className="px-4 border-neutral-200 border rounded-3xl h-10 flex justify-center items-center">
-                요약
-              </div>
-              <div className="px-4 border-neutral-200 border rounded-3xl h-10 flex justify-center items-center">
-                스토리
-              </div>
-              <div className="px-4 border-neutral-200 border rounded-3xl h-10 flex justify-center items-center">
-                보관법
-              </div>
-            </div>
+            {anchors && (
+              <AnchorBar
+                isOverlap={isOverlap}
+                isScrollDown={isScrollDown}
+                anchors={anchors}
+                activeAnchor={activeAnchor}
+              />
+            )}
             {/* 본문 내용 */}
             <div
               dangerouslySetInnerHTML={{ __html: post.htmlText }}

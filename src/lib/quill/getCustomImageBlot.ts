@@ -4,6 +4,7 @@ type CustomImageBlotProps = {
   alt: string;
   src: string;
   id: string;
+  class: string;
   dataSrc?: string;
 };
 
@@ -15,6 +16,7 @@ export function getCustomImageBlot(QuillComponent: typeof ReactQuill) {
       node.setAttribute("alt", value.alt);
       node.setAttribute("src", value.src);
       node.setAttribute("id", value.id);
+      node.setAttribute("class", value.class);
       node.dataset.src = value.dataSrc;
       return node;
     }
@@ -24,6 +26,7 @@ export function getCustomImageBlot(QuillComponent: typeof ReactQuill) {
         alt: domNode.getAttribute("alt") || "",
         src: domNode.getAttribute("src") || "",
         id: domNode.getAttribute("id") || "",
+        class: domNode.getAttribute("clas") || "",
         dataSrc: domNode.dataset.src || "",
       };
     }
