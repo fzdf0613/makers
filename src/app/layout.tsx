@@ -2,6 +2,7 @@ import AuthWrapper from "@/components/AuthWrapper";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
 import SWRContext from "@/context/SWRContext";
+import Footer from "@/components/Footer";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({
           <SWRContext>
             {children}
             <footer className="w-full max-w-[640px] bg-slate-400">
-              footer
+              <Footer />
             </footer>
             <div id="portal" />
           </SWRContext>
