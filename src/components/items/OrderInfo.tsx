@@ -1,5 +1,5 @@
 import { Product } from "@/customType/product";
-import { getRemaingTime } from "@/util/formatDate";
+import { getRemaingTimeFormat } from "@/util/date";
 import ProgressBar from "./ProgressBar";
 
 type Props = {
@@ -32,7 +32,7 @@ export default function OrderInfo({ product }: Props) {
           <p className="w-[78px] inline-block">주문 기간</p>
           <strong className="font-bold">
             주문 마감{" "}
-            {getRemaingTime(product.orderStartDate, product.orderEndDate)}
+            {getRemaingTimeFormat(product.orderStartDate, product.orderEndDate)}
           </strong>
         </div>
         <div className="text-[13px]">

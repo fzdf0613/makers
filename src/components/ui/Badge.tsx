@@ -1,7 +1,5 @@
-type BadgeStyle = "default" | "alert";
-
 type Props = {
-  style?: BadgeStyle;
+  style?: string;
   text: string;
 };
 export default function Badge({ style = "default", text }: Props) {
@@ -16,15 +14,13 @@ export default function Badge({ style = "default", text }: Props) {
   );
 }
 
-function getStyle(style: BadgeStyle): string {
+function getStyle(style: string): string {
   switch (style) {
     case "default":
       return "bg-black";
     case "alert":
       return "bg-[#db635d]";
     default:
-      throw Error(
-        "지원하지 않는 Badge Style. BadgeStyle 타입 정의를 확인하세요."
-      );
+      throw Error("지원하지 않는 Badge Style.");
   }
 }

@@ -29,12 +29,12 @@ export const categoriesForUI = [
   },
   {
     title: "가전",
-    url: "/home/",
+    url: "/home/appliance",
     subcategories: ["생활가전", "주방가전", "모바일가전", "건강가전"],
   },
   {
     title: "패션",
-    url: "/home/",
+    url: "/home/fashion",
     subcategories: ["여성의류", "남성의류", "슈즈·가방", "패션소품"],
   },
   { title: "컬렉팅🎨", url: "/" },
