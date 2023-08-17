@@ -5,6 +5,8 @@ import ItemImage from "@/components/items/ItemImage";
 import ItemNavBar from "@/components/items/ItemNavBar";
 import OrderBar from "@/components/items/OrderBar";
 import OrderInfo from "@/components/items/OrderInfo";
+import Qna from "@/components/items/Qna";
+import Review from "@/components/items/Review";
 import usePost from "@/hooks/post";
 import useProduct from "@/hooks/product";
 import useScrollYHandler from "@/hooks/scrollYHandler";
@@ -92,22 +94,24 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
             reviewCount={post.reviewCount}
             qnaCount={post.qnaCount}
           />
-          {/* 본문(컨텐츠) */}
-          <div>
-            {anchors && (
-              <AnchorBar
-                isOverlap={isOverlap}
-                isScrollDown={isScrollDown}
-                anchors={anchors}
-                activeAnchor={activeAnchor}
-              />
-            )}
-            {/* 본문 내용 */}
-            <div
-              dangerouslySetInnerHTML={{ __html: post.htmlText }}
-              ref={contentRef}
-            ></div>
-          </div>
+          {tab === "상세정보" && (
+            <div>
+              {anchors && (
+                <AnchorBar
+                  isOverlap={isOverlap}
+                  isScrollDown={isScrollDown}
+                  anchors={anchors}
+                  activeAnchor={activeAnchor}
+                />
+              )}
+              <div
+                dangerouslySetInnerHTML={{ __html: post.htmlText }}
+                ref={contentRef}
+              ></div>
+            </div>
+          )}
+          {tab === "구매후기" && <Review />}
+          {tab === "제품문의" && <Qna />}
           <OrderBar />
         </>
       )}
