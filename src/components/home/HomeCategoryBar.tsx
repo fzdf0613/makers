@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-
 import { categoriesForUI } from "@/constants/categories";
 import SlideBar from "../SlideBar";
 
 export default function HomeCategoryBar() {
   const [category, setCategory] = useState("전체");
+
   return (
     <SlideBar
       itemList={categoriesForUI.map((item) => ({

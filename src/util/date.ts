@@ -26,7 +26,7 @@ export function isAlert(endDate: string) {
   );
 }
 
-function getMonday() {
+export function getMonday() {
   const today = new Date();
   const dayOfWeek = today.getDay();
   const monday = new Date(today);
@@ -37,4 +37,17 @@ function getMonday() {
   monday.setHours(0, 0, 0, 0);
 
   return monday;
+}
+
+export function getNextMonday() {
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+  const monday = new Date(today);
+
+  const daysUntilMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  monday.setDate(today.getDate() - daysUntilMonday);
+  monday.setHours(0, 0, 0, 0);
+
+  const nextMonday = new Date(monday.getTime() + 7 * 24 * 60 * 60 * 1000);
+  return nextMonday;
 }

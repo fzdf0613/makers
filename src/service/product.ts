@@ -1,5 +1,6 @@
 import { Product } from "@/customType/product";
 import { db } from "@/service/firebase";
+import { getMonday, getNextMonday } from "@/util/date";
 import {
   collection,
   query,
@@ -11,6 +12,7 @@ import {
   doc,
   setDoc,
   QueryDocumentSnapshot,
+  where,
 } from "firebase/firestore";
 
 export async function addProduct(product: Product) {
@@ -26,6 +28,20 @@ export async function getProducts() {
   const productQuery = query(
     collection(db, "products"),
     orderBy("id", "desc"),
+    limit(10)
+  );
+  return getDocs(productQuery);
+}
+
+export async function getNewProducts() {
+  const monday = getMonday().toISOString().split("T")[0];
+  const nextMonday = getNextMonday().toISOString().split("T")[0];
+
+  const productQuery = query(
+    collection(db, "products"),
+    where("orderStartDate", ">", monday),
+    where("orderStartDate", "<=", nextMonday),
+    orderBy("orderStartDate", "desc"),
     limit(10)
   );
   return getDocs(productQuery);

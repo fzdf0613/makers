@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import useProducts from "@/hooks/products";
-import HomeItem from "./HomeItem";
+import { useNewProducts } from "@/hooks/products";
+import HomeItem from "../HomeItem";
 
-export default function HomeItemLists() {
-  const { products } = useProducts();
+export default function HomeItemList() {
+  const { products } = useNewProducts();
   return (
     <section>
       {products && (

@@ -1,6 +1,6 @@
 export const categoriesForUI = [
   { title: "전체", url: "/" },
-  { title: "신규", url: "/home/new" },
+  { title: "신규", url: "/new" },
   { title: "뷰티어워즈 🏆", url: "/" },
 
   {
