@@ -5,6 +5,7 @@ import DropDownIcon from "@/components/ui/icons/DropDownIcon";
 import DropUpIcon from "@/components/ui/icons/DropUpIcon";
 import { subcategories } from "@/constants/categories";
 import { CategoryName } from "@/customType/category";
+import Link from "next/link";
 
 type Props = {
   filterOpen: "LEFT" | "RIGHT" | undefined;
@@ -13,7 +14,7 @@ type Props = {
   filter: string;
   setFilterOpen: Dispatch<SetStateAction<"LEFT" | "RIGHT" | undefined>>;
   setFilter: Dispatch<SetStateAction<string>>;
-  setSubcategory: Dispatch<SetStateAction<string>>;
+  // setSubcategory: Dispatch<SetStateAction<string>>;
 };
 
 export default function FilterBar({
@@ -21,7 +22,7 @@ export default function FilterBar({
   subcategory,
   filter,
   category,
-  setSubcategory,
+  // setSubcategory,
   setFilter,
   setFilterOpen,
 }: Props) {
@@ -70,18 +71,27 @@ export default function FilterBar({
           <ul className="flex flex-col items-center justify-center">
             {filterOpen === "LEFT" &&
               subcategories[category].map((item, i) => (
-                <li
+                // <li
+                //   key={i}
+                //   className={`py-3.5 cursor-pointer ${
+                //     subcategory === item && "underline font-bold"
+                //   }`}
+                //   onClick={() => {
+                //     setSubcategory(item);
+                //     setFilterOpen(undefined);
+                //   }}
+                // >
+                //   {item} (171)
+                // </li>
+                <Link
                   key={i}
                   className={`py-3.5 cursor-pointer ${
                     subcategory === item && "underline font-bold"
                   }`}
-                  onClick={() => {
-                    setSubcategory(item);
-                    setFilterOpen(undefined);
-                  }}
+                  href={`/home/category/category?category=${category}&subcategory=${i}`}
                 >
                   {item} (171)
-                </li>
+                </Link>
               ))}
             {filterOpen === "RIGHT" &&
               ["최신순", "마감 임박 순", "주문 많은 순"].map((item, i) => (

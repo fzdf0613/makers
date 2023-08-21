@@ -47,6 +47,20 @@ export async function getNewProducts() {
   return getDocs(productQuery);
 }
 
+export async function getProductsByFilter(filter: {
+  category: string;
+  subcategory: string;
+}) {
+  const productQuery = query(
+    collection(db, "products"),
+    where("category", "==", filter.category),
+    where("subcategory", "==", filter.subcategory),
+    orderBy("id", "desc"),
+    limit(10)
+  );
+  return getDocs(productQuery);
+}
+
 export async function getProduct(productId: string) {
   const productRef = doc(db, "products", productId);
   return getDoc(productRef);
