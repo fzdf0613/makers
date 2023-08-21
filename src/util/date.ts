@@ -31,11 +31,10 @@ export function getMonday() {
   const dayOfWeek = today.getDay();
   const monday = new Date(today);
 
-  const daysUntilMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-  monday.setDate(today.getDate() - daysUntilMonday);
+  const daysUntilMonday = dayOfWeek === 1 ? 0 : 1 - dayOfWeek;
+  monday.setDate(today.getDate() + daysUntilMonday);
 
   monday.setHours(0, 0, 0, 0);
-
   return monday;
 }
 
@@ -49,5 +48,6 @@ export function getNextMonday() {
   monday.setHours(0, 0, 0, 0);
 
   const nextMonday = new Date(monday.getTime() + 7 * 24 * 60 * 60 * 1000);
+
   return nextMonday;
 }
