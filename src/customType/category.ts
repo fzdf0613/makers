@@ -1,4 +1,4 @@
-export type CategoryName =
+export type CategoryValue =
   | "food"
   | "beauty"
   | "appliance"

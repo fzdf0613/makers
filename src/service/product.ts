@@ -50,14 +50,28 @@ export async function getNewProducts() {
 export async function getProductsByFilter(filter: {
   category: string;
   subcategory: string;
+  sort: string;
 }) {
-  const productQuery = query(
-    collection(db, "products"),
-    where("category", "==", filter.category),
-    where("subcategory", "==", filter.subcategory),
-    orderBy("id", "desc"),
-    limit(10)
-  );
+  let productQuery;
+  const sortFilter = getFieldBySort(filter.sort);
+
+  if (filter.subcategory === "전체") {
+    productQuery = query(
+      collection(db, "products"),
+      where("category", "==", filter.category),
+      orderBy(sortFilter.name, sortFilter.order),
+      limit(10)
+    );
+  } else {
+    productQuery = query(
+      collection(db, "products"),
+      where("category", "==", filter.category),
+      where("subcategory", "==", filter.subcategory),
+      orderBy("id", "desc"),
+      limit(10)
+    );
+  }
+
   return getDocs(productQuery);
 }
 
@@ -74,4 +88,17 @@ export async function getProductsWithCursor(cursor: QueryDocumentSnapshot) {
     limit(10)
   );
   return getDocs(productQuery);
+}
+
+function getFieldBySort(sort: string): { name: string; order: "desc" | "asc" } {
+  switch (sort) {
+    case "LATEST":
+      return { name: "id", order: "desc" };
+    case "CLOSING":
+      return { name: "orderEndDate", order: "asc" };
+    case "ORDER":
+      return { name: "currentOrderCount", order: "desc" };
+    default:
+      return { name: "id", order: "desc" };
+  }
 }

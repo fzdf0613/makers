@@ -20,3 +20,23 @@ export function useNewProducts() {
 
   return { products, error, isLoading };
 }
+
+export function useProductsByFilter({
+  category,
+  subcategory,
+  sort,
+}: {
+  category: string;
+  subcategory: number;
+  sort: string;
+}) {
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useSWR<Product[]>(
+    `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}`
+  );
+
+  return { products, error, isLoading };
+}

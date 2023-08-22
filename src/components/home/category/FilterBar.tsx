@@ -4,26 +4,33 @@ import { Dispatch, SetStateAction } from "react";
 import DropDownIcon from "@/components/ui/icons/DropDownIcon";
 import DropUpIcon from "@/components/ui/icons/DropUpIcon";
 import { subcategories } from "@/constants/categories";
-import { CategoryName } from "@/customType/category";
+import { CategoryValue } from "@/customType/category";
 import Link from "next/link";
+
+const sortItemList = [
+  { value: "LATEST", name: "최신순" },
+  { value: "ORDER", name: "주문 많은 순" },
+  { value: "CLOSING", name: "마감 임박 순" },
+];
 
 type Props = {
   filterOpen: "LEFT" | "RIGHT" | undefined;
-  category: CategoryName;
+  category: CategoryValue;
+  categoryIndex: number;
   subcategory: string;
-  filter: string;
+
+  sort: string;
   setFilterOpen: Dispatch<SetStateAction<"LEFT" | "RIGHT" | undefined>>;
-  setFilter: Dispatch<SetStateAction<string>>;
-  // setSubcategory: Dispatch<SetStateAction<string>>;
 };
 
 export default function FilterBar({
   filterOpen,
   subcategory,
-  filter,
+  categoryIndex,
+
+  sort,
   category,
-  // setSubcategory,
-  setFilter,
+
   setFilterOpen,
 }: Props) {
   const { isScrolled: isScrollDown } = useScrollYHandler();
@@ -61,7 +68,7 @@ export default function FilterBar({
         }}
       >
         <div className="flex justify-between items-center">
-          <span>{filter}</span>
+          <span>{sortItemList.find((item) => item.value === sort)?.name}</span>
           {!filterOpen && <DropDownIcon className="w-4 h-4" />}
           {filterOpen && <DropUpIcon className="w-4 h-4" />}
         </div>
@@ -71,18 +78,6 @@ export default function FilterBar({
           <ul className="flex flex-col items-center justify-center">
             {filterOpen === "LEFT" &&
               subcategories[category].map((item, i) => (
-                // <li
-                //   key={i}
-                //   className={`py-3.5 cursor-pointer ${
-                //     subcategory === item && "underline font-bold"
-                //   }`}
-                //   onClick={() => {
-                //     setSubcategory(item);
-                //     setFilterOpen(undefined);
-                //   }}
-                // >
-                //   {item} (171)
-                // </li>
                 <Link
                   key={i}
                   className={`py-3.5 cursor-pointer ${
@@ -94,18 +89,21 @@ export default function FilterBar({
                 </Link>
               ))}
             {filterOpen === "RIGHT" &&
-              ["최신순", "마감 임박 순", "주문 많은 순"].map((item, i) => (
+              sortItemList.map((item, i) => (
                 <li
                   className={`py-3.5 cursor-pointer ${
-                    filter === item && "underline font-bold"
+                    sort === item.value && "underline font-bold"
                   }`}
                   key={i}
                   onClick={() => {
-                    setFilter(item);
                     setFilterOpen(undefined);
                   }}
                 >
-                  {item}
+                  <Link
+                    href={`/home/category?category=${category}&subcategory=${categoryIndex}&sort=${item.value}`}
+                  >
+                    {item.name}
+                  </Link>
                 </li>
               ))}
           </ul>

@@ -1,16 +1,44 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { categoriesForUI } from "@/constants/categories";
 import SlideBar from "../SlideBar";
 
 export default function HomeCategoryBar() {
-  const [category, setCategory] = useState("전체");
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
+  const [category, setCategory] = useState("");
+
+  useEffect(() => {
+    switch (pathName) {
+      case "/":
+        setCategory("전체");
+        return;
+      case "/new":
+        setCategory("신규");
+        return;
+      case "/home/category":
+        const categoryName = categoriesForUI.find(
+          (item) => item.value === searchParams.get("category")
+        )?.title;
+        if (!categoryName) {
+          return;
+        }
+        setCategory(categoryName);
+        return;
+      default:
+        return;
+    }
+  }, [pathName, searchParams]);
 
   return (
     <SlideBar
       itemList={categoriesForUI.map((item) => ({
         text: item.title,
-        url: item.url,
+        url:
+          pathName === "/home/category" && searchParams.get("sort") === "LATEST"
+            ? item.url
+            : `${item.url}`,
       }))}
       selectedStyle="bg-[#1a1a1a] font-bold text-white"
       selectItem={(item) => {
@@ -19,4 +47,9 @@ export default function HomeCategoryBar() {
       currentItem={category}
     />
   );
+}
+
+function getItemUrl(itemUrl: string, sort: string) {
+  const sliced = itemUrl.split("sort=")[0];
+  return `${sliced}${sort}`;
 }

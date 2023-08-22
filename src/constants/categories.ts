@@ -5,7 +5,8 @@ export const categoriesForUI = [
 
   {
     title: "푸드",
-    url: "/home/category?category=food",
+    value: "food",
+    url: "/home/category?category=food&subcategory=0&sort=LATEST",
     subcategories: [
       "전체",
       "신선식품",
@@ -18,12 +19,14 @@ export const categoriesForUI = [
   },
   {
     title: "뷰티",
-    url: "/home/category?category=beauty",
+    value: "beauty",
+    url: "/home/category?category=beauty&subcategory=0&sort=LATEST",
     subcategories: ["스킨케어", "바디·헤어", "메이크업"],
   },
   {
     title: "생활",
-    url: "/home/category?category=living",
+    value: "living",
+    url: "/home/category?category=living&subcategory=0&sort=LATEST",
     subcategories: [
       "전체",
       "홈 인테리어",
@@ -35,19 +38,21 @@ export const categoriesForUI = [
   },
   {
     title: "가전",
-    url: "/home/category?category=appliance",
+    value: "appliance",
+    url: "/home/category?category=appliance&subcategory=0&sort=LATEST",
     subcategories: ["전체", "생활가전", "주방가전", "모바일가전", "건강가전"],
   },
   {
     title: "패션",
-    url: "/home/category?category=fashion",
+    value: "fashion",
+    url: "/home/category?category=fashion&subcategory=0&sort=LATEST",
     subcategories: ["전체", "여성의류", "남성의류", "슈즈·가방", "패션소품"],
   },
   { title: "컬렉팅🎨", url: "/" },
 ];
 
 export const categories = categoriesForUI.filter(
-  (item) => item.subcategories !== undefined
+  (item) => "subcategories" in item
 );
 
 export const subcategories = {
