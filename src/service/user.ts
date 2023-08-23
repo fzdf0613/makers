@@ -6,6 +6,11 @@ import {
   getDocs,
   addDoc,
   getDoc,
+  writeBatch,
+  arrayUnion,
+  arrayRemove,
+  increment,
+  doc,
 } from "firebase/firestore";
 import { hashPassword } from "@/util/bcrypt";
 
@@ -21,7 +26,7 @@ export async function createUserByCredential(
     const newUser = {
       isAdmin: false,
       like: [],
-      ordred: [],
+      ordered: [],
       password: hash,
       qna: [],
       review: [],
@@ -52,11 +57,41 @@ export async function isExistingId(id: string) {
 }
 
 export async function getUserById(id: string) {
-  const q = query(collection(db, "users"), where("userid", "==", id));
-  const querySnapshot = await getDocs(q);
-  // 찾는 유저가 없는 경우, querySnapshot.docs는 빈 배열([])임.
-  if (querySnapshot.docs.length === 0) {
-    return null;
+  const userRef = doc(db, "users", id);
+  try {
+    const snapshot = await getDoc(userRef);
+    if (!snapshot.exists()) {
+      return null;
+    }
+    const userData = snapshot.data();
+    return {
+      ...userData,
+      id: snapshot.id,
+      like: userData.like ?? [],
+      ordered: userData.ordered ?? [],
+      qna: userData.qna ?? [],
+      review: userData.review ?? [],
+      seen: userData.seen ?? [],
+    };
+  } catch (error) {
+    return error;
   }
-  return querySnapshot.docs[0].data();
+}
+
+export async function addLike(userId: string, productId: string) {
+  const batch = writeBatch(db);
+  const productRef = doc(db, "products", productId);
+  const userRef = doc(db, "users", userId);
+  batch.update(productRef, { likeCount: increment(1) });
+  batch.update(userRef, { like: arrayUnion(productId) });
+  return batch.commit();
+}
+
+export async function removeLike(userId: string, productId: string) {
+  const batch = writeBatch(db);
+  const productRef = doc(db, "products", productId);
+  const userRef = doc(db, "users", userId);
+  batch.update(productRef, { likeCount: increment(-1) });
+  batch.update(userRef, { like: arrayRemove(productId) });
+  return batch.commit();
 }

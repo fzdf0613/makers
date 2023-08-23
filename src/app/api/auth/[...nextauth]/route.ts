@@ -25,14 +25,18 @@ export const authOptions = {
           return null;
         }
 
-        const isValid = await verifyPassword(password, userData.password);
+        const isValid = await verifyPassword(
+          password,
+          (userData as User).password
+        );
 
         if (!isValid) {
           throw new Error("유효하지 않은 인증 정보");
         }
 
         return {
-          id: (userData as User).userid,
+          id: (userData as User).id,
+          userid: (userData as User).userid,
           username: (userData as User).username,
           image: (userData as User).profileImageUrl,
           isAdmin: (userData as User).isAdmin,
@@ -44,6 +48,7 @@ export const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.userid = user.userid;
         token.username = user.username;
         token.image = user.image;
         token.isAdmin = user.isAdmin;
@@ -53,6 +58,7 @@ export const authOptions = {
     async session({ session, token }) {
       const user = {
         id: token.id,
+        userid: token.userid,
         username: token.username,
         image: token.image,
         isAdmin: token.isAdmin,
