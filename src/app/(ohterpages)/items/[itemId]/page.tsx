@@ -7,9 +7,9 @@ import OrderBar from "@/components/items/OrderBar";
 import OrderInfo from "@/components/items/OrderInfo";
 import Qna from "@/components/items/Qna";
 import Review from "@/components/items/Review";
+import { useScrollYContext } from "@/context/ScrollYContext";
 import usePost from "@/hooks/post";
 import useProduct from "@/hooks/product";
-import useScrollYHandler from "@/hooks/scrollYHandler";
 import { useEffect, useRef, useState, useLayoutEffect } from "react";
 
 export default function ItemPage({ params }: { params: { itemId: string } }) {
@@ -17,7 +17,7 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
   const [anchors, setAnchors] = useState<{ name: string; y: number }[]>();
   const navRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const { Y, isScrolled: isScrollDown } = useScrollYHandler(0);
+  const { isScrollDown, Y } = useScrollYContext();
   const [tab, setTab] = useState<"상세정보" | "구매후기" | "제품문의">(
     "상세정보"
   );

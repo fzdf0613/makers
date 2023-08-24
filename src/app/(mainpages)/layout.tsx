@@ -1,15 +1,15 @@
 "use client";
 import NavBar from "@/components/NavBar";
 import MenuBar from "@/components/MenuBar";
-import useScrollYHandler from "@/hooks/scrollYHandler";
 import HomeCategoryBar from "@/components/home/HomeCategoryBar";
+import { useScrollYContext } from "@/context/ScrollYContext";
 
 export default function MainPagesLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { isScrolled: isScrollDown } = useScrollYHandler();
+  const { isScrollDown } = useScrollYContext();
   return (
     <>
       <header className="w-full fixed top-0 max-w-[640px] z-50">

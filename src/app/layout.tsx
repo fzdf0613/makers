@@ -3,6 +3,7 @@ import "./globals.css";
 import { Open_Sans } from "next/font/google";
 import SWRContext from "@/context/SWRContext";
 import Footer from "@/components/Footer";
+import ScrollYContextProvider from "@/context/ScrollYContext";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -22,11 +23,13 @@ export default function RootLayout({
       <body className="w-full flex flex-col items-center overflow-auto realtive">
         <AuthWrapper>
           <SWRContext>
-            {children}
-            <footer className="w-full max-w-[640px] bg-slate-400">
-              <Footer />
-            </footer>
-            <div id="portal" />
+            <ScrollYContextProvider>
+              {children}
+              <footer className="w-full max-w-[640px] bg-slate-400">
+                <Footer />
+              </footer>
+              <div id="portal" />
+            </ScrollYContextProvider>
           </SWRContext>
         </AuthWrapper>
       </body>

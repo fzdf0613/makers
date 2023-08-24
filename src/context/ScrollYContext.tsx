@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import useScrollYHandler from "@/hooks/scrollYHandler";
 
 type Props = {
@@ -8,18 +8,19 @@ type Props = {
 
 type ScrollYValue = {
   isScrollDown: boolean;
+  Y: number;
 };
 
 export const ScrollYContext = createContext<ScrollYValue>({
   isScrollDown: false,
+  Y: 0,
 });
 
 export default function ScrollYContextProvider({ children }: Props) {
-  const { isScrolled: isScrollDown } = useScrollYHandler();
+  const { isScrolled: isScrollDown, Y } = useScrollYHandler();
+  const values = useMemo(() => ({ isScrollDown, Y }), [isScrollDown, Y]);
   return (
-    <ScrollYContext.Provider value={{ isScrollDown }}>
-      {children}
-    </ScrollYContext.Provider>
+    <ScrollYContext.Provider value={values}>{children}</ScrollYContext.Provider>
   );
 }
 

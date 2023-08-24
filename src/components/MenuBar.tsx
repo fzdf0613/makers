@@ -5,7 +5,6 @@ import { useState } from "react";
 import RedDot from "./ui/RedDot";
 
 import { useScrollYContext } from "@/context/ScrollYContext";
-import useScrollYHandler from "@/hooks/scrollYHandler";
 
 const menus = [
   { title: "임팩트", url: "/impact" },
@@ -16,9 +15,8 @@ const menus = [
 ];
 
 export default function MenuBar() {
-  const { isScrolled: isScrollDown } = useScrollYHandler();
   const [menu, setMenu] = useState("최근 본");
-  // const { isScrollDown } = useScrollYContext();
+  const { isScrollDown } = useScrollYContext();
   return (
     <div
       className={`relative h-[40px] bg-white border-b border-neutral-200 flex justify-around text-sm ease-in duration-100 -z-10 ${

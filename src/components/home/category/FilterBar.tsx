@@ -1,11 +1,12 @@
 "use client";
-import useScrollYHandler from "@/hooks/scrollYHandler";
+
 import { Dispatch, SetStateAction } from "react";
 import DropDownIcon from "@/components/ui/icons/DropDownIcon";
 import DropUpIcon from "@/components/ui/icons/DropUpIcon";
 import { subcategories } from "@/constants/categories";
 import { CategoryValue } from "@/customType/category";
 import Link from "next/link";
+import { useScrollYContext } from "@/context/ScrollYContext";
 
 const sortItemList = [
   { value: "LATEST", name: "최신순" },
@@ -33,7 +34,7 @@ export default function FilterBar({
 
   setFilterOpen,
 }: Props) {
-  const { isScrolled: isScrollDown } = useScrollYHandler();
+  const { isScrollDown } = useScrollYContext();
 
   return (
     <div
