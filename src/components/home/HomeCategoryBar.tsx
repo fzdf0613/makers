@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { categoriesForUI } from "@/constants/categories";
 import SlideBar from "../SlideBar";
@@ -9,7 +9,7 @@ export default function HomeCategoryBar() {
   const searchParams = useSearchParams();
   const [category, setCategory] = useState("");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     switch (pathName) {
       case "/":
         setCategory("전체");
