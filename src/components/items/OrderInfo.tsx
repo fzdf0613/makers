@@ -12,7 +12,7 @@ export default function OrderInfo({ product }: Props) {
       <section className="pt-[30px] px-4">
         <div className="flex justify-between">
           <span className="text-md font-bold">
-            {product.currentOrderCount}명 주문중
+            {product.orderUserCount}명 주문중
           </span>
           <span className="text-[13px] font-semibold">
             수량 {product.itemCount}

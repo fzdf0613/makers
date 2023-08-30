@@ -112,7 +112,7 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
           )}
           {tab === "구매후기" && <Review />}
           {tab === "제품문의" && <Qna />}
-          <OrderBar />
+          <OrderBar post={post} product={product} />
         </>
       )}
     </div>

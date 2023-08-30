@@ -50,8 +50,8 @@ module.exports = {
       animation: {
         slideIn: "slideIn 0.25s ease-out",
         slideOut: "slideOut 0.25s ease-out forwards",
-        modalOpen: "modalOpen 0.5s ease-out",
-        modalClose: "modalClose 0.5s ease-out forwards",
+        modalOpen: "modalOpen 0.15s ease-out",
+        modalClose: "modalClose 0.15s ease-out forwards",
       },
     },
   },

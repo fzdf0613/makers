@@ -1,8 +1,5 @@
 import PreorderItem from "@/components/preorder/PreorderItem";
-import Description from "@/components/ui/Description";
-import Feature from "@/components/ui/Feature";
 import Heading from "@/components/ui/Heading";
-import Image from "next/image";
 
 export default function PreorderPage() {
   return (

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useLayoutEffect } from "react";
 import RedDot from "./ui/RedDot";
-
 import { useScrollYContext } from "@/context/ScrollYContext";
 import { usePathname } from "next/navigation";
 

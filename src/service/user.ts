@@ -11,6 +11,7 @@ import {
   arrayRemove,
   increment,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import { hashPassword } from "@/util/bcrypt";
 
@@ -94,4 +95,9 @@ export async function removeLike(userId: string, productId: string) {
   batch.update(productRef, { likeCount: increment(-1) });
   batch.update(userRef, { like: arrayRemove(productId) });
   return batch.commit();
+}
+
+export async function addOrdered(userId: string, orderId: string) {
+  const userRef = doc(db, "users", userId);
+  return updateDoc(userRef, { ordered: arrayUnion(orderId) });
 }

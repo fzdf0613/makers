@@ -12,4 +12,5 @@ export type Product = {
   currentOrderCount: number;
   likeCount: number;
   itemCount: number;
+  orderUserCount: number;
 };

@@ -13,6 +13,8 @@ import {
   setDoc,
   QueryDocumentSnapshot,
   where,
+  updateDoc,
+  increment,
 } from "firebase/firestore";
 
 export async function addProduct(product: Product) {
@@ -88,6 +90,15 @@ export async function getProductsWithCursor(cursor: QueryDocumentSnapshot) {
     limit(10)
   );
   return getDocs(productQuery);
+}
+
+export async function updateItemCount(productId: string, count: number) {
+  const productRef = doc(db, "products", productId);
+  return updateDoc(productRef, {
+    itemCount: increment(-count),
+    currentOrderCount: increment(count),
+    orderUserCount: increment(1),
+  });
 }
 
 function getFieldBySort(sort: string): { name: string; order: "desc" | "asc" } {

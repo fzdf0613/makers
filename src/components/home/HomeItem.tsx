@@ -36,7 +36,7 @@ export default function HomeItem({ product }: Props) {
           <Heading text={product.homeTitle} />
           <Description text={product.description} />
           <Feature
-            text={`${product.currentOrderCount.toLocaleString()}명이 주문했어요`}
+            text={`${product.orderUserCount.toLocaleString()}명이 주문했어요`}
             customStyle="pt-2"
           />
           <LikeButton count={product.likeCount.toLocaleString()} />

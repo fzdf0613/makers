@@ -46,7 +46,7 @@ export default function CategoryItem({ product }: Props) {
         </div>
         <h3 className="text-sm mt-2">{product.name}</h3>
         <div className="text-[13px] text-[#6c6c6c] py-1">{`${product.price.toLocaleString()}원`}</div>
-        <Feature text={`${product.currentOrderCount}명이 주문중`} />
+        <Feature text={`${product.orderUserCount}명이 주문중`} />
       </div>
     </Link>
   );
