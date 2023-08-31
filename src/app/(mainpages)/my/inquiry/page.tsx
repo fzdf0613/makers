@@ -1,3 +1,10 @@
+import MyInquiryItem from "@/components/my/inquiry/MyInquiryItem";
+
 export default function MyInquiryPage() {
-  return <div className="h-[1000px] bg-black"></div>;
+  return (
+    <div className="bg-[#ededed] flex flex-col">
+      <MyInquiryItem />
+      <MyInquiryItem />
+    </div>
+  );
 }
