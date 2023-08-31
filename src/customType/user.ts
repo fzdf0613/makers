@@ -13,7 +13,7 @@ export type User = {
   review: string[];
   like: string[];
   profileImageUrl: string;
-  qna: string[];
+  inquiry: string[];
   ordered: string[];
   password: string;
   seen: string[];

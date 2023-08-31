@@ -1,5 +1,5 @@
 import Button from "../ui/Button";
-import QnaComment from "./QnaComment";
+import QnaComment from "./InquiryComment";
 
 export default function Qna() {
   return (

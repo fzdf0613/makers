@@ -6,7 +6,7 @@ const myTabs = [
   { name: "좋아요", url: "/my/like" },
   { name: "주문 내역", url: "/my/order" },
   { name: "후기 내역", url: "/my/review" },
-  { name: "문의 내역", url: "/my/qna" },
+  { name: "문의 내역", url: "/my/inquiry" },
 ];
 
 const beforeStyle =

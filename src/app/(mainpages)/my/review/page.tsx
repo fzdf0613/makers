@@ -1,7 +1,7 @@
 import MyReviewItem from "@/components/my/review/MyReviewItem";
 import ReviewTab from "@/components/my/review/ReviewTab";
 
-export default function page() {
+export default function MyReviewPage() {
   return (
     <>
       <ReviewTab />

@@ -5,7 +5,7 @@ import ItemImage from "@/components/items/ItemImage";
 import ItemNavBar from "@/components/items/ItemNavBar";
 import OrderBar from "@/components/items/OrderBar";
 import OrderInfo from "@/components/items/OrderInfo";
-import Qna from "@/components/items/Qna";
+import Qna from "@/components/items/InquiryTab";
 import Review from "@/components/items/Review";
 import { useScrollYContext } from "@/context/ScrollYContext";
 import usePost from "@/hooks/post";
