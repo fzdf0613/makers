@@ -2,7 +2,7 @@ import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 
 import Button from "../ui/Button";
-import { useState, useLayoutEffect, MouseEvent, useCallback } from "react";
+import { useState, useLayoutEffect, MouseEvent } from "react";
 import useCurrentUser from "@/hooks/user";
 import { signIn } from "next-auth/react";
 

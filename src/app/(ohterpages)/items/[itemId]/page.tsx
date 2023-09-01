@@ -84,7 +84,11 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
       {post && product && (
         <>
           <ItemImage imageUrl={product.imageUrl} alt={product.name} />
-          <BaseInfo name={product.name} price={product.price} />
+          <BaseInfo
+            name={product.name}
+            price={product.price}
+            productId={product.id}
+          />
           <OrderInfo product={product} />
           <ItemNavBar
             tab={tab}
