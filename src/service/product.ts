@@ -15,6 +15,7 @@ import {
   where,
   updateDoc,
   increment,
+  documentId,
 } from "firebase/firestore";
 
 export async function addProduct(product: Product) {
@@ -44,6 +45,15 @@ export async function getNewProducts() {
     where("orderStartDate", ">", monday),
     where("orderStartDate", "<=", nextMonday),
     orderBy("orderStartDate", "desc"),
+    limit(10)
+  );
+  return getDocs(productQuery);
+}
+
+export async function getLikeProducts(postIds: string[]) {
+  const productQuery = query(
+    collection(db, "products"),
+    where(documentId(), "in", postIds),
     limit(10)
   );
   return getDocs(productQuery);

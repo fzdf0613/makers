@@ -1,12 +1,12 @@
 import { Product } from "@/customType/product";
 import useSWR from "swr";
 
-export function useProducts() {
+export function useProducts(path?: string) {
   const {
     data: products,
     isLoading,
     error,
-  } = useSWR<Product[]>("/api/products");
+  } = useSWR<Product[]>(path ? `/api/products/${path}` : `/api/products`);
 
   return { products, error, isLoading };
 }
