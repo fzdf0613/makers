@@ -3,7 +3,7 @@ import React from "react";
 import { useNewProducts } from "@/hooks/products";
 import HomeItem from "../HomeItem";
 
-export default function HomeItemList() {
+export default function NewItemList() {
   const { products } = useNewProducts();
   return (
     <section>

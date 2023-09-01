@@ -42,6 +42,7 @@ export default function OrderBar({ product, post }: Props) {
     const order = {
       orderedAt: Date.now(),
       userId: session.user.id,
+      productName: product.name,
       productId: product.id,
       productImage: product.imageUrl,
       totalPrice: cart.reduce(
