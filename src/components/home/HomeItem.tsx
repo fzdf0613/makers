@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import LikeButton from "./LikeButton";
+import HomeLikeButton from "./HomeLikeButton";
 import Heading from "../ui/Heading";
 import Description from "../ui/Description";
 import Feature from "../ui/Feature";
@@ -16,6 +16,7 @@ type Props = {
 
 export default function HomeItem({ product }: Props) {
   const [badgeState] = useState(getBadgeState(product));
+
   return (
     <div className="mb-9">
       <Link href={`/items/${product.id}`}>
@@ -39,7 +40,7 @@ export default function HomeItem({ product }: Props) {
             text={`${product.orderUserCount.toLocaleString()}명이 주문했어요`}
             customStyle="pt-2"
           />
-          <LikeButton count={product.likeCount.toLocaleString()} />
+          <HomeLikeButton count={product.likeCount} productId={product.id} />
         </div>
       </Link>
     </div>

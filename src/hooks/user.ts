@@ -1,5 +1,5 @@
 import { UserData } from "@/customType/user";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 async function updateLike(productId: string, active: boolean) {
   return fetch("/api/like", {
