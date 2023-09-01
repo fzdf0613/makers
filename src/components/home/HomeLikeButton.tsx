@@ -11,7 +11,7 @@ type Props = {
   productId: string;
 };
 
-export default function LikeButton({ count, productId }: Props) {
+export default function HomeLikeButton({ count, productId }: Props) {
   const [likeCount, setLikeCount] = useState(count);
   const [isActive, setIsActive] = useState(false);
   const { user, toggleLike } = useCurrentUser();

@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import HomeLikeButton from "./HomeLikeButton";
 import Heading from "../ui/Heading";
 import Description from "../ui/Description";
 import Feature from "../ui/Feature";
@@ -9,6 +8,7 @@ import { Product } from "@/customType/product";
 import { isNew, isAlert } from "@/util/date";
 import { useState } from "react";
 import Link from "next/link";
+import LikeButton from "../LikeButton";
 
 type Props = {
   product: Product;
@@ -40,7 +40,13 @@ export default function HomeItem({ product }: Props) {
             text={`${product.orderUserCount.toLocaleString()}명이 주문했어요`}
             customStyle="pt-2"
           />
-          <HomeLikeButton count={product.likeCount} productId={product.id} />
+          <LikeButton
+            className="h-10 font-semibold p-3 w-fit flex items-center justify-center border border-neutral-200 px-4 text-sm"
+            iconClassName="w-[18px] h-[18px]"
+            count={product.likeCount}
+            productId={product.id}
+            iconStyle="home"
+          />
         </div>
       </Link>
     </div>
