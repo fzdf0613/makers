@@ -1,14 +1,20 @@
 "use client";
 import { MouseEvent, useState } from "react";
 import Button from "./ui/Button";
-import { useRouter } from "next/navigation";
 
 type Props = {
   closeModal: () => void;
+  handleConfirm?: () => void;
+  type?: "cancel" | "alert";
+  alertText?: string;
 };
 
-export default function ConfirmModal({ closeModal }: Props) {
-  const router = useRouter();
+export default function ConfirmModal({
+  closeModal,
+  type = "cancel",
+  handleConfirm,
+  alertText,
+}: Props) {
   const [openAnimation, setOpenAnimation] = useState(true);
 
   const handleClick = (e: MouseEvent) => {
@@ -44,22 +50,27 @@ export default function ConfirmModal({ closeModal }: Props) {
       >
         <div className="w-full max-w-[500px] rounded-md bg-white py-6 px-4 m-auto">
           <div className="text-center text-sm mb-4">
-            취소하시면 작성하신 내용이 사라집니다.
-            <br />
-            이전 페이지로 돌아가시겠습니까?
+            {type === "cancel" && (
+              <p>
+                취소하시면 작성하신 내용이 사라집니다.
+                <br />
+                이전 페이지로 돌아가시겠습니까?
+              </p>
+            )}
+            {type === "alert" && <p className="pre-wrap">{alertText}</p>}
           </div>
           <div className="flex justify-between gap-2">
-            <Button
-              className="rounded-md font-bold grow outline-none"
-              onClick={handleCancelClick}
-            >
-              취소
-            </Button>
+            {type === "cancel" && (
+              <Button
+                className="rounded-md font-bold grow outline-none"
+                onClick={handleCancelClick}
+              >
+                취소
+              </Button>
+            )}
             <Button
               className="rounded-md font-bold bg-black text-white grow outline-none"
-              onClick={() => {
-                router.back();
-              }}
+              onClick={handleConfirm}
             >
               확인
             </Button>

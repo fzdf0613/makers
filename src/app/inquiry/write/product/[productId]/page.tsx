@@ -4,8 +4,10 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import Portal from "@/components/ui/Portal";
 import ConfirmModal from "@/components/ConfirmModal";
+import { useRouter } from "next/navigation";
 
 export default function InquriyWritePage() {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const handleCancelClick = () => {
     setModalOpen(true);
@@ -67,7 +69,12 @@ export default function InquriyWritePage() {
         </section>
         {modalOpen && (
           <Portal>
-            <ConfirmModal closeModal={() => setModalOpen(false)} />
+            <ConfirmModal
+              closeModal={() => setModalOpen(false)}
+              handleConfirm={() => {
+                router.back();
+              }}
+            />
           </Portal>
         )}
       </main>
