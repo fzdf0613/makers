@@ -1,5 +1,6 @@
 import { Order } from "@/customType/order";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -37,9 +38,14 @@ export default function MyOrderItem({ order }: Props) {
         </div>
       </div>
       {!order.hasReview && (
-        <div className="py-[10px] bg-[#ffdf00] text-[13px] flex items-center justify-center">
+        <Link
+          className="py-[10px] bg-[#ffdf00] text-[13px] flex items-center justify-center"
+          href={`/review/write?orderId=${
+            order.id
+          }&returnUrl=${encodeURIComponent("/my/order")}`}
+        >
           후기쓰기
-        </div>
+        </Link>
       )}
     </div>
   );

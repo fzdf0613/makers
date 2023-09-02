@@ -25,11 +25,10 @@ export async function POST(req: NextRequest) {
 
   try {
     const result = await Promise.all([
-      addOrder(id, order),
+      addOrder(id, { ...order, id }),
       addOrdered(order.userId, id),
       updateItemCount(order.productId, order.count),
     ]);
-    console.log("addOrdered Result : ", result[1]);
   } catch (e) {
     console.log("addOrder Error : ", e);
     return NextResponse.json(

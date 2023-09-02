@@ -101,3 +101,8 @@ export async function addOrdered(userId: string, orderId: string) {
   const userRef = doc(db, "users", userId);
   return updateDoc(userRef, { ordered: arrayUnion(orderId) });
 }
+
+export async function addReviewToUser(userId: string, reviewId: string) {
+  const userRef = doc(db, "users", userId);
+  return updateDoc(userRef, { review: arrayUnion(reviewId) });
+}

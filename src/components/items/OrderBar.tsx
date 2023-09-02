@@ -45,6 +45,7 @@ export default function OrderBar({ product, post }: Props) {
       productName: product.name,
       productId: product.id,
       productImage: product.imageUrl,
+      productPrice: product.price,
       totalPrice: cart.reduce(
         (acc, cur, i) =>
           acc +
