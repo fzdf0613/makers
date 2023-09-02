@@ -1,4 +1,4 @@
-export default function QnaComment() {
+export default function InquiryComment() {
   return (
     <div className="py-4 px-[14px] text-sm w-full border-b border-[#f1f1f1]">
       <p>프로폴리스 함량이 얼마인가요?</p>

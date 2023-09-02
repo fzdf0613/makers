@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     imageUrl,
     itemOptions,
     optionsPrices,
-    qnaCount: 0,
+    inquiryCount: 0,
     reviewCount: 0,
     ...post,
   };

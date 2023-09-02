@@ -8,7 +8,7 @@ type Props = {
   navRef: Ref<HTMLDivElement>;
   isOverlap: boolean;
   reviewCount: number;
-  qnaCount: number;
+  inquiryCount: number;
 };
 
 const focusStyle =
@@ -20,7 +20,7 @@ export default function ItemNavBar({
   navRef,
   isOverlap,
   reviewCount,
-  qnaCount,
+  inquiryCount,
 }: Props) {
   return (
     <div
@@ -58,7 +58,7 @@ export default function ItemNavBar({
             setTab("제품문의");
           }}
         >
-          제품문의({qnaCount})
+          제품문의({inquiryCount})
         </li>
       </ul>
     </div>

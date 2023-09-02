@@ -5,7 +5,7 @@ import ItemImage from "@/components/items/ItemImage";
 import ItemNavBar from "@/components/items/ItemNavBar";
 import OrderBar from "@/components/items/OrderBar";
 import OrderInfo from "@/components/items/OrderInfo";
-import Qna from "@/components/items/InquiryTab";
+import InquiryTab from "@/components/items/InquiryTab";
 import Review from "@/components/items/Review";
 import { useScrollYContext } from "@/context/ScrollYContext";
 import usePost from "@/hooks/post";
@@ -96,7 +96,7 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
             navRef={navRef}
             isOverlap={isOverlap}
             reviewCount={post.reviewCount}
-            qnaCount={post.qnaCount}
+            inquiryCount={post.inquiryCount}
           />
           {tab === "상세정보" && (
             <div>
@@ -115,7 +115,7 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
             </div>
           )}
           {tab === "구매후기" && <Review />}
-          {tab === "제품문의" && <Qna />}
+          {tab === "제품문의" && <InquiryTab productId={product.id} />}
           <OrderBar post={post} product={product} />
         </>
       )}

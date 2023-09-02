@@ -4,6 +4,6 @@ export type Post = {
   itemOptions: string[];
   optionsPrices: number[];
   htmlText: string;
-  qnaCount: number;
+  inquiryCount: number;
   reviewCount: number;
 };
