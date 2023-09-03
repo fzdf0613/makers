@@ -99,6 +99,16 @@ export async function getProductsByFilter(filter: {
   return getDocs(productQuery);
 }
 
+export async function getCategoryProducts(category: string) {
+  let productQuery;
+  productQuery = query(
+    collection(db, "products"),
+    where("category", "==", category),
+    limit(20)
+  );
+  return getDocs(productQuery);
+}
+
 export async function getProduct(productId: string) {
   const productRef = doc(db, "products", productId);
   return getDoc(productRef);

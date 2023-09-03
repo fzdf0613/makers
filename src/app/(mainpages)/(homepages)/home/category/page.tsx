@@ -1,11 +1,12 @@
 "use client";
-import CategoryItem from "@/components/home/category/CategoryItem";
+import CategoryItemList from "@/components/home/category/CategoryItemList";
 import FilterBar from "@/components/home/category/FilterBar";
 import QuickLinkCard from "@/components/home/category/QuickLinkCard";
 import { subcategories } from "@/constants/categories";
 import { CategoryValue } from "@/customType/category";
+import { Product } from "@/customType/product";
+import { useQuickLinkProduct } from "@/hooks/product";
 import { useProductsByFilter } from "@/hooks/products";
-import { getRandomIndex } from "@/util/random";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -25,6 +26,10 @@ export default function CategoryPage({
     sort: searchParams.sort,
   });
 
+  const { product: quickLinkProduct } = useQuickLinkProduct(
+    searchParams.category
+  );
+
   useEffect(() => {
     if (
       !["food", "beauty", "appliance", "fashion", "living"].includes(
@@ -41,9 +46,7 @@ export default function CategoryPage({
 
   return (
     <>
-      {products && (
-        <QuickLinkCard product={products[getRandomIndex(products.length)]} />
-      )}
+      {quickLinkProduct && <QuickLinkCard product={quickLinkProduct} />}
       <FilterBar
         category={searchParams.category}
         categoryIndex={searchParams.subcategory}
@@ -55,15 +58,9 @@ export default function CategoryPage({
         }
       />
       <div className="pt-[25px] px-4 relative">
-        <div className="grid grid-cols-2 gap-2">
-          {filterOpen && (
-            <div className="absolute w-full h-full left-0 top-0 bg-[#000] opacity-30 z-[5]" />
-          )}
-          {products &&
-            products.map((product) => (
-              <CategoryItem key={product.id} product={product} />
-            ))}
-        </div>
+        {products && (
+          <CategoryItemList products={products} filterOpen={filterOpen} />
+        )}
       </div>
     </>
   );

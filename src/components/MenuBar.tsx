@@ -19,13 +19,16 @@ export default function MenuBar() {
   const [menu, setMenu] = useState("");
   const { isScrollDown } = useScrollYContext();
 
-  console.log(pathName);
   useLayoutEffect(() => {
     if (!pathName) {
       return;
     }
     if (pathName.startsWith("/my")) {
       setMenu("마이");
+      return;
+    }
+    if (pathName.startsWith("/home")) {
+      setMenu("홈");
       return;
     }
     setMenu(menus.find((item) => item.url === pathName)!.title);

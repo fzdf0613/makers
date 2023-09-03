@@ -3,7 +3,6 @@ import Image from "next/image";
 import Feature from "@/components/ui/Feature";
 import { Product } from "@/customType/product";
 import Link from "next/link";
-import useCurrentUser from "@/hooks/user";
 import LikeButton from "@/components/LikeButton";
 
 type Props = {

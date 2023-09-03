@@ -28,10 +28,8 @@ export default function FilterBar({
   filterOpen,
   subcategory,
   categoryIndex,
-
   sort,
   category,
-
   setFilterOpen,
 }: Props) {
   const { isScrollDown } = useScrollYContext();
@@ -53,7 +51,7 @@ export default function FilterBar({
         }}
       >
         <div className="flex justify-between items-center">
-          <span>{subcategory} (171)</span>
+          <span>{subcategory}</span>
           {!filterOpen && <DropDownIcon className="w-4 h-4" />}
           {filterOpen && <DropUpIcon className="w-4 h-4" />}
         </div>
@@ -79,15 +77,21 @@ export default function FilterBar({
           <ul className="flex flex-col items-center justify-center">
             {filterOpen === "LEFT" &&
               subcategories[category].map((item, i) => (
-                <Link
-                  key={i}
+                <li
                   className={`py-3.5 cursor-pointer ${
                     subcategory === item && "underline font-bold"
                   }`}
-                  href={`/home/category/category?category=${category}&subcategory=${i}`}
+                  key={i}
+                  onClick={() => {
+                    setFilterOpen(undefined);
+                  }}
                 >
-                  {item} (171)
-                </Link>
+                  <Link
+                    href={`/home/category?category=${category}&subcategory=${i}&sort=${sort}`}
+                  >
+                    {item}
+                  </Link>
+                </li>
               ))}
             {filterOpen === "RIGHT" &&
               sortItemList.map((item, i) => (

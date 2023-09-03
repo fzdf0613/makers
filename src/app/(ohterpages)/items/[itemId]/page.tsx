@@ -9,7 +9,7 @@ import InquiryTab from "@/components/items/InquiryTab";
 import Review from "@/components/items/Review";
 import { useScrollYContext } from "@/context/ScrollYContext";
 import usePost from "@/hooks/post";
-import useProduct from "@/hooks/product";
+import { useProduct } from "@/hooks/product";
 import { useEffect, useRef, useState, useLayoutEffect } from "react";
 
 export default function ItemPage({ params }: { params: { itemId: string } }) {
