@@ -114,7 +114,9 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
               ></div>
             </div>
           )}
-          {tab === "구매후기" && <Review />}
+          {tab === "구매후기" && (
+            <Review reviewCount={post.reviewCount} postId={post.id} />
+          )}
           {tab === "제품문의" && <InquiryTab productId={product.id} />}
           <OrderBar post={post} product={product} />
         </>

@@ -6,9 +6,11 @@ import { addReview } from "@/service/review";
 import { addReviewToUser } from "@/service/user";
 import { uploadPostImage } from "@/service/storage";
 import { updateReviewState } from "@/service/order";
+import { increaseReviewCount } from "@/service/post";
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
+  const user = session.user;
 
   if (!session) {
     return NextResponse.json({ error: "권한이 없습니다." }, { status: 400 });
@@ -46,6 +48,8 @@ export async function POST(req: NextRequest) {
     ...review,
     id,
     imageUrl: imageUrl ?? "",
+    username: user.username,
+    userImage: user.image,
   };
 
   try {
@@ -53,6 +57,7 @@ export async function POST(req: NextRequest) {
       addReview(id, newReview),
       addReviewToUser(review.userId, id),
       updateReviewState(orderId as string),
+      increaseReviewCount(review.productId),
     ]);
   } catch (e) {
     console.log("addReview Error : ", e);

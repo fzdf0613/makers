@@ -22,3 +22,12 @@ export async function getReviews(reviewIds: string[]) {
   );
   return getDocs(reviewsQuery);
 }
+
+export async function getPostReviews(postId: string) {
+  const reviewsQuery = query(
+    collection(db, "reviews"),
+    where("productId", "==", postId),
+    limit(10)
+  );
+  return getDocs(reviewsQuery);
+}

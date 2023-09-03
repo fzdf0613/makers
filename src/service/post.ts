@@ -1,6 +1,6 @@
 import { Post } from "@/customType/post";
 import { db } from "@/service/firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, increment } from "firebase/firestore";
 
 export async function addPost(post: Post) {
   try {
@@ -14,4 +14,9 @@ export async function addPost(post: Post) {
 export async function getPost(postId: string) {
   const postRef = doc(db, "posts", postId);
   return getDoc(postRef);
+}
+
+export async function increaseReviewCount(postId: string) {
+  const postRef = doc(db, "posts", postId);
+  return updateDoc(postRef, { reviewCount: increment(1) });
 }
