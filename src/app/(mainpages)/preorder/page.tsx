@@ -1,4 +1,4 @@
-import PreorderItem from "@/components/preorder/PreorderItem";
+import PreorderItemList from "@/components/preorder/PreorderItemList";
 import Heading from "@/components/ui/Heading";
 
 export default function PreorderPage() {
@@ -12,11 +12,7 @@ export default function PreorderPage() {
           주문이 시작되면 알려드릴게요.
         </p>
       </div>
-      <div className="mb-10">
-        <PreorderItem />
-        <PreorderItem />
-        <PreorderItem />
-      </div>
+      <PreorderItemList />
     </>
   );
 }

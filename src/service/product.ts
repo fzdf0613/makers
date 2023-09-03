@@ -50,6 +50,18 @@ export async function getNewProducts() {
   return getDocs(productQuery);
 }
 
+export async function getPreorderProducts() {
+  const date = new Date();
+  const today = date.toISOString().split("T")[0];
+  const productQuery = query(
+    collection(db, "products"),
+    where("orderStartDate", ">", today),
+    orderBy("orderStartDate", "desc"),
+    limit(10)
+  );
+  return getDocs(productQuery);
+}
+
 export async function getLikeProducts(postIds: string[]) {
   const productQuery = query(
     collection(db, "products"),

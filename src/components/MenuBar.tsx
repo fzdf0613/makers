@@ -19,6 +19,7 @@ export default function MenuBar() {
   const [menu, setMenu] = useState("");
   const { isScrollDown } = useScrollYContext();
 
+  console.log(pathName);
   useLayoutEffect(() => {
     if (!pathName) {
       return;
@@ -27,7 +28,7 @@ export default function MenuBar() {
       setMenu("마이");
       return;
     }
-    setMenu(menus.find((item) => pathName.startsWith(item.url))!.title);
+    setMenu(menus.find((item) => item.url === pathName)!.title);
   }, [pathName]);
 
   return (
