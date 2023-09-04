@@ -51,3 +51,18 @@ export function getNextMonday() {
 
   return nextMonday;
 }
+
+export function getInquiryTimeFormat(time: number) {
+  const date = new Date(time);
+  const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+  const splitted = dateFormatter.format(date).split(". ");
+  return `${splitted[0]}-${splitted[1]}-${splitted[2]}  ${splitted[3]}`;
+}

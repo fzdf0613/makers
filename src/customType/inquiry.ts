@@ -1,5 +1,6 @@
 export type Inquiry = {
   answer: string;
+  answeredAt?: number;
   createdAt: number;
   id: string;
   productId: string;

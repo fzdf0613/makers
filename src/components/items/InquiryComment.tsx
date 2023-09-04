@@ -1,4 +1,5 @@
 import { Inquiry } from "@/customType/inquiry";
+import { getInquiryTimeFormat } from "@/util/date";
 
 type Props = {
   inquiry: Inquiry;
@@ -10,7 +11,7 @@ export default function InquiryComment({ inquiry }: Props) {
       <p className="whitespace-pre-wrap">{inquiry.text}</p>
       <div className="text-[#9b9b9b] text-xs flex mt-2">
         <p>{inquiry.username}</p>
-        <p className="pl-2">{getTimeText(inquiry.createdAt)}</p>
+        <p className="pl-2">{getInquiryTimeFormat(inquiry.createdAt)}</p>
       </div>
       {inquiry.answer && (
         <div className="mt-4">
@@ -20,19 +21,4 @@ export default function InquiryComment({ inquiry }: Props) {
       )}
     </div>
   );
-}
-
-function getTimeText(time: number) {
-  const date = new Date(time);
-  const dateFormatter = new Intl.DateTimeFormat("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-  const splitted = dateFormatter.format(date).split(". ");
-  return `${splitted[0]}-${splitted[1]}-${splitted[2]}  ${splitted[3]}`;
 }
