@@ -20,3 +20,8 @@ export async function increaseReviewCount(postId: string) {
   const postRef = doc(db, "posts", postId);
   return updateDoc(postRef, { reviewCount: increment(1) });
 }
+
+export async function increaseInquiryCount(postId: string) {
+  const postRef = doc(db, "posts", postId);
+  return updateDoc(postRef, { inquiryCount: increment(1) });
+}

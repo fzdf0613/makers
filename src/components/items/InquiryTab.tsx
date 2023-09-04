@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InquiryComment from "./InquiryComment";
+import InquiryList from "./InquiryList";
 
 type Props = {
   productId: string;
@@ -14,7 +15,7 @@ export default function InquiryTab({ productId }: Props) {
       >
         제작사에 제품 문의하기
       </Link>
-      <InquiryComment />
+      <InquiryList postId={productId} />
     </div>
   );
 }

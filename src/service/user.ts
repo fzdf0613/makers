@@ -106,3 +106,8 @@ export async function addReviewToUser(userId: string, reviewId: string) {
   const userRef = doc(db, "users", userId);
   return updateDoc(userRef, { review: arrayUnion(reviewId) });
 }
+
+export async function addInquiryToUser(userId: string, inquiryId: string) {
+  const userRef = doc(db, "users", userId);
+  return updateDoc(userRef, { inquiry: arrayUnion(inquiryId) });
+}
