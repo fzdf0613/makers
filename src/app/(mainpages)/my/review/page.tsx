@@ -1,16 +1,15 @@
-import MyReviewItem from "@/components/my/review/MyReviewItem";
+import MyReviewList from "@/components/my/review/MyReviewList";
 import ReviewTab from "@/components/my/review/ReviewTab";
 
-export default function MyReviewPage() {
+export default function MyReviewPage({
+  searchParams,
+}: {
+  searchParams: { location: string };
+}) {
   return (
     <>
-      <ReviewTab />
-      <div className="bg-[#ededed] pb-2.5 flex flex-col">
-        <MyReviewItem />
-        <MyReviewItem />
-        <MyReviewItem />
-        <MyReviewItem />
-      </div>
+      <ReviewTab tab={searchParams.location} />
+      <MyReviewList tab={searchParams.location} />
     </>
   );
 }

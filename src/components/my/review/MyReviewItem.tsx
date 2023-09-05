@@ -1,27 +1,58 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
+import { Review } from "@/customType/review";
+import { getInquiryTimeFormat } from "@/util/date";
 
-export default function MyReviewItem() {
+type Props = {
+  review: Review;
+};
+
+export default function MyReviewItem({ review }: Props) {
+  const [openImage, setOpenImage] = useState(false);
+
   return (
-    <div className="px-4 flex flex-col bg-white mt-2.5">
+    <div className="px-4 flex flex-col bg-white mt-2.5 pb-2.5">
       <div className="py-4 flex items-center border-b border-[#f1f1f1]">
         <Image
           className="mr-4"
-          src="/images/defaultAvatar.png"
+          src={review.productImage}
           width={74}
           height={74}
           alt="product-thumbnail"
         />
         <div className="text-xs">
-          <strong className="font-[500]">
-            경주 황리단길 맛집, 프프프베이커리 달콤한 버터
-            스프레드(허니버터/얼그레이)
-          </strong>
-          <p className="text-[#9b9b9b]">2023-08-19 21:30:58</p>
+          <strong className="font-[500]">{review.productName}</strong>
+          <p className="text-[#9b9b9b]">
+            {getInquiryTimeFormat(review.createdAt)}
+          </p>
         </div>
       </div>
       <div className="py-4">
-        <pre className="text-sm">맛있어요</pre>
+        <pre className="text-sm whitespace-pre-wrap">{review.text}</pre>
       </div>
+      <button
+        onClick={() => {
+          setOpenImage((prev) => !prev);
+        }}
+        className={`h-[74px] w-[74px] relative`}
+      >
+        {openImage && (
+          <div className="absolute inset-0 border-[3px] border-[#4a4a4a] bg-[#0000004a] z-10" />
+        )}
+        <Image src={review.imageUrl} alt="review-thumbnail" fill />
+      </button>
+      {openImage && (
+        <div className="w-full aspect-square bg-[#f1f1f1] relative mt-4">
+          <Image
+            className="object-contain"
+            src={review.imageUrl}
+            alt="review-full-image"
+            width={608}
+            height={608}
+          />
+        </div>
+      )}
     </div>
   );
 }

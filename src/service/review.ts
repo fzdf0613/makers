@@ -8,16 +8,18 @@ import {
   limit,
   getDocs,
   documentId,
+  orderBy,
 } from "firebase/firestore";
 
 export async function addReview(id: string, review: any) {
   return setDoc(doc(db, "reviews", id), review);
 }
 
-export async function getReviews(reviewIds: string[]) {
+export async function getUserReviews(reviewIds: string[]) {
   const reviewsQuery = query(
     collection(db, "reviews"),
     where(documentId(), "in", reviewIds),
+    orderBy(documentId()),
     limit(20)
   );
   return getDocs(reviewsQuery);

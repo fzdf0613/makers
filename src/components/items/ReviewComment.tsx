@@ -31,7 +31,7 @@ export default function ReviewComment({ review }: Props) {
         className={`h-[74px] w-[74px] relative`}
       >
         {openImage && (
-          <div className="absolute inset-0 border-[3px] border-[#4a4a4a]" />
+          <div className="absolute inset-0 border-[3px] border-[#4a4a4a] bg-[#0000004a] z-10" />
         )}
         <Image src={review.imageUrl} alt="review-thumbnail" fill />
       </button>

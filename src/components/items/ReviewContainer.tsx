@@ -1,7 +1,7 @@
 "use client";
-import { BiChevronRight } from "react-icons/bi";
 import ReviewList from "./ReviewList";
 import { useRouter } from "next/navigation";
+import RightArrowIcon from "../ui/icons/RightArrowIcon";
 
 type Props = {
   reviewCount: number;
@@ -22,7 +22,7 @@ export default function ReviewContainer({ reviewCount, postId }: Props) {
           {"구매후기는 "}
           <span className="text-[#6c80e4] font-bold">후기내역 </span>
           에서 작성하실 수 있습니다.
-          <BiChevronRight className="absolute right-5 top-0 w-5 h-5" />
+          <RightArrowIcon className="absolute right-5 top-0 w-5 h-5" />
         </div>
       </div>
       <h4 className="font-bold py-4 text-sm mx-4">

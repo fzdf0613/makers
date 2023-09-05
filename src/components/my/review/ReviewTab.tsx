@@ -1,21 +1,21 @@
 "use client";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useLayoutEffect, useEffect, useMemo, useState } from "react";
+import { useLayoutEffect } from "react";
 
-export default function ReviewTab() {
-  const searchParams = useSearchParams();
+type Props = {
+  tab: string;
+};
+
+export default function ReviewTab({ tab }: Props) {
   const router = useRouter();
-  const location = useMemo(() => searchParams.get("location"), [searchParams]);
-  const [tab, setTab] = useState<"written" | "waiting">();
 
   useLayoutEffect(() => {
-    if (!location || (location !== "written" && location !== "waiting")) {
+    if (!tab || (tab !== "written" && tab !== "waiting")) {
       router.replace("/my/review?location=written");
       return;
     }
-    setTab(location);
-  }, [location, router]);
+  }, [tab, router]);
 
   return (
     <div className="flex text-sm w-full border-y border-[#dee2e6]">

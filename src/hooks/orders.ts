@@ -6,3 +6,13 @@ export function useOrders() {
 
   return { orders, error, isLoading };
 }
+
+export function useReviewWatingOrders() {
+  const {
+    data: orders,
+    isLoading,
+    error,
+  } = useSWR<Order[]>("/api/orders/review-waiting");
+
+  return { orders, error, isLoading };
+}

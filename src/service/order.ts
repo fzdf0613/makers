@@ -10,6 +10,7 @@ import {
   documentId,
   getDoc,
   updateDoc,
+  orderBy,
 } from "firebase/firestore";
 
 export async function addOrder(id: string, order: any) {
@@ -30,6 +31,17 @@ export async function getOrders(orderIds: string[]) {
   const ordersQuery = query(
     collection(db, "orders"),
     where(documentId(), "in", orderIds),
+    limit(10)
+  );
+  return getDocs(ordersQuery);
+}
+
+export async function getReviewWatingOrders(orderIds: string[]) {
+  const ordersQuery = query(
+    collection(db, "orders"),
+    where(documentId(), "in", orderIds),
+    orderBy(documentId()),
+    where("hasReview", "==", false),
     limit(10)
   );
   return getDocs(ordersQuery);
