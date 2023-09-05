@@ -20,7 +20,9 @@ export default function NavBar() {
         >
           <ListIcon />
         </button>
-        <h1 className="ml-2 font-bold text-xl">makers</h1>
+        <Link href="/">
+          <h1 className="ml-2 font-bold text-xl">makers</h1>
+        </Link>
       </div>
       <Link href="/search">
         <SearchIcon />

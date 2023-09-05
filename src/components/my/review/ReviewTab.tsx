@@ -20,22 +20,26 @@ export default function ReviewTab({ tab }: Props) {
   return (
     <div className="flex text-sm w-full border-y border-[#dee2e6]">
       <div className="w-1/2 text-center border-[#dee2e6] border-r">
-        <div
-          className={`py-4 bg-[#fafafa] text-[#9b9b9b] ${
-            tab === "written" && "border-b-2 border-black bg-white text-black"
-          }`}
-        >
-          <Link href="/my/review?location=written">작성 목록</Link>
-        </div>
+        <Link href="/my/review?location=written">
+          <div
+            className={`py-4 bg-[#fafafa] text-[#9b9b9b] ${
+              tab === "written" && "border-b-2 border-black bg-white text-black"
+            }`}
+          >
+            작성 목록
+          </div>
+        </Link>
       </div>
       <div className="w-1/2 text-center">
-        <div
-          className={`py-4 bg-[#fafafa] text-[#9b9b9b] ${
-            tab === "waiting" && "border-b-2 border-black bg-white text-black"
-          }`}
-        >
-          <Link href="/my/review?location=waiting">작성 대기 목록</Link>
-        </div>
+        <Link href="/my/review?location=waiting">
+          <div
+            className={`py-4 bg-[#fafafa] text-[#9b9b9b] ${
+              tab === "waiting" && "border-b-2 border-black bg-white text-black"
+            }`}
+          >
+            작성 대기 목록
+          </div>
+        </Link>
       </div>
     </div>
   );

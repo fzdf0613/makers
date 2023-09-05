@@ -14,6 +14,7 @@ type Props = {
 export default function MyReviewList({ tab }: Props) {
   const { orders } = useReviewWatingOrders();
   const { reviews } = useUserReviews();
+
   return (
     <div className="bg-[#ededed] pb-2.5 flex flex-col">
       {tab === "written" &&
@@ -34,19 +35,20 @@ export default function MyReviewList({ tab }: Props) {
             </div>
           </div>
         ))}
-      {tab === "waiting" && orders ? (
-        orders.map((order) => (
-          <MyReviewWaitingItem key={order.id} order={order} />
-        ))
-      ) : (
-        <div className="bg-[#f1f1f1] h-[326px] flex items-center justify-center">
-          <div>
-            <p className="text-[#9b9b9b] text-[13px]">
-              아직 주문하신 상품이 없습니다.
-            </p>
+      {tab === "waiting" &&
+        (orders ? (
+          orders.map((order) => (
+            <MyReviewWaitingItem key={order.id} order={order} />
+          ))
+        ) : (
+          <div className="bg-[#f1f1f1] h-[326px] flex items-center justify-center">
+            <div>
+              <p className="text-[#9b9b9b] text-[13px]">
+                아직 주문하신 상품이 없습니다.
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        ))}
     </div>
   );
 }

@@ -71,16 +71,18 @@ export default function OrderModal({
         id="modal-dialog"
         className="h-full mx-4 relative flex justify-center"
       >
-        <OptionSelectBox
-          setCart={setCart}
-          options={post.itemOptions}
-          optionPrices={post.optionsPrices}
-          openOptionBox={openOptionBox}
-          setOpenOptionBox={setOpenOptionBox}
-          setSelectedOption={setSelectedOption}
-          handleCancelClick={handleCancelClick}
-          selectedOption={selectedOption}
-        />
+        {post.itemOptions && (
+          <OptionSelectBox
+            setCart={setCart}
+            options={post.itemOptions}
+            optionPrices={post.optionsPrices}
+            openOptionBox={openOptionBox}
+            setOpenOptionBox={setOpenOptionBox}
+            setSelectedOption={setSelectedOption}
+            handleCancelClick={handleCancelClick}
+            selectedOption={selectedOption}
+          />
+        )}
         <OrderBox
           cart={cart}
           setCart={setCart}

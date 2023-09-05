@@ -66,20 +66,23 @@ export default function OrderBox({
         <div className="px-4 max-h-[181px] bg-[#fafafa] rounded-[4px] overflow-y-scroll">
           {cart &&
             cart.map((item, i) => (
-              <div className="py-4 relative" key={options[item.optionIndex]}>
-                <p className="pr-8">
-                  {`${productName} : ${
-                    options[item.optionIndex]
-                  }(+${optionPrices[item.optionIndex].toLocaleString()})`}
-                </p>
-                <button
-                  className="rounded-full w-4 h-4 bg-[#d5d5d5] top-[18px] right-0 absolute flex items-center justify-center"
-                  onClick={() => {
-                    deleteItem(i);
-                  }}
-                >
-                  <CloseIcon className="text-white" />
-                </button>
+              <div className="py-4 relative" key={item.optionIndex}>
+                <p className="pr-8">{productName}</p>
+                {options && (
+                  <p>{` : ${options[item.optionIndex]}(+${optionPrices[
+                    item.optionIndex
+                  ].toLocaleString()})`}</p>
+                )}
+                {options && (
+                  <button
+                    className="rounded-full w-4 h-4 bg-[#d5d5d5] top-[18px] right-0 absolute flex items-center justify-center"
+                    onClick={() => {
+                      deleteItem(i);
+                    }}
+                  >
+                    <CloseIcon className="text-white" />
+                  </button>
+                )}
                 <div className="mt-2">
                   <div className="flex justify-between">
                     <div className="bg-white border border-[#ededed] flex h-8 items-center">
@@ -106,7 +109,7 @@ export default function OrderBox({
                     <div className="font-bold">
                       {(
                         item.count *
-                        (price + optionPrices[item.optionIndex])
+                        (price + (options ? optionPrices[item.optionIndex] : 0))
                       ).toLocaleString()}
                       원
                     </div>
@@ -115,12 +118,14 @@ export default function OrderBox({
               </div>
             ))}
         </div>
-        <button
-          className="border border-[#ededed] py-3.5 mt-2"
-          onClick={() => setOpenOptionBox(true)}
-        >
-          다른 옵션 추가
-        </button>
+        {options && (
+          <button
+            className="border border-[#ededed] py-3.5 mt-2"
+            onClick={() => setOpenOptionBox(true)}
+          >
+            다른 옵션 추가
+          </button>
+        )}
         {/* 가격 */}
         <div className="flex pt-4 pb-3 justify-between">
           <span className="text-base">금액</span>
@@ -129,7 +134,9 @@ export default function OrderBox({
               cart
                 .reduce(
                   (acc, cur, i) =>
-                    acc + cur.count * (price + optionPrices[cur.optionIndex]),
+                    acc +
+                    cur.count *
+                      (price + (options ? optionPrices[cur.optionIndex] : 0)),
                   0
                 )
                 .toLocaleString()}

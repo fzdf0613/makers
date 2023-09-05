@@ -9,8 +9,10 @@ import { useProduct } from "@/hooks/product";
 
 export default function InquriyWritePage({
   params,
+  searchParams,
 }: {
   params: { productId: string };
+  searchParams: { returnUrl: string };
 }) {
   const router = useRouter();
   const { product } = useProduct(params.productId);
@@ -130,7 +132,11 @@ export default function InquriyWritePage({
               handleConfirm={
                 alertMessage
                   ? () => {
-                      isSubmitted ? router.back() : setModalOpen(false);
+                      isSubmitted
+                        ? searchParams.returnUrl
+                          ? router.replace(searchParams.returnUrl)
+                          : router.back()
+                        : setModalOpen(false);
                     }
                   : () => {
                       router.back();

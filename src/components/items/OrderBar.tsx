@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Portal from "../ui/Portal";
 import OrderModal from "./OrderModal";
 import { Product } from "@/customType/product";
@@ -19,6 +19,12 @@ export default function OrderBar({ product, post }: Props) {
   const { data: session, status } = useSession();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (post && !post.itemOptions) {
+      setCart([{ optionIndex: -1, count: 1 }]);
+    }
+  }, [post]);
 
   const handleOrderClick = () => {
     if (status === "loading") {
@@ -49,7 +55,9 @@ export default function OrderBar({ product, post }: Props) {
       totalPrice: cart.reduce(
         (acc, cur, i) =>
           acc +
-          cur.count * (product.price + post.optionsPrices[cur.optionIndex]),
+          cur.count *
+            (product.price +
+              (post.itemOptions ? post.optionsPrices[cur.optionIndex] : 0)),
         0
       ),
       count: cart.reduce((acc, cur, i) => acc + cur.count, 0),
