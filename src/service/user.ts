@@ -1,17 +1,17 @@
 import { db } from "@/service/firebase";
 import {
   collection,
-  query,
-  where,
-  getDocs,
   addDoc,
   getDoc,
+  getDocs,
   writeBatch,
   arrayUnion,
   arrayRemove,
   increment,
   doc,
   updateDoc,
+  where,
+  query,
 } from "firebase/firestore";
 import { hashPassword } from "@/util/bcrypt";
 
@@ -74,6 +74,26 @@ export async function getUserById(id: string) {
       review: userData.review ?? [],
       seen: userData.seen ?? [],
     };
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getUserByUserId(userId: string) {
+  const userQuery = query(
+    collection(db, "users"),
+    where("userid", "==", userId)
+  );
+  try {
+    const snapshot = await getDocs(userQuery);
+    if (!snapshot.docs) {
+      return null;
+    }
+    const userData = {
+      ...snapshot.docs[0].data(),
+      id: snapshot.docs[0].id,
+    };
+    return userData;
   } catch (error) {
     return error;
   }

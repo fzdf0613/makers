@@ -94,7 +94,7 @@ export default function SideModal({ closeModal, user }: Props) {
             <Button
               className="w-full bg-white justify-center h-[45px] !border-black"
               onClick={() => {
-                signOut;
+                signOut();
               }}
             >
               로그아웃

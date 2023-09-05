@@ -1,5 +1,5 @@
 import { User } from "@/customType/user";
-import { getUserById } from "@/service/user";
+import { getUserById, getUserByUserId } from "@/service/user";
 import { verifyPassword } from "@/util/bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -18,9 +18,7 @@ export const authOptions = {
       async authorize(credentials) {
         const userid = credentials!.userid;
         const password = credentials!.password;
-
-        const userData = await getUserById(userid);
-
+        const userData = await getUserByUserId(userid);
         if (!userData) {
           return null;
         }

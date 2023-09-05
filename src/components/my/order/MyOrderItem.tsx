@@ -31,7 +31,7 @@ export default function MyOrderItem({ order }: Props) {
           </div>
           <strong className="text-sm font-bold">{order.productName}</strong>
           <div className="text-sm">
-            {order.totalPrice}원
+            {order.totalPrice.toLocaleString()}원
             <span className="mx-2 w-[1px] h-[12px] bg-[#d4d4d4] inline-block" />
             {order.count}개
           </div>
