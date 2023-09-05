@@ -1,12 +1,11 @@
 import Link from "next/link";
-import InquiryComment from "./InquiryComment";
 import InquiryList from "./InquiryList";
 
 type Props = {
   productId: string;
 };
 
-export default function InquiryTab({ productId }: Props) {
+export default function InquiryContainer({ productId }: Props) {
   return (
     <div className="h-[2000px] bg-white w-full flex flex-col">
       <Link

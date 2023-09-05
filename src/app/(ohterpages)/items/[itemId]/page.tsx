@@ -5,8 +5,8 @@ import ItemImage from "@/components/items/ItemImage";
 import ItemNavBar from "@/components/items/ItemNavBar";
 import OrderBar from "@/components/items/OrderBar";
 import OrderInfo from "@/components/items/OrderInfo";
-import InquiryTab from "@/components/items/InquiryTab";
-import Review from "@/components/items/Review";
+import InquiryContainer from "@/components/items/InquiryContainer";
+import ReviewContainer from "@/components/items/ReviewContainer";
 import { useScrollYContext } from "@/context/ScrollYContext";
 import usePost from "@/hooks/post";
 import { useProduct } from "@/hooks/product";
@@ -115,9 +115,9 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
             </div>
           )}
           {tab === "구매후기" && (
-            <Review reviewCount={post.reviewCount} postId={post.id} />
+            <ReviewContainer reviewCount={post.reviewCount} postId={post.id} />
           )}
-          {tab === "제품문의" && <InquiryTab productId={product.id} />}
+          {tab === "제품문의" && <InquiryContainer productId={product.id} />}
           <OrderBar post={post} product={product} />
         </>
       )}

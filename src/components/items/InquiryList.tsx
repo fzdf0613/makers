@@ -15,6 +15,11 @@ export default function InquiryList({ postId }: Props) {
           ))}
         </ul>
       )}
+      {!inquirys && (
+        <div className="py-6 flex items-center justify-center text-base">
+          등록된 제품 문의가 없습니다.
+        </div>
+      )}
     </div>
   );
 }

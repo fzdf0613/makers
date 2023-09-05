@@ -16,6 +16,11 @@ export default function ReviewList({ postId }: Props) {
           ))}
         </ul>
       )}
+      {!reviews && (
+        <div className="py-6 flex items-center justify-center text-base">
+          등록된 구매 후기가 없습니다.
+        </div>
+      )}
     </div>
   );
 }

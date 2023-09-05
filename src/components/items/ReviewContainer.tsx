@@ -8,7 +8,7 @@ type Props = {
   postId: string;
 };
 
-export default function Review({ reviewCount, postId }: Props) {
+export default function ReviewContainer({ reviewCount, postId }: Props) {
   const router = useRouter();
   return (
     <div className="bg-white h-[1000px]">
