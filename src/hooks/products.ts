@@ -21,6 +21,16 @@ export function useNewProducts() {
   return { products, error, isLoading };
 }
 
+export function useSearchProducts() {
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useSWR<Product[]>("/api/products/search");
+
+  return { products, error, isLoading };
+}
+
 export function usePreorderProducts() {
   const {
     data: products,

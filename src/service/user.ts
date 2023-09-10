@@ -12,6 +12,7 @@ import {
   updateDoc,
   where,
   query,
+  runTransaction,
 } from "firebase/firestore";
 import { hashPassword } from "@/util/bcrypt";
 
@@ -32,6 +33,7 @@ export async function createUserByCredential(
       inquiry: [],
       review: [],
       seen: [],
+      search: [],
       userid,
       username,
       profileImageUrl,
@@ -130,4 +132,41 @@ export async function addReviewToUser(userId: string, reviewId: string) {
 export async function addInquiryToUser(userId: string, inquiryId: string) {
   const userRef = doc(db, "users", userId);
   return updateDoc(userRef, { inquiry: arrayUnion(inquiryId) });
+}
+
+export async function addSearchKeyWord(userId: string, keyWord: string) {
+  const userRef = doc(db, "users", userId);
+  return runTransaction(db, async (transaction) => {
+    const doc = await transaction.get(userRef);
+    if (!doc.exists()) {
+      throw new Error("유저 데이터가 존재하지 않습니다.");
+    }
+    const searchList = doc.data().search;
+    let updatedList;
+    if (searchList.length === 10) {
+      if (searchList.includes(keyWord)) {
+        updatedList = [
+          ...searchList.filter((item: string) => item !== keyWord),
+          keyWord,
+        ];
+      } else {
+        updatedList = [...searchList.slice(0, 9), keyWord];
+      }
+    } else {
+      if (searchList.includes(keyWord)) {
+        updatedList = [
+          ...searchList.filter((item: string) => item !== keyWord),
+          keyWord,
+        ];
+      } else {
+        updatedList = [...searchList, keyWord];
+      }
+    }
+    transaction.update(userRef, { search: updatedList });
+  });
+}
+
+export async function removeSearchKeyWord(userId: string, keyWord: string) {
+  const userRef = doc(db, "users", userId);
+  return updateDoc(userRef, { search: arrayRemove(keyWord) });
 }

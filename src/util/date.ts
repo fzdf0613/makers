@@ -66,3 +66,9 @@ export function getInquiryTimeFormat(time: number) {
   const splitted = dateFormatter.format(date).split(". ");
   return `${splitted[0]}-${splitted[1]}-${splitted[2]}  ${splitted[3]}`;
 }
+
+export function getCurrentISOString() {
+  const offset = new Date().getTimezoneOffset() * 60000;
+  const today = new Date(Date.now() - offset);
+  return today.toISOString();
+}

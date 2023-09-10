@@ -11,6 +11,16 @@ async function updateLike(productId: string, active: boolean) {
   }).then((res) => res.json());
 }
 
+async function updateSearch(keyWord: string, isAdd: boolean) {
+  return fetch("/api/search", {
+    method: "PUT",
+    body: JSON.stringify({
+      keyWord,
+      isAdd,
+    }),
+  }).then((res) => res.json());
+}
+
 export default function useCurrentUser() {
   const {
     data: user,
@@ -37,5 +47,48 @@ export default function useCurrentUser() {
     });
   };
 
-  return { user, error, isLoading, toggleLike };
+  const updateSearchHistory = (keyWord: string, isAdd: boolean) => {
+    if (!user) {
+      return;
+    }
+
+    let searchList: string[] = [];
+
+    if (isAdd) {
+      if (user.search.length === 10) {
+        if (user.search.includes(keyWord)) {
+          searchList = [
+            ...user.search.filter((item) => item !== keyWord),
+            keyWord,
+          ];
+        } else {
+          searchList = [...user.search.slice(0, 9), keyWord];
+        }
+      } else {
+        if (user.search.includes(keyWord)) {
+          searchList = [
+            ...user.search.filter((item) => item !== keyWord),
+            keyWord,
+          ];
+        } else {
+          searchList = [...user.search, keyWord];
+        }
+      }
+    } else {
+      searchList = [...user.search.filter((item) => item !== keyWord)];
+    }
+
+    const updated = {
+      ...user,
+      search: searchList,
+    };
+
+    return mutate(updateSearch(keyWord, isAdd), {
+      optimisticData: updated,
+      revalidate: false,
+      populateCache: false,
+    });
+  };
+
+  return { user, error, isLoading, toggleLike, updateSearchHistory };
 }

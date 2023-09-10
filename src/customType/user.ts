@@ -7,7 +7,6 @@ export type SessionUser = {
 };
 
 export type User = {
-  id: string;
   username: string;
   userid: string;
   review: string[];
@@ -17,6 +16,7 @@ export type User = {
   ordered: string[];
   password: string;
   seen: string[];
+  search: string[];
   isAdmin: boolean;
 };
 

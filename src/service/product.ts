@@ -50,6 +50,15 @@ export async function getNewProducts() {
   return getDocs(productQuery);
 }
 
+export async function searchProducts(keyWord: string) {
+  const productQuery = query(
+    collection(db, "products"),
+    orderBy("orderStartDate", "desc"),
+    limit(20)
+  );
+  return getDocs(productQuery);
+}
+
 export async function getPreorderProducts() {
   const date = new Date();
   const today = date.toISOString().split("T")[0];
