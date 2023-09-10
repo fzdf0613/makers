@@ -32,7 +32,10 @@ export default function OrderInfo({ product }: Props) {
           <p className="w-[78px] inline-block">주문 기간</p>
           <strong className="font-bold">
             주문 마감{" "}
-            {getRemaingTimeFormat(product.orderStartDate, product.orderEndDate)}
+            {getRemaingTimeFormat(
+              new Date(product.orderStartTime),
+              new Date(product.orderEndTime)
+            )}
           </strong>
         </div>
         <div className="text-[13px]">

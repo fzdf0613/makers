@@ -16,7 +16,6 @@ type Props = {
 
 export default function HomeItem({ product }: Props) {
   const [badgeState] = useState(getBadgeState(product));
-
   return (
     <div className="mb-9">
       <Link href={`/items/${product.id}`}>
@@ -54,8 +53,8 @@ export default function HomeItem({ product }: Props) {
 }
 
 function getBadgeState(product: Product) {
-  const isNewProduct = isNew(product.orderStartDate, product.orderEndDate);
-  const isImminent = isAlert(product.orderEndDate);
+  const isNewProduct = isNew(new Date(product.orderStartTime));
+  const isImminent = isAlert(new Date(product.orderEndTime));
   const isAlmostSoldOut = product.currentOrderCount / product.itemCount > 0.9;
 
   if (isAlmostSoldOut) {

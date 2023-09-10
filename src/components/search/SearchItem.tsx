@@ -16,6 +16,7 @@ export default function SearchItem({ product }: Props) {
             src={product.imageUrl}
             alt="product-thumbnail"
             fill
+            sizes="160px"
           />
         </div>
         <div className="pl-4 text-[13px]">
@@ -25,12 +26,12 @@ export default function SearchItem({ product }: Props) {
           </div>
           <div
             className={`mt-2 font-semibold ${
-              isOrderEnd(product.orderEndDate)
+              isOrderEnd(new Date(product.orderEndTime))
                 ? "text-[#9b9b9b]"
                 : "text-[#ed554d]"
             }`}
           >
-            {isOrderEnd(product.orderEndDate)
+            {isOrderEnd(new Date(product.orderEndTime))
               ? "주문 종료"
               : `${product.orderUserCount}명 주문 중`}
           </div>
@@ -40,8 +41,7 @@ export default function SearchItem({ product }: Props) {
   );
 }
 
-function isOrderEnd(orderEndDate: string) {
+function isOrderEnd(endDate: Date) {
   const today = new Date();
-  const orderEnd = new Date(orderEndDate);
-  return today.getTime() > orderEnd.getTime();
+  return today.getTime() > endDate.getTime();
 }

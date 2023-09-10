@@ -1,10 +1,13 @@
 import { getProducts } from "@/service/product";
+import { getFomattedProduct } from "@/util/productFormat";
+import { getDateByTimestamp } from "@/util/timestamp";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     const snapshot = await getProducts();
-    const products = snapshot.docs.map((doc) => doc.data());
+    const products = snapshot.docs.map((doc) => getFomattedProduct(doc.data()));
+    console.log(products);
     return NextResponse.json(products);
   } catch (error) {
     console.log("getProducts Error : ", error);

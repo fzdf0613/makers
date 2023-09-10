@@ -1,4 +1,4 @@
-import { Product } from "@/customType/product";
+import { Product, SearchedProduct } from "@/customType/product";
 import useSWR from "swr";
 
 export function useProducts(path?: string) {
@@ -26,7 +26,7 @@ export function useSearchProducts() {
     data: products,
     isLoading,
     error,
-  } = useSWR<Product[]>("/api/products/search");
+  } = useSWR<SearchedProduct[]>("/api/products/search");
 
   return { products, error, isLoading };
 }

@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { getUserById } from "@/service/user";
 import { User } from "@/customType/user";
+import { getFomattedProduct } from "@/util/productFormat";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -23,7 +24,7 @@ export async function GET() {
     }
 
     const snapshot = await getLikeProducts(likeProductIds);
-    const products = snapshot.docs.map((doc) => doc.data());
+    const products = snapshot.docs.map((doc) => getFomattedProduct(doc.data()));
 
     return NextResponse.json(products);
   } catch (error) {

@@ -1,6 +1,5 @@
-export function getRemaingTimeFormat(startDate: string, endDate: string) {
-  const sec =
-    (new Date(endDate).getTime() - new Date(startDate).getTime()) / 1000;
+export function getRemaingTimeFormat(startDate: Date, endDate: Date) {
+  const sec = (endDate.getTime() - startDate.getTime()) / 1000;
   if (sec < 3600) {
     return Math.floor(sec / 60) + "분 전";
   } else if (sec < 86400) {
@@ -10,16 +9,16 @@ export function getRemaingTimeFormat(startDate: string, endDate: string) {
   }
 }
 
-export function isNew(startDate: string, endDate: string) {
-  const startTime = new Date(startDate).getTime();
+export function isNew(startDate: any) {
+  const startTime = startDate.getTime();
   const mondayTime = new Date(getMonday()).getTime();
   const nextMondayTime = mondayTime + 7 * 24 * 60 * 60 * 1000;
   return mondayTime <= startTime && startTime < nextMondayTime;
 }
 
-export function isAlert(endDate: string) {
+export function isAlert(endDate: Date) {
   const today = new Date();
-  const endTime = new Date(endDate).getTime();
+  const endTime = endDate.getTime();
   return (
     endTime - 2 * 24 * 60 * 60 * 1000 <= today.getTime() &&
     today.getTime() < endTime

@@ -1,5 +1,6 @@
 import { categories, subcategories } from "@/constants/categories";
 import { getProductsByFilter } from "@/service/product";
+import { getFomattedProduct } from "@/util/productFormat";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -27,7 +28,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const snapshot = await getProductsByFilter(filter);
-    const products = snapshot.docs.map((doc) => doc.data());
+    const products = snapshot.docs.map((doc) => getFomattedProduct(doc.data()));
     return NextResponse.json(products);
   } catch (error) {
     console.log("getProductsByFilter Error : ", error);

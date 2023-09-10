@@ -23,7 +23,6 @@ export default function SearchPage() {
       inputRef.current?.focus();
       setIsInputFocused(true);
     } else {
-      console.log("hi");
       inputRef.current?.blur();
       setIsInputFocused(false);
     }
@@ -35,13 +34,11 @@ export default function SearchPage() {
 
   return (
     <InstantSearch searchClient={searchClient} indexName="products">
-      {/* <Configure
+      <Configure
         filters={
-          viewOnOrder
-            ? ``
-            : undefined
+          viewOnOrder ? `orderEndTime > ${new Date().getTime()}` : undefined
         }
-      /> */}
+      />
       <div onClick={handleContainerClick}>
         <div className="w-full max-w-[640px] px-4 pt-[30px] pb-5 fixed top-[55px]">
           <CustomSearchBox

@@ -63,6 +63,13 @@ export async function POST(req: NextRequest) {
     optionsPrices = parsedPrices;
   }
 
+  if (product.orderStartTime >= product.orderEndTime) {
+    return NextResponse.json(
+      { error: "주문 시간 설정이 올바르지 않습니다." },
+      { status: 400 }
+    );
+  }
+
   const newPost = {
     imageUrl,
     itemOptions,
@@ -79,6 +86,8 @@ export async function POST(req: NextRequest) {
     likeCount: 0,
     itemCount: parseInt(product.itemCount),
     price: parseInt(product.price),
+    orderStartTime: new Date(product.orderStartTime),
+    orderEndTime: new Date(product.orderEndTime),
   };
 
   try {
