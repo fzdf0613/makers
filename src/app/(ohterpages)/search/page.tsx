@@ -38,6 +38,7 @@ export default function SearchPage() {
         filters={
           viewOnOrder ? `orderEndTime > ${new Date().getTime()}` : undefined
         }
+        hitsPerPage={30}
       />
       <div onClick={handleContainerClick}>
         <div className="w-full max-w-[640px] px-4 pt-[30px] pb-5 fixed top-[55px]">

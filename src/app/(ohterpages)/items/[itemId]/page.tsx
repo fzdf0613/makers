@@ -11,8 +11,10 @@ import { useScrollYContext } from "@/context/ScrollYContext";
 import usePost from "@/hooks/post";
 import { useProduct } from "@/hooks/product";
 import { useEffect, useRef, useState, useLayoutEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function ItemPage({ params }: { params: { itemId: string } }) {
+  const { data: session, status } = useSession();
   const [activeAnchor, setActiveAnchor] = useState<string>("");
   const [anchors, setAnchors] = useState<{ name: string; y: number }[]>();
   const navRef = useRef<HTMLDivElement>(null);
@@ -24,6 +26,15 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
   const [isOverlap, setIsOverlap] = useState(false);
   const { post } = usePost(params.itemId);
   const { product } = useProduct(params.itemId);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/seen", {
+        method: "PUT",
+        body: JSON.stringify({ productId: params.itemId, isAdd: true }),
+      });
+    }
+  }, [status, params.itemId]);
 
   useEffect(() => {
     if (!navRef.current || !contentRef.current) {

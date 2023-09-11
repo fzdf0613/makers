@@ -9,9 +9,9 @@ export default function HomeItemList() {
     <section>
       {products && (
         <ul>
-          {products.map((item) => (
+          {products.map((item, i) => (
             <li key={item.id}>
-              <HomeItem product={item} />
+              <HomeItem product={item} imagePriority={i < 5} />
             </li>
           ))}
         </ul>

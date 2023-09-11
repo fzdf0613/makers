@@ -7,7 +7,6 @@ export async function GET() {
   try {
     const snapshot = await getProducts();
     const products = snapshot.docs.map((doc) => getFomattedProduct(doc.data()));
-    console.log(products);
     return NextResponse.json(products);
   } catch (error) {
     console.log("getProducts Error : ", error);

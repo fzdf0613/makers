@@ -150,7 +150,7 @@ export async function addSearchKeyWord(userId: string, keyWord: string) {
           keyWord,
         ];
       } else {
-        updatedList = [...searchList.slice(0, 9), keyWord];
+        updatedList = [...searchList.slice(1, 9), keyWord];
       }
     } else {
       if (searchList.includes(keyWord)) {
@@ -169,4 +169,40 @@ export async function addSearchKeyWord(userId: string, keyWord: string) {
 export async function removeSearchKeyWord(userId: string, keyWord: string) {
   const userRef = doc(db, "users", userId);
   return updateDoc(userRef, { search: arrayRemove(keyWord) });
+}
+
+export async function addSeenProduct(userId: string, productId: string) {
+  const userRef = doc(db, "users", userId);
+  return runTransaction(db, async (transaction) => {
+    const doc = await transaction.get(userRef);
+    if (!doc.exists()) {
+      throw new Error("유저 데이터가 존재하지 않습니다.");
+    }
+    const seenList = doc.data().seen;
+    let updatedList;
+
+    if (seenList.includes(productId)) {
+      updatedList = [
+        productId,
+        ...seenList.filter((item: string) => item !== productId),
+      ];
+    } else {
+      if (seenList.length === 50) {
+        updatedList = [productId, ...seenList.slice(0, 49)];
+      } else {
+        updatedList = [productId, ...seenList];
+      }
+    }
+    transaction.update(userRef, { seen: updatedList });
+  });
+}
+
+export async function removeSeenProduct(userId: string, productId: string) {
+  const userRef = doc(db, "users", userId);
+  return updateDoc(userRef, { seen: arrayRemove(productId) });
+}
+
+export async function removeSeenProductAll(userId: string) {
+  const userRef = doc(db, "users", userId);
+  return updateDoc(userRef, { seen: [] });
 }

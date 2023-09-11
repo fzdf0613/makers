@@ -71,11 +71,20 @@ export async function getPreorderProducts() {
   return getDocs(productQuery);
 }
 
-export async function getLikeProducts(postIds: string[]) {
+export async function getLikeProducts(productIds: string[]) {
   const productQuery = query(
     collection(db, "products"),
-    where(documentId(), "in", postIds),
+    where(documentId(), "in", productIds),
     limit(10)
+  );
+  return getDocs(productQuery);
+}
+
+export async function getSeenProducts(productIds: string[]) {
+  const productQuery = query(
+    collection(db, "products"),
+    where(documentId(), "in", productIds),
+    limit(20)
   );
   return getDocs(productQuery);
 }

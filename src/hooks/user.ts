@@ -21,6 +21,22 @@ async function updateSearch(keyWord: string, isAdd: boolean) {
   }).then((res) => res.json());
 }
 
+async function updateSeen(productId: string, isAdd: boolean) {
+  return fetch("/api/seen", {
+    method: "PUT",
+    body: JSON.stringify({
+      productId,
+      isAdd,
+    }),
+  }).then((res) => res.json());
+}
+
+async function removeSeenAll() {
+  return fetch("/api/seen/removeAll", {
+    method: "PUT",
+  }).then((res) => res.json());
+}
+
 export default function useCurrentUser() {
   const {
     data: user,
@@ -62,7 +78,7 @@ export default function useCurrentUser() {
             keyWord,
           ];
         } else {
-          searchList = [...user.search.slice(0, 9), keyWord];
+          searchList = [...user.search.slice(1, 9), keyWord];
         }
       } else {
         if (user.search.includes(keyWord)) {
@@ -90,5 +106,11 @@ export default function useCurrentUser() {
     });
   };
 
-  return { user, error, isLoading, toggleLike, updateSearchHistory };
+  return {
+    user,
+    error,
+    isLoading,
+    toggleLike,
+    updateSearchHistory,
+  };
 }

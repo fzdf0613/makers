@@ -12,9 +12,10 @@ import LikeButton from "../LikeButton";
 
 type Props = {
   product: Product;
+  imagePriority?: boolean;
 };
 
-export default function HomeItem({ product }: Props) {
+export default function HomeItem({ product, imagePriority = false }: Props) {
   const [badgeState] = useState(getBadgeState(product));
   return (
     <div className="mb-9">
@@ -25,6 +26,7 @@ export default function HomeItem({ product }: Props) {
             alt={product.name}
             fill
             className="object-cover"
+            priority={imagePriority}
           />
           {badgeState && (
             <div className="absolute left-4 -bottom-2">

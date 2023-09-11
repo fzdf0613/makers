@@ -18,6 +18,7 @@ export default function SWRContext({ children }: Props) {
           return data;
         },
         revalidateOnFocus: false,
+        revalidateOnMount: true,
       }}
     >
       {children}

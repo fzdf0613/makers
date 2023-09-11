@@ -1,4 +1,5 @@
 import { Product } from "@/customType/product";
+import { isOnOrder } from "@/util/date";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,7 +11,7 @@ export default function SearchItem({ product }: Props) {
   return (
     <Link href={`/items/${product.id}`}>
       <li className="py-[15px] flex border-b border-[#f1f1f1]">
-        <div className="w-40 h-[112px] relative">
+        <div className="w-40 h-[112px] min-w-[160px] relative">
           <Image
             className="object-cover"
             src={product.imageUrl}
@@ -26,22 +27,17 @@ export default function SearchItem({ product }: Props) {
           </div>
           <div
             className={`mt-2 font-semibold ${
-              isOrderEnd(new Date(product.orderEndTime))
-                ? "text-[#9b9b9b]"
-                : "text-[#ed554d]"
+              isOnOrder(new Date(product.orderEndTime))
+                ? "text-[#ed554d]"
+                : "text-[#9b9b9b]"
             }`}
           >
-            {isOrderEnd(new Date(product.orderEndTime))
-              ? "주문 종료"
-              : `${product.orderUserCount}명 주문 중`}
+            {isOnOrder(new Date(product.orderEndTime))
+              ? `${product.orderUserCount}명 주문 중`
+              : "주문 종료"}
           </div>
         </div>
       </li>
     </Link>
   );
-}
-
-function isOrderEnd(endDate: Date) {
-  const today = new Date();
-  return today.getTime() > endDate.getTime();
 }

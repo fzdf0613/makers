@@ -25,6 +25,11 @@ export function isAlert(endDate: Date) {
   );
 }
 
+export function isOnOrder(endDate: Date) {
+  const today = new Date();
+  return today.getTime() < endDate.getTime();
+}
+
 export function getMonday() {
   const today = new Date();
   const dayOfWeek = today.getDay();

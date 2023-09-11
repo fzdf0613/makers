@@ -1,6 +1,22 @@
 import { Product, SearchedProduct } from "@/customType/product";
 import useSWR from "swr";
 
+async function updateSeen(productId: string, isAdd: boolean) {
+  return fetch("/api/seen", {
+    method: "PUT",
+    body: JSON.stringify({
+      productId,
+      isAdd,
+    }),
+  }).then((res) => res.json());
+}
+
+async function removeSeenAll() {
+  return fetch("/api/seen/removeAll", {
+    method: "PUT",
+  }).then((res) => res.json());
+}
+
 export function useProducts(path?: string) {
   const {
     data: products,
@@ -59,4 +75,53 @@ export function useProductsByFilter({
   );
 
   return { products, error, isLoading };
+}
+
+export function useSeenProducts() {
+  const {
+    data: products,
+    isValidating,
+    isLoading,
+    error,
+    mutate,
+  } = useSWR<Product[]>("/api/products/seen");
+
+  const removeSeenList = (targetProductId: string) => {
+    if (!products) {
+      return;
+    }
+
+    const updated = products.filter(
+      (product) => product.id !== targetProductId
+    );
+
+    return mutate(updateSeen(targetProductId, false), {
+      optimisticData: updated,
+      revalidate: false,
+      populateCache: false,
+    });
+  };
+
+  const resetSeenList = () => {
+    if (!products) {
+      return;
+    }
+
+    const updated: Product[] = [];
+
+    return mutate(removeSeenAll, {
+      optimisticData: updated,
+      revalidate: false,
+      populateCache: false,
+    });
+  };
+
+  return {
+    products,
+    error,
+    isLoading,
+    isValidating,
+    removeSeenList,
+    resetSeenList,
+  };
 }
