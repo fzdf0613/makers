@@ -71,23 +71,16 @@ export default function useCurrentUser() {
     let searchList: string[] = [];
 
     if (isAdd) {
-      if (user.search.length === 10) {
-        if (user.search.includes(keyWord)) {
-          searchList = [
-            ...user.search.filter((item) => item !== keyWord),
-            keyWord,
-          ];
-        } else {
-          searchList = [...user.search.slice(1, 9), keyWord];
-        }
+      if (user.search.includes(keyWord)) {
+        searchList = [
+          keyWord,
+          ...user.search.filter((item) => item !== keyWord),
+        ];
       } else {
-        if (user.search.includes(keyWord)) {
-          searchList = [
-            ...user.search.filter((item) => item !== keyWord),
-            keyWord,
-          ];
+        if (user.search.length === 10) {
+          searchList = [keyWord, ...user.search.slice(0, 9)];
         } else {
-          searchList = [...user.search, keyWord];
+          searchList = [keyWord, ...user.search];
         }
       }
     } else {

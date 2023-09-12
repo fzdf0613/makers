@@ -143,25 +143,20 @@ export async function addSearchKeyWord(userId: string, keyWord: string) {
     }
     const searchList = doc.data().search;
     let updatedList;
-    if (searchList.length === 10) {
-      if (searchList.includes(keyWord)) {
-        updatedList = [
-          ...searchList.filter((item: string) => item !== keyWord),
-          keyWord,
-        ];
-      } else {
-        updatedList = [...searchList.slice(1, 9), keyWord];
-      }
+
+    if (searchList.includes(keyWord)) {
+      updatedList = [
+        keyWord,
+        ...searchList.filter((item: string) => item !== keyWord),
+      ];
     } else {
-      if (searchList.includes(keyWord)) {
-        updatedList = [
-          ...searchList.filter((item: string) => item !== keyWord),
-          keyWord,
-        ];
+      if (searchList.length === 10) {
+        updatedList = [keyWord, ...searchList.slice(0, 9)];
       } else {
-        updatedList = [...searchList, keyWord];
+        updatedList = [keyWord, ...searchList];
       }
     }
+
     transaction.update(userRef, { search: updatedList });
   });
 }

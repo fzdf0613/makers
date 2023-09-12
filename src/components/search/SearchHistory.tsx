@@ -17,17 +17,14 @@ export default function SearchHistory({
       <div className="mt-2">
         {searchList.length !== 0 ? (
           <ul className="flex flex-wrap" id="search-item-list">
-            {searchList
-              .slice()
-              .reverse()
-              .map((keyWord, i) => (
-                <KeyWord
-                  key={`${keyWord}_${i}`}
-                  keyWord={keyWord}
-                  handleKeyWordClick={handleKeyWordClick}
-                  handleKeyWordDelete={handleKeyWordDelete}
-                />
-              ))}
+            {searchList.map((keyWord, i) => (
+              <KeyWord
+                key={`${keyWord}_${i}`}
+                keyWord={keyWord}
+                handleKeyWordClick={handleKeyWordClick}
+                handleKeyWordDelete={handleKeyWordDelete}
+              />
+            ))}
           </ul>
         ) : (
           <div className="py-4 text-[#6c6c6c] text-center">
