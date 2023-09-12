@@ -21,22 +21,6 @@ async function updateSearch(keyWord: string, isAdd: boolean) {
   }).then((res) => res.json());
 }
 
-async function updateSeen(productId: string, isAdd: boolean) {
-  return fetch("/api/seen", {
-    method: "PUT",
-    body: JSON.stringify({
-      productId,
-      isAdd,
-    }),
-  }).then((res) => res.json());
-}
-
-async function removeSeenAll() {
-  return fetch("/api/seen/removeAll", {
-    method: "PUT",
-  }).then((res) => res.json());
-}
-
 export default function useCurrentUser() {
   const {
     data: user,

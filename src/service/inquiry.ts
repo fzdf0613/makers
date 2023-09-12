@@ -8,6 +8,8 @@ import {
   limit,
   getDocs,
   documentId,
+  updateDoc,
+  deleteField,
 } from "firebase/firestore";
 
 export async function addInquiry(id: string, inquiry: any) {
@@ -30,4 +32,38 @@ export async function getPostInquirys(postId: string) {
     limit(10)
   );
   return getDocs(inquirysQuery);
+}
+
+export async function getWaitingInquirys() {
+  const inquirysQuery = query(
+    collection(db, "inquirys"),
+    where("answer", "==", ""),
+    limit(30)
+  );
+  return getDocs(inquirysQuery);
+}
+
+export async function getAnsweredInquirys() {
+  const inquirysQuery = query(
+    collection(db, "inquirys"),
+    where("answer", "!=", ""),
+    limit(30)
+  );
+  return getDocs(inquirysQuery);
+}
+
+export async function addAnswer(
+  inquiryId: string,
+  answer: { text: string; createdAt: number }
+) {
+  const inquiryRef = doc(db, "inquirys", inquiryId);
+  return updateDoc(inquiryRef, {
+    answer: answer.text,
+    answeredAt: answer.createdAt,
+  });
+}
+
+export async function removeAnswer(inquiryId: string) {
+  const inquiryRef = doc(db, "inquirys", inquiryId);
+  return updateDoc(inquiryRef, { answer: "", answeredAt: deleteField() });
 }

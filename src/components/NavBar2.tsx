@@ -9,8 +9,8 @@ export default function NavBar2() {
   const pathname = usePathname();
   const router = useRouter();
   return (
-    <nav className="h-[55px] flex justify-between items-center bg-white border-b border-neutral-200 px-2 relative">
-      <div className="flex">
+    <nav className="h-[55px] flex justify-center items-center bg-white border-b border-neutral-200 px-2 relative">
+      <div className="flex absolute left-0">
         <button onClick={() => router.back()}>
           <BackIcon />
         </button>
@@ -18,11 +18,9 @@ export default function NavBar2() {
           <HomeIcon />{" "}
         </Link>
       </div>
-      <h2 className="absolute left-[50%] -translate-[50%]">
-        {setTitle(pathname)}
-      </h2>
+      <h2>{setTitle(pathname)}</h2>
       {pathname !== "/search" && (
-        <Link href="/search">
+        <Link href="/search" className="absolute right-0">
           <SearchIcon />
         </Link>
       )}
@@ -38,6 +36,8 @@ function setTitle(pathname: string) {
       return "프로필 설정";
     case "/search":
       return "검색";
+    case "/answer":
+      return "제품문의 답변";
     default:
       return "";
   }

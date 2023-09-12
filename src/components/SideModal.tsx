@@ -37,7 +37,7 @@ const sideModalMenus = [
     { name: "상품 등록", url: "/post/new", disabled: false, isAdminMenu: true },
     {
       name: "제품문의 답변 등록",
-      url: "/",
+      url: "/answer",
       disabled: false,
       isAdminMenu: true,
     },

@@ -18,7 +18,7 @@ export default function ReviewTab({ tab }: Props) {
   }, [tab, router]);
 
   return (
-    <div className="flex text-sm w-full border-y border-[#dee2e6]">
+    <div className="flex text-sm w-full border-y border-[#dee2e6] -mt-[1px]">
       <div className="w-1/2 text-center border-[#dee2e6] border-r">
         <Link href="/my/review?location=written">
           <div
