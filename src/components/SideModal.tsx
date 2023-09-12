@@ -6,6 +6,7 @@ import Image from "next/image";
 import SettingIcon from "./ui/icons/SettingIcon";
 import { SessionUser } from "@/customType/user";
 import { signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 type Props = {
   closeModal: () => void;
@@ -13,9 +14,44 @@ type Props = {
 };
 
 const sideModalMenus = [
-  ["주문•배송 내역", "후기 내역", "1:1 문의 내역", "제품문의 내역", "쿠폰함"],
-  ["공지사항", "도움말 / 문의"],
-  ["메이커스 소개", "브랜드 스토리", "브랜드 전체보기", "입점 제안하기"],
+  [
+    {
+      name: "주문 내역",
+      url: "/my/order",
+      disabled: false,
+      isAdminMenu: false,
+    },
+    {
+      name: "후기 내역",
+      url: "/my/review?location=written",
+      disabled: false,
+      isAdminMenu: false,
+    },
+    {
+      name: "제품문의 내역",
+      url: "/my/inquiry",
+      disabled: false,
+      isAdminMenu: false,
+    },
+    { name: "쿠폰함", url: "/", disabled: true, isAdminMenu: false },
+    { name: "상품 등록", url: "/post/new", disabled: false, isAdminMenu: true },
+    {
+      name: "제품문의 답변 등록",
+      url: "/",
+      disabled: false,
+      isAdminMenu: true,
+    },
+  ],
+  [
+    { name: "공지사항", url: "/", disabled: true, isAdminMenu: false },
+    { name: "도움말 / 문의", url: "/", disabled: true, isAdminMenu: false },
+  ],
+  [
+    { name: "메이커스 소개", url: "/", disabled: true, isAdminMenu: false },
+    { name: "브랜드 스토리", url: "/", disabled: true, isAdminMenu: false },
+    { name: "브랜드 전체보기", url: "/", disabled: true, isAdminMenu: false },
+    { name: "입점 제안하기", url: "/", disabled: true, isAdminMenu: false },
+  ],
 ];
 
 export default function SideModal({ closeModal, user }: Props) {
@@ -66,17 +102,67 @@ export default function SideModal({ closeModal, user }: Props) {
           </div>
         </div>
         <ul className="pl-[20px]">
-          {sideModalMenus.map((item, i) => (
-            <li key={i} className="pt-[20px] border-t border-neutral-200">
-              <ul className="flex flex-col">
-                {item.map((menu) => (
-                  <li key={menu} className="pb-[20px] text-sm">
-                    {menu}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
+          {sideModalMenus.map((item, i) => {
+            return (
+              <li key={i} className="">
+                <ul className="flex flex-col pt-[20px] border-t border-neutral-200">
+                  {item.map((menu, j) => {
+                    if (user) {
+                      return (
+                        user.isAdmin === menu.isAdminMenu && (
+                          <li
+                            key={j}
+                            className={`pb-[20px] text-sm ${
+                              menu.disabled && "text-[#9b9b9b]"
+                            }`}
+                          >
+                            <Link
+                              href={menu.url}
+                              className={
+                                menu.disabled
+                                  ? "pointer-events-none"
+                                  : undefined
+                              }
+                            >
+                              <button
+                                onClick={() => {
+                                  closeModal();
+                                }}
+                              >
+                                {menu.name}
+                              </button>
+                            </Link>
+                          </li>
+                        )
+                      );
+                    } else {
+                      return (
+                        !menu.isAdminMenu && (
+                          <li
+                            key={j}
+                            className={`pb-[20px] text-sm ${
+                              menu.disabled && "text-[#9b9b9b]"
+                            }`}
+                          >
+                            <button
+                              disabled={menu.disabled}
+                              onClick={() => {
+                                signIn(undefined, {
+                                  callbackUrl: encodeURI(menu.url),
+                                });
+                              }}
+                            >
+                              {menu.name}
+                            </button>
+                          </li>
+                        )
+                      );
+                    }
+                  })}
+                </ul>
+              </li>
+            );
+          })}
         </ul>
         <div className="px-[20px]">
           <Button className="w-full bg-black text-white justify-center h-[45px] mb-2">
