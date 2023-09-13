@@ -72,7 +72,7 @@ export async function getUserById(id: string) {
       id: snapshot.id,
       like: userData.like ?? [],
       ordered: userData.ordered ?? [],
-      qna: userData.qna ?? [],
+      inquiry: userData.inquiry ?? [],
       review: userData.review ?? [],
       seen: userData.seen ?? [],
     };

@@ -30,21 +30,34 @@ export async function addProduct(product: Product) {
 export async function getProducts() {
   const productQuery = query(
     collection(db, "products"),
-    orderBy("id", "desc"),
+    where("orderEndTime", ">", new Date()),
+    orderBy("orderEndTime", "asc"),
+    orderBy("orderStartTime", "desc"),
     limit(10)
   );
   return getDocs(productQuery);
 }
 
 export async function getNewProducts() {
-  const monday = getMonday().toISOString().split("T")[0];
-  const nextMonday = getNextMonday().toISOString().split("T")[0];
+  // const monday = getMonday().toISOString().split("T")[0];
+  // const nextMonday = getNextMonday().toISOString().split("T")[0];
+
+  // const productQuery = query(
+  //   collection(db, "products"),
+  //   where("orderStartDate", ">", monday),
+  //   where("orderStartDate", "<=", nextMonday),
+  //   orderBy("orderStartDate", "desc"),
+  //   limit(10)
+  // );
+
+  const monday = getMonday();
+  const nextMonday = getNextMonday();
 
   const productQuery = query(
     collection(db, "products"),
-    where("orderStartDate", ">", monday),
-    where("orderStartDate", "<=", nextMonday),
-    orderBy("orderStartDate", "desc"),
+    where("orderStartTime", ">", monday),
+    where("orderStartTime", "<=", nextMonday),
+    orderBy("orderStartTime", "desc"),
     limit(10)
   );
   return getDocs(productQuery);
@@ -53,21 +66,29 @@ export async function getNewProducts() {
 export async function searchProducts(keyWord: string) {
   const productQuery = query(
     collection(db, "products"),
-    orderBy("orderStartDate", "desc"),
+    orderBy("orderStartTime", "desc"),
     limit(20)
   );
   return getDocs(productQuery);
 }
 
 export async function getPreorderProducts() {
-  const date = new Date();
-  const today = date.toISOString().split("T")[0];
+  // const date = new Date();
+  // const today = date.toISOString().split("T")[0];
+  // const productQuery = query(
+  //   collection(db, "products"),
+  //   where("orderStartDate", ">", today),
+  //   orderBy("orderStartDate", "desc"),
+  //   limit(10)
+  // );
+
   const productQuery = query(
     collection(db, "products"),
-    where("orderStartDate", ">", today),
-    orderBy("orderStartDate", "desc"),
+    where("orderStartTime", ">", new Date()),
+    orderBy("orderStartTime", "desc"),
     limit(10)
   );
+
   return getDocs(productQuery);
 }
 
@@ -156,7 +177,7 @@ function getFieldBySort(sort: string): { name: string; order: "desc" | "asc" } {
     case "LATEST":
       return { name: "id", order: "desc" };
     case "CLOSING":
-      return { name: "orderEndDate", order: "asc" };
+      return { name: "orderEndTime", order: "asc" };
     case "ORDER":
       return { name: "currentOrderCount", order: "desc" };
     default:
