@@ -15,7 +15,13 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const categoryQueryNames = getCategoryQueryNames(category, parseInt(index));
+  let categoryQueryNames;
+
+  if (category === "all") {
+    categoryQueryNames = { category: "all", subcategory: "all" };
+  } else {
+    categoryQueryNames = getCategoryQueryNames(category, parseInt(index));
+  }
 
   if (!categoryQueryNames) {
     return NextResponse.json(

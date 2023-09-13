@@ -118,21 +118,29 @@ export async function getProductsByFilter(filter: {
   let productQuery;
   const sortFilter = getFieldBySort(filter.sort);
 
-  if (filter.subcategory === "전체") {
+  if (filter.category === "all") {
     productQuery = query(
       collection(db, "products"),
-      where("category", "==", filter.category),
       orderBy(sortFilter.name, sortFilter.order),
       limit(10)
     );
   } else {
-    productQuery = query(
-      collection(db, "products"),
-      where("category", "==", filter.category),
-      where("subcategory", "==", filter.subcategory),
-      orderBy("id", "desc"),
-      limit(10)
-    );
+    if (filter.subcategory === "전체") {
+      productQuery = query(
+        collection(db, "products"),
+        where("category", "==", filter.category),
+        orderBy(sortFilter.name, sortFilter.order),
+        limit(10)
+      );
+    } else {
+      productQuery = query(
+        collection(db, "products"),
+        where("category", "==", filter.category),
+        where("subcategory", "==", filter.subcategory),
+        orderBy("id", "desc"),
+        limit(10)
+      );
+    }
   }
 
   return getDocs(productQuery);

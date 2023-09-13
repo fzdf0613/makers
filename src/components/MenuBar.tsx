@@ -23,11 +23,13 @@ export default function MenuBar() {
     if (!pathName) {
       return;
     }
-    if (pathName.startsWith("/my")) {
+    if (pathName.startsWith("/new")) {
+      setMenu("홈");
+      return;
+    } else if (pathName.startsWith("/my")) {
       setMenu("마이");
       return;
-    }
-    if (pathName.startsWith("/home")) {
+    } else if (pathName.startsWith("/home")) {
       setMenu("홈");
       return;
     }

@@ -7,12 +7,7 @@ import { subcategories } from "@/constants/categories";
 import { CategoryValue } from "@/customType/category";
 import Link from "next/link";
 import { useScrollYContext } from "@/context/ScrollYContext";
-
-const sortItemList = [
-  { value: "LATEST", name: "최신순" },
-  { value: "ORDER", name: "주문 많은 순" },
-  { value: "CLOSING", name: "마감 임박 순" },
-];
+import { sortItemList } from "@/constants/sortItems";
 
 type Props = {
   filterOpen: "LEFT" | "RIGHT" | undefined;
