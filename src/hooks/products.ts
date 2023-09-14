@@ -58,28 +58,7 @@ export function usePreorderProducts() {
   return { products, error, isLoading };
 }
 
-export function useProductsByFilter(
-  {
-    category,
-    subcategory,
-    sort,
-  }: { category: string; subcategory: number; sort: string },
-  cursor?: string
-) {
-  const {
-    data: products,
-    isLoading,
-    error,
-  } = useSWR<Product[]>(
-    `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}${
-      cursor ? `&cursor=${cursor}` : ""
-    }`
-  );
-
-  return { products, error, isLoading };
-}
-
-export function useProductsByFilterTemp({
+export function useProductsByFilter({
   category,
   subcategory,
   sort,

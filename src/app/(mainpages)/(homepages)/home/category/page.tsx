@@ -4,9 +4,6 @@ import FilterBar from "@/components/home/category/FilterBar";
 import QuickLinkCard from "@/components/home/category/QuickLinkCard";
 import { subcategories } from "@/constants/categories";
 import { CategoryValue } from "@/customType/category";
-import { Product } from "@/customType/product";
-import { useQuickLinkProduct } from "@/hooks/product";
-import { useProductsByFilter } from "@/hooks/products";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -20,15 +17,6 @@ export default function CategoryPage({
   };
 }) {
   const router = useRouter();
-  const { products, error, isLoading } = useProductsByFilter({
-    category: searchParams.category,
-    subcategory: searchParams.subcategory,
-    sort: searchParams.sort,
-  });
-
-  const { product: quickLinkProduct } = useQuickLinkProduct(
-    searchParams.category
-  );
 
   useEffect(() => {
     if (
@@ -46,7 +34,7 @@ export default function CategoryPage({
 
   return (
     <>
-      {quickLinkProduct && <QuickLinkCard product={quickLinkProduct} />}
+      <QuickLinkCard category={searchParams.category} />
       <FilterBar
         category={searchParams.category}
         categoryIndex={searchParams.subcategory}
@@ -58,9 +46,12 @@ export default function CategoryPage({
         }
       />
       <div className="pt-[25px] px-4 relative">
-        {products && (
-          <CategoryItemList products={products} filterOpen={filterOpen} />
-        )}
+        <CategoryItemList
+          category={searchParams.category}
+          subcategory={searchParams.subcategory}
+          sort={searchParams.sort}
+          filterOpen={filterOpen}
+        />
       </div>
     </>
   );

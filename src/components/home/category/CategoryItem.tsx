@@ -7,9 +7,10 @@ import LikeButton from "@/components/LikeButton";
 
 type Props = {
   product: Product;
+  imagePrioiry?: boolean;
 };
 
-export default function CategoryItem({ product }: Props) {
+export default function CategoryItem({ product, imagePrioiry = false }: Props) {
   return (
     <Link href={`items/${product.id}`}>
       <div className="mb-10 cursor-pointer">
@@ -19,6 +20,8 @@ export default function CategoryItem({ product }: Props) {
             src={product.imageUrl}
             alt={product.name}
             fill
+            sizes="300px"
+            priority={imagePrioiry}
           />
           <LikeButton
             productId={product.id}

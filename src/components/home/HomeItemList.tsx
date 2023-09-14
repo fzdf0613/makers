@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
-import { useProductsByFilterTemp } from "@/hooks/products";
+import { useProductsByFilter } from "@/hooks/products";
 import HomeItem from "./HomeItem";
 import Dropdown from "@/components/ui/Dropdown";
 import { sortItemList } from "@/constants/sortItems";
@@ -11,7 +11,7 @@ export default function HomeItemList() {
     useState<(typeof sortItemList)[number]["value"]>("LATEST");
 
   const { data, error, isLoading, isValidating, size, setSize } =
-    useProductsByFilterTemp({
+    useProductsByFilter({
       category: "all",
       subcategory: 0,
       sort,
