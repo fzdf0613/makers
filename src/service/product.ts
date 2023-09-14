@@ -16,7 +16,6 @@ import {
   updateDoc,
   increment,
   documentId,
-  runTransaction,
   Query,
 } from "firebase/firestore";
 
@@ -41,17 +40,6 @@ export async function getProducts() {
 }
 
 export async function getNewProducts() {
-  // const monday = getMonday().toISOString().split("T")[0];
-  // const nextMonday = getNextMonday().toISOString().split("T")[0];
-
-  // const productQuery = query(
-  //   collection(db, "products"),
-  //   where("orderStartDate", ">", monday),
-  //   where("orderStartDate", "<=", nextMonday),
-  //   orderBy("orderStartDate", "desc"),
-  //   limit(10)
-  // );
-
   const monday = getMonday();
   const nextMonday = getNextMonday();
 
@@ -75,15 +63,6 @@ export async function searchProducts(keyWord: string) {
 }
 
 export async function getPreorderProducts() {
-  // const date = new Date();
-  // const today = date.toISOString().split("T")[0];
-  // const productQuery = query(
-  //   collection(db, "products"),
-  //   where("orderStartDate", ">", today),
-  //   orderBy("orderStartDate", "desc"),
-  //   limit(10)
-  // );
-
   const productQuery = query(
     collection(db, "products"),
     where("orderStartTime", ">", new Date()),
@@ -127,8 +106,7 @@ export async function getProductsByFilter(
     productQuery = query(
       collection(db, "products"),
       orderBy(sortFilter.name, sortFilter.order),
-      // limit(10)
-      limit(2)
+      limit(10)
     );
   } else {
     if (filter.subcategory === "전체") {
@@ -136,8 +114,7 @@ export async function getProductsByFilter(
         collection(db, "products"),
         where("category", "==", filter.category),
         orderBy(sortFilter.name, sortFilter.order),
-        // limit(10)
-        limit(2)
+        limit(10)
       );
     } else {
       productQuery = query(
@@ -145,8 +122,7 @@ export async function getProductsByFilter(
         where("category", "==", filter.category),
         where("subcategory", "==", filter.subcategory),
         orderBy("id", "desc"),
-        // limit(10)
-        limit(2)
+        limit(10)
       );
     }
   }
