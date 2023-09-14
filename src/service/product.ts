@@ -106,7 +106,7 @@ export async function getProductsByFilter(
     productQuery = query(
       collection(db, "products"),
       orderBy(sortFilter.name, sortFilter.order),
-      limit(10)
+      limit(2)
     );
   } else {
     if (filter.subcategory === "전체") {
@@ -114,7 +114,7 @@ export async function getProductsByFilter(
         collection(db, "products"),
         where("category", "==", filter.category),
         orderBy(sortFilter.name, sortFilter.order),
-        limit(10)
+        limit(2)
       );
     } else {
       productQuery = query(
@@ -122,7 +122,7 @@ export async function getProductsByFilter(
         where("category", "==", filter.category),
         where("subcategory", "==", filter.subcategory),
         orderBy("id", "desc"),
-        limit(10)
+        limit(2)
       );
     }
   }

@@ -17,7 +17,7 @@ export default function InfiniteScrollSentinel({
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // observer.unobserve(entry.target);
+            observer.unobserve(entry.target);
             onIntersect();
           }
         });

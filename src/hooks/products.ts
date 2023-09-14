@@ -88,28 +88,22 @@ export function useProductsByFilterTemp({
   subcategory: number;
   sort: string;
 }) {
-  const {
-    data: products,
-    isLoading,
-    isValidating,
-    error,
-    size,
-    setSize,
-  } = useSWRInfinite<Product[]>((pageIndex, previousPageData) => {
-    // 첫 페이지
-    if (pageIndex === 0 && !previousPageData) {
-      return `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}`;
-    }
-    if (previousPageData) {
-      if (!previousPageData.length) {
-        return null;
+  const { data, isLoading, isValidating, error, size, setSize } =
+    useSWRInfinite<Product[]>((pageIndex, previousPageData) => {
+      // 첫 페이지
+      if (pageIndex === 0 && !previousPageData) {
+        return `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}`;
       }
-      const cursor = previousPageData[previousPageData.length - 1].id;
-      return `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}&cursor=${cursor}`;
-    }
-  });
+      if (previousPageData) {
+        if (!previousPageData.length) {
+          return null;
+        }
+        const cursor = previousPageData[previousPageData.length - 1].id;
+        return `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}&cursor=${cursor}`;
+      }
+    });
 
-  return { products, error, isLoading, size, setSize, isValidating };
+  return { data, error, isLoading, size, setSize, isValidating };
 }
 
 export function useSeenProducts() {
