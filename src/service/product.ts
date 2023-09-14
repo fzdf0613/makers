@@ -16,6 +16,8 @@ import {
   updateDoc,
   increment,
   documentId,
+  runTransaction,
+  Query,
 } from "firebase/firestore";
 
 export async function addProduct(product: Product) {
@@ -110,19 +112,23 @@ export async function getSeenProducts(productIds: string[]) {
   return getDocs(productQuery);
 }
 
-export async function getProductsByFilter(filter: {
-  category: string;
-  subcategory: string;
-  sort: string;
-}) {
-  let productQuery;
+export async function getProductsByFilter(
+  filter: {
+    category: string;
+    subcategory: string;
+    sort: string;
+  },
+  cursor?: string
+) {
+  let productQuery: Query;
   const sortFilter = getFieldBySort(filter.sort);
 
   if (filter.category === "all") {
     productQuery = query(
       collection(db, "products"),
       orderBy(sortFilter.name, sortFilter.order),
-      limit(10)
+      // limit(10)
+      limit(2)
     );
   } else {
     if (filter.subcategory === "전체") {
@@ -130,7 +136,8 @@ export async function getProductsByFilter(filter: {
         collection(db, "products"),
         where("category", "==", filter.category),
         orderBy(sortFilter.name, sortFilter.order),
-        limit(10)
+        // limit(10)
+        limit(2)
       );
     } else {
       productQuery = query(
@@ -138,9 +145,21 @@ export async function getProductsByFilter(filter: {
         where("category", "==", filter.category),
         where("subcategory", "==", filter.subcategory),
         orderBy("id", "desc"),
-        limit(10)
+        // limit(10)
+        limit(2)
       );
     }
+  }
+
+  if (cursor) {
+    console.log("cursor :", cursor);
+    const cursorRef = doc(db, "products", cursor);
+    const cursorDoc = await getDoc(cursorRef);
+    if (!cursorDoc.exists()) {
+      throw new Error("데이터가 존재하지 않습니다.");
+    }
+    const queryWithCursor = query(productQuery, startAfter(cursorDoc));
+    return getDocs(queryWithCursor);
   }
 
   return getDocs(productQuery);

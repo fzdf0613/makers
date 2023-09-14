@@ -1,5 +1,6 @@
 import { Product, SearchedProduct } from "@/customType/product";
 import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 
 async function updateSeen(productId: string, isAdd: boolean) {
   return fetch("/api/seen", {
@@ -57,7 +58,28 @@ export function usePreorderProducts() {
   return { products, error, isLoading };
 }
 
-export function useProductsByFilter({
+export function useProductsByFilter(
+  {
+    category,
+    subcategory,
+    sort,
+  }: { category: string; subcategory: number; sort: string },
+  cursor?: string
+) {
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useSWR<Product[]>(
+    `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}${
+      cursor ? `&cursor=${cursor}` : ""
+    }`
+  );
+
+  return { products, error, isLoading };
+}
+
+export function useProductsByFilterTemp({
   category,
   subcategory,
   sort,
@@ -69,12 +91,25 @@ export function useProductsByFilter({
   const {
     data: products,
     isLoading,
+    isValidating,
     error,
-  } = useSWR<Product[]>(
-    `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}`
-  );
+    size,
+    setSize,
+  } = useSWRInfinite<Product[]>((pageIndex, previousPageData) => {
+    // 첫 페이지
+    if (pageIndex === 0 && !previousPageData) {
+      return `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}`;
+    }
+    if (previousPageData) {
+      if (!previousPageData.length) {
+        return null;
+      }
+      const cursor = previousPageData[previousPageData.length - 1].id;
+      return `/api/products/category?category=${category}&subcategory=${subcategory}&sort=${sort}&cursor=${cursor}`;
+    }
+  });
 
-  return { products, error, isLoading };
+  return { products, error, isLoading, size, setSize, isValidating };
 }
 
 export function useSeenProducts() {

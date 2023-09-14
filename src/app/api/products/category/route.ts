@@ -1,4 +1,4 @@
-import { categories, subcategories } from "@/constants/categories";
+import { categories } from "@/constants/categories";
 import { getProductsByFilter } from "@/service/product";
 import { getFomattedProduct } from "@/util/productFormat";
 import { NextResponse, NextRequest } from "next/server";
@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
   const category = req.nextUrl.searchParams.get("category");
   const index = req.nextUrl.searchParams.get("subcategory");
   const sort = req.nextUrl.searchParams.get("sort");
+  const cursor = req.nextUrl.searchParams.get("cursor");
 
   if (!category || !index || !sort) {
     return NextResponse.json(
@@ -33,7 +34,7 @@ export async function GET(req: NextRequest) {
   const filter = { ...categoryQueryNames, sort };
 
   try {
-    const snapshot = await getProductsByFilter(filter);
+    const snapshot = await getProductsByFilter(filter, cursor ?? undefined);
     const products = snapshot.docs.map((doc) => getFomattedProduct(doc.data()));
     return NextResponse.json(products);
   } catch (error) {
