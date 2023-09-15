@@ -9,6 +9,8 @@ import {
   getDocs,
   documentId,
   orderBy,
+  getDoc,
+  startAfter,
 } from "firebase/firestore";
 
 export async function addReview(id: string, review: any) {
@@ -24,11 +26,20 @@ export async function getUserReviews(reviewIds: string[]) {
   return getDocs(reviewsQuery);
 }
 
-export async function getPostReviews(postId: string) {
+export async function getPostReviews(postId: string, cursor?: string) {
   const reviewsQuery = query(
     collection(db, "reviews"),
     where("productId", "==", postId),
     limit(10)
   );
+  if (cursor) {
+    const cursorRef = doc(db, "reviews", cursor);
+    const cursorDoc = await getDoc(cursorRef);
+    if (!cursorDoc.exists()) {
+      throw new Error("데이터가 존재하지 않습니다.");
+    }
+    const queryWithCursor = query(reviewsQuery, startAfter(cursorDoc));
+    return getDocs(queryWithCursor);
+  }
   return getDocs(reviewsQuery);
 }

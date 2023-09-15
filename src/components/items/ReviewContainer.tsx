@@ -28,7 +28,7 @@ export default function ReviewContainer({ reviewCount, postId }: Props) {
       <h4 className="font-bold py-4 text-sm mx-4">
         구매후기 {reviewCount.toLocaleString()}
       </h4>
-      <ReviewList postId={postId} />
+      <ReviewList postId={postId} reviewCount={reviewCount} />
     </div>
   );
 }
