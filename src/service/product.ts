@@ -39,7 +39,7 @@ export async function getProducts() {
   return getDocs(productQuery);
 }
 
-export async function getNewProducts() {
+export async function getNewProducts(cursor?: string) {
   const monday = getMonday();
   const nextMonday = getNextMonday();
 
@@ -50,6 +50,17 @@ export async function getNewProducts() {
     orderBy("orderStartTime", "desc"),
     limit(10)
   );
+
+  if (cursor) {
+    const cursorRef = doc(db, "products", cursor);
+    const cursorDoc = await getDoc(cursorRef);
+    if (!cursorDoc.exists()) {
+      throw new Error("데이터가 존재하지 않습니다.");
+    }
+    const queryWithCursor = query(productQuery, startAfter(cursorDoc));
+    return getDocs(queryWithCursor);
+  }
+
   return getDocs(productQuery);
 }
 
@@ -128,7 +139,6 @@ export async function getProductsByFilter(
   }
 
   if (cursor) {
-    console.log("cursor :", cursor);
     const cursorRef = doc(db, "products", cursor);
     const cursorDoc = await getDoc(cursorRef);
     if (!cursorDoc.exists()) {

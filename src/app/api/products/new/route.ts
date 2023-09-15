@@ -1,10 +1,12 @@
-import { getNewProducts } from "@/service/product";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { getFomattedProduct } from "@/util/productFormat";
+import { getNewProducts } from "@/service/product";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const cursor = req.nextUrl.searchParams.get("cursor");
+
   try {
-    const snapshot = await getNewProducts();
+    const snapshot = await getNewProducts(cursor ?? undefined);
     const products = snapshot.docs.map((doc) => getFomattedProduct(doc.data()));
     return NextResponse.json(products);
   } catch (error) {

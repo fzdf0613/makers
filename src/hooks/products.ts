@@ -29,13 +29,22 @@ export function useProducts(path?: string) {
 }
 
 export function useNewProducts() {
-  const {
-    data: products,
-    isLoading,
-    error,
-  } = useSWR<Product[]>("/api/products/new");
+  const { data, isLoading, isValidating, error, size, setSize } =
+    useSWRInfinite<Product[]>((pageIndex, previousPageData) => {
+      // 첫 페이지
+      if (pageIndex === 0 && !previousPageData) {
+        return `/api/products/new`;
+      }
+      if (previousPageData) {
+        if (!previousPageData.length) {
+          return null;
+        }
+        const cursor = previousPageData[previousPageData.length - 1].id;
+        return `/api/products/new?cursor=${cursor}`;
+      }
+    });
 
-  return { products, error, isLoading };
+  return { data, error, isLoading, size, setSize, isValidating };
 }
 
 export function useSearchProducts() {

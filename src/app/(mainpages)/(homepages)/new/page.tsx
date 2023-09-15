@@ -1,4 +1,3 @@
-"use client";
 import NewItemList from "@/components/home/new/NewItemList";
 import { getMonday, getNextMonday } from "@/util/date";
 
