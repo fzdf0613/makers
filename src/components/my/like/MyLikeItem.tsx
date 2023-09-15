@@ -1,5 +1,4 @@
 import LikeButton from "@/components/LikeButton";
-import LikeIcon2 from "@/components/ui/icons/LikeIcon2";
 import { Product } from "@/customType/product";
 import Image from "next/image";
 import Link from "next/link";

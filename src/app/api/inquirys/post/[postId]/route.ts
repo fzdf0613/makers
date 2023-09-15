@@ -7,9 +7,11 @@ type Context = {
   };
 };
 
-export async function GET(_: NextRequest, { params: { postId } }: Context) {
+export async function GET(req: NextRequest, { params: { postId } }: Context) {
+  const cursor = req.nextUrl.searchParams.get("cursor");
+
   try {
-    const snapshot = await getPostInquirys(postId);
+    const snapshot = await getPostInquirys(postId, cursor ?? undefined);
     const inquirys = snapshot.docs.map((doc) => doc.data());
     return NextResponse.json(inquirys);
   } catch (error) {

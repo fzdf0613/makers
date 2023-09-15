@@ -128,7 +128,12 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
           {tab === "구매후기" && (
             <ReviewContainer reviewCount={post.reviewCount} postId={post.id} />
           )}
-          {tab === "제품문의" && <InquiryContainer productId={product.id} />}
+          {tab === "제품문의" && (
+            <InquiryContainer
+              productId={product.id}
+              inquiryCount={post.inquiryCount}
+            />
+          )}
           <OrderBar post={post} product={product} />
         </>
       )}

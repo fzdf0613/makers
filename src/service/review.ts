@@ -19,8 +19,7 @@ export async function getUserReviews(reviewIds: string[]) {
   const reviewsQuery = query(
     collection(db, "reviews"),
     where(documentId(), "in", reviewIds),
-    orderBy(documentId()),
-    limit(20)
+    orderBy(documentId())
   );
   return getDocs(reviewsQuery);
 }

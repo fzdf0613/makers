@@ -1,21 +1,33 @@
 "use client";
+import DropDownIcon from "../ui/icons/DropDownIcon";
 import InquiryComment from "./InquiryComment";
 import { usePostInquirys } from "@/hooks/inquirys";
 
-type Props = { postId: string };
+type Props = {
+  inquiryCount: number;
+  postId: string;
+};
 
-export default function InquiryList({ postId }: Props) {
-  const { inquirys } = usePostInquirys(postId);
+export default function InquiryList({ postId, inquiryCount }: Props) {
+  const { data, error, isLoading, isValidating, size, setSize } =
+    usePostInquirys(postId);
   return (
     <div>
-      {inquirys && (
-        <ul>
-          {inquirys.map((inquiry) => (
-            <InquiryComment key={inquiry.id} inquiry={inquiry} />
-          ))}
-        </ul>
+      {data?.map((inquirys) => {
+        return inquirys.map((inquiry) => (
+          <InquiryComment key={inquiry.id} inquiry={inquiry} />
+        ));
+      })}
+      {Math.ceil(inquiryCount / 10) !== size && (
+        <button
+          className="bg-[#f9f9f9] py-3.5 text-[13px] flex justify-center items-center w-full border-t border-[#e4e4e4]"
+          onClick={() => setSize((prev) => prev + 1)}
+        >
+          제품 문의 더보기 {size}
+          <DropDownIcon className="ml-2" />
+        </button>
       )}
-      {!inquirys && (
+      {size === 1 && data?.at(-1)?.length === 0 && (
         <div className="py-6 flex items-center justify-center text-base">
           등록된 제품 문의가 없습니다.
         </div>

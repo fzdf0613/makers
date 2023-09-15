@@ -97,8 +97,7 @@ export async function getPreorderProducts(cursor?: string) {
 export async function getLikeProducts(productIds: string[]) {
   const productQuery = query(
     collection(db, "products"),
-    where(documentId(), "in", productIds),
-    limit(10)
+    where(documentId(), "in", productIds)
   );
   return getDocs(productQuery);
 }
@@ -106,8 +105,7 @@ export async function getLikeProducts(productIds: string[]) {
 export async function getSeenProducts(productIds: string[]) {
   const productQuery = query(
     collection(db, "products"),
-    where(documentId(), "in", productIds),
-    limit(20)
+    where(documentId(), "in", productIds)
   );
   return getDocs(productQuery);
 }

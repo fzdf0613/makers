@@ -1,5 +1,6 @@
 import { Inquiry } from "@/customType/inquiry";
 import useSWR, { useSWRConfig } from "swr";
+import useSWRInfinite from "swr/infinite";
 
 async function updateInquiry(
   inquiryId: string,
@@ -27,13 +28,22 @@ export function useUserInquirys() {
 }
 
 export function usePostInquirys(postId: string) {
-  const {
-    data: inquirys,
-    isLoading,
-    error,
-  } = useSWR<Inquiry[]>(`/api/inquirys/post/${postId}`);
+  const { data, isLoading, isValidating, error, size, setSize } =
+    useSWRInfinite<Inquiry[]>((pageIndex, previousPageData) => {
+      // 첫 페이지
+      if (pageIndex === 0 && !previousPageData) {
+        return `/api/inquirys/post/${postId}`;
+      }
+      if (previousPageData) {
+        if (!previousPageData.length) {
+          return null;
+        }
+        const cursor = previousPageData[previousPageData.length - 1].id;
+        return `/api/inquirys/post/${postId}?cursor=${cursor}`;
+      }
+    });
 
-  return { inquirys, error, isLoading };
+  return { data, error, isLoading, size, setSize, isValidating };
 }
 
 export function useInquirys(state: "waiting" | "answered" = "waiting") {
