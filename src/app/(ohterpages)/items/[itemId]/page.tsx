@@ -12,6 +12,7 @@ import usePost from "@/hooks/post";
 import { useProduct } from "@/hooks/product";
 import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function ItemPage({ params }: { params: { itemId: string } }) {
   const { data: session, status } = useSession();
@@ -134,6 +135,14 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
               inquiryCount={post.inquiryCount}
             />
           )}
+          <Image
+            src="/images/itemFooterImage.jpg"
+            alt="item-footer"
+            width={0}
+            height={0}
+            sizes="640"
+            className="max-w-[640px] w-full h-auto mt-5"
+          />
           <OrderBar post={post} product={product} />
         </>
       )}
