@@ -5,7 +5,15 @@ import ShareIcon from "../ui/icons/ShareIcon";
 import AlarmIcon from "../ui/icons/AlarmIcon";
 import { Product } from "@/customType/product";
 
-export default function PreorderItem({ product }: { product: Product }) {
+type Props = {
+  product: Product;
+  imagePriority: boolean;
+};
+
+export default function PreorderItem({
+  product,
+  imagePriority = false,
+}: Props) {
   return (
     <div className="mt-12">
       <div className=" px-4 w-full">
@@ -21,7 +29,9 @@ export default function PreorderItem({ product }: { product: Product }) {
             className="object-fill"
             src={product.imageUrl}
             alt="preorder-item"
+            priority={imagePriority}
             fill
+            sizes="640px"
           />
         </div>
         <div className="my-4">

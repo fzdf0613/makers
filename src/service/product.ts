@@ -73,13 +73,23 @@ export async function searchProducts(keyWord: string) {
   return getDocs(productQuery);
 }
 
-export async function getPreorderProducts() {
+export async function getPreorderProducts(cursor?: string) {
   const productQuery = query(
     collection(db, "products"),
     where("orderStartTime", ">", new Date()),
     orderBy("orderStartTime", "desc"),
     limit(10)
   );
+
+  if (cursor) {
+    const cursorRef = doc(db, "products", cursor);
+    const cursorDoc = await getDoc(cursorRef);
+    if (!cursorDoc.exists()) {
+      throw new Error("데이터가 존재하지 않습니다.");
+    }
+    const queryWithCursor = query(productQuery, startAfter(cursorDoc));
+    return getDocs(queryWithCursor);
+  }
 
   return getDocs(productQuery);
 }
