@@ -3,6 +3,8 @@ import { useCallback } from "react";
 import { useNewProducts } from "@/hooks/products";
 import HomeItem from "../HomeItem";
 import InfiniteScrollSentinel from "@/components/InfiniteScrollSentinel";
+import NewPageTitle from "@/components/home/new/NewPageTitle";
+import SkeletonNewPage from './skeleton/SkeletonNewPage';
 
 export default function NewItemList() {
   const { data, isValidating, size, setSize } = useNewProducts();
@@ -13,8 +15,13 @@ export default function NewItemList() {
     }
   }, [size, data, setSize, isValidating]);
 
+  if(!data) {
+    return <SkeletonNewPage />
+  }
+  
   return (
     <section>
+      <NewPageTitle />
       {data?.map((products) => {
         return products.map((product, i) => (
           <HomeItem key={product.id} product={product} imagePriority={i < 4} />
