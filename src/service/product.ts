@@ -11,7 +11,6 @@ import {
   getDoc,
   doc,
   setDoc,
-  QueryDocumentSnapshot,
   where,
   updateDoc,
   increment,
@@ -125,7 +124,7 @@ export async function getProductsByFilter(
     productQuery = query(
       collection(db, "products"),
       orderBy(sortFilter.name, sortFilter.order),
-      limit(2)
+      limit(10)
     );
   } else {
     if (filter.subcategory === "전체") {
@@ -133,7 +132,7 @@ export async function getProductsByFilter(
         collection(db, "products"),
         where("category", "==", filter.category),
         orderBy(sortFilter.name, sortFilter.order),
-        limit(2)
+        limit(10)
       );
     } else {
       productQuery = query(
@@ -141,7 +140,7 @@ export async function getProductsByFilter(
         where("category", "==", filter.category),
         where("subcategory", "==", filter.subcategory),
         orderBy("id", "desc"),
-        limit(2)
+        limit(10)
       );
     }
   }
@@ -172,16 +171,6 @@ export async function getCategoryProducts(category: string) {
 export async function getProduct(productId: string) {
   const productRef = doc(db, "products", productId);
   return getDoc(productRef);
-}
-
-export async function getProductsWithCursor(cursor: QueryDocumentSnapshot) {
-  const productQuery = query(
-    collection(db, "products"),
-    orderBy("id", "desc"),
-    startAfter(cursor),
-    limit(10)
-  );
-  return getDocs(productQuery);
 }
 
 export async function updateItemCount(productId: string, count: number) {

@@ -29,7 +29,6 @@ export async function GET(_: NextRequest, { params: { category } }: Context) {
     const snapshot = await getCategoryProducts(categoryQueryNames);
     const products = snapshot.docs.map((doc) => doc.data());
     const randomProduct = products[Math.floor(Math.random() * products.length)];
-    console.log(randomProduct);
     return NextResponse.json(randomProduct);
   } catch (error) {
     console.log("getCategoryProducts Error : ", error);

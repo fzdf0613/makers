@@ -1,11 +1,10 @@
 "use client";
 import CategoryItemList from "@/components/home/category/CategoryItemList";
-import FilterBar from "@/components/home/category/FilterBar";
 import QuickLinkCard from "@/components/home/category/QuickLinkCard";
 import { subcategories } from "@/constants/categories";
 import { CategoryValue } from "@/customType/category";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function CategoryPage({
   searchParams,
@@ -30,29 +29,14 @@ export default function CategoryPage({
     }
   }, [router, searchParams.category, searchParams.subcategory]);
 
-  const [filterOpen, setFilterOpen] = useState<"LEFT" | "RIGHT">();
-
   return (
     <>
       <QuickLinkCard category={searchParams.category} />
-      <FilterBar
+      <CategoryItemList
         category={searchParams.category}
-        categoryIndex={searchParams.subcategory}
-        filterOpen={filterOpen}
-        setFilterOpen={setFilterOpen}
+        subcategory={searchParams.subcategory}
         sort={searchParams.sort}
-        subcategory={
-          subcategories[searchParams.category][searchParams.subcategory]
-        }
       />
-      <div className="pt-[25px] px-4 relative">
-        <CategoryItemList
-          category={searchParams.category}
-          subcategory={searchParams.subcategory}
-          sort={searchParams.sort}
-          filterOpen={filterOpen}
-        />
-      </div>
     </>
   );
 }
