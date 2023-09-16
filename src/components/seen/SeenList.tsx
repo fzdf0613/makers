@@ -6,6 +6,11 @@ import SeenItem from "./SeenItem";
 export default function SeenList() {
   const { products, isValidating, resetSeenList, removeSeenList } =
     useSeenProducts();
+
+  if (!products) {
+    return <Skeleton />;
+  }
+
   return (
     !isValidating &&
     products &&
@@ -41,5 +46,53 @@ export default function SeenList() {
         <p className="mt-1">메이커스가 엄선한 제품을 둘러보세요.</p>
       </div>
     ))
+  );
+}
+
+function Skeleton() {
+  return (
+    <div>
+      <div className="py-5 flex">
+        <p className="w-1/2 h-[12px] bg-[#efefef] rounded-sm" />
+      </div>
+      <div>
+        <div className="py-4 flex">
+          <div className="w-[160px] h-[112px] relative min-w-[160px] bg-[#efefef]"></div>
+          <div className="pl-4 flex flex-col grow">
+            <div className="relative flex flex-col justify-center grow">
+              <div>
+                <h3 className="w-1/3 h-[13px] bg-[#efefef]  rounded-sm" />
+                <div className="w-1/5 mt-1 h-[13px] bg-[#efefef]  rounded-sm" />
+                <div className="w-1/6 mt-1 h-[13px] bg-[#efefef]  rounded-sm" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="py-4 flex">
+          <div className="w-[160px] h-[112px] relative min-w-[160px] bg-[#efefef]"></div>
+          <div className="pl-4 flex flex-col grow">
+            <div className="relative flex flex-col justify-center grow">
+              <div>
+                <h3 className="w-1/3 h-[13px] bg-[#efefef]  rounded-sm" />
+                <div className="w-1/5 mt-1 h-[13px] bg-[#efefef]  rounded-sm" />
+                <div className="w-1/6 mt-1 h-[13px] bg-[#efefef]  rounded-sm" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="py-4 flex">
+          <div className="w-[160px] h-[112px] relative min-w-[160px] bg-[#efefef]"></div>
+          <div className="pl-4 flex flex-col grow">
+            <div className="relative flex flex-col justify-center grow">
+              <div>
+                <h3 className="w-1/3 h-[13px] bg-[#efefef]  rounded-sm" />
+                <div className="w-1/5 mt-1 h-[13px] bg-[#efefef]  rounded-sm" />
+                <div className="w-1/6 mt-1 h-[13px] bg-[#efefef]  rounded-sm" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

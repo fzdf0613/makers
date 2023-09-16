@@ -4,7 +4,7 @@ import { useNewProducts } from "@/hooks/products";
 import HomeItem from "../HomeItem";
 import InfiniteScrollSentinel from "@/components/InfiniteScrollSentinel";
 import NewPageTitle from "@/components/home/new/NewPageTitle";
-import SkeletonNewPage from './skeleton/SkeletonNewPage';
+import SkeletonMainPage from "@/components/ui/skeleton/SkeletonMainPage";
 
 export default function NewItemList() {
   const { data, isValidating, size, setSize } = useNewProducts();
@@ -15,10 +15,10 @@ export default function NewItemList() {
     }
   }, [size, data, setSize, isValidating]);
 
-  if(!data) {
-    return <SkeletonNewPage />
+  if (!data) {
+    return <SkeletonMainPage />;
   }
-  
+
   return (
     <section>
       <NewPageTitle />
