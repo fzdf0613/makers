@@ -3,6 +3,7 @@ import { useLayoutEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { categoriesForUI } from "@/constants/categories";
 import SlideBar from "../SlideBar";
+import SkeletonCategoryBar from "./skeleton/SkeletonCategoryBar";
 
 export default function HomeCategoryBar() {
   const pathName = usePathname();
@@ -31,6 +32,10 @@ export default function HomeCategoryBar() {
     }
   }, [pathName, searchParams]);
 
+  if (!category) {
+    return <SkeletonCategoryBar />;
+  }
+
   return (
     <SlideBar
       itemList={categoriesForUI.map((item) => ({
@@ -47,9 +52,4 @@ export default function HomeCategoryBar() {
       currentItem={category}
     />
   );
-}
-
-function getItemUrl(itemUrl: string, sort: string) {
-  const sliced = itemUrl.split("sort=")[0];
-  return `${sliced}${sort}`;
 }

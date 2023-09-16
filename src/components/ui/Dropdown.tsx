@@ -6,13 +6,26 @@ import { CiCircleInfo } from "react-icons/ci";
 import { sortItemList } from "@/constants/sortItems";
 
 type Props = {
+  isLoading?: boolean;
   selectedOption: string;
   handleSelect: (option: string) => void;
 };
 
-export default function Dropdown({ selectedOption, handleSelect }: Props) {
-  // const [selected, setSelected] = useState(options[0]);
+export default function Dropdown({
+  selectedOption,
+  handleSelect,
+  isLoading = false,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
+
+  if (isLoading) {
+    return (
+      <div className="w-full px-4 flex relative justify-end text-sm font-extralight text-neutral-500">
+        <div className="w-[60px] h-5 bg-[#efefef]" />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full px-4 flex relative justify-end text-sm font-extralight text-neutral-500">
       <div

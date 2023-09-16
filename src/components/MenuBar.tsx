@@ -5,6 +5,7 @@ import { useState, useLayoutEffect } from "react";
 import RedDot from "./ui/RedDot";
 import { useScrollYContext } from "@/context/ScrollYContext";
 import { usePathname } from "next/navigation";
+import SkeletonMenubar from "./SkeletonMenubar";
 
 const menus = [
   { title: "임팩트", url: "/impact" },
@@ -35,6 +36,10 @@ export default function MenuBar() {
     }
     setMenu(menus.find((item) => item.url === pathName)!.title);
   }, [pathName]);
+
+  if (!menu) {
+    return <SkeletonMenubar />;
+  }
 
   return (
     <div

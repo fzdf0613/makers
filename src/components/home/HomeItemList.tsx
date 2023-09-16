@@ -5,6 +5,7 @@ import HomeItem from "./HomeItem";
 import Dropdown from "@/components/ui/Dropdown";
 import { sortItemList } from "@/constants/sortItems";
 import InfiniteScrollSentinel from "../InfiniteScrollSentinel";
+import SkeletonHomeItem from "./skeleton/SkeletonHomeItem";
 
 export default function HomeItemList() {
   const [sort, setSort] =
@@ -27,12 +28,18 @@ export default function HomeItemList() {
     <section>
       <div className="pb-3">
         <Dropdown
+          isLoading={data === undefined}
           selectedOption={sort}
           handleSelect={(option) => {
             setSort(option);
           }}
         />
       </div>
+      {!data && (
+        <>
+          <SkeletonHomeItem />
+        </>
+      )}
       {data &&
         data.map((products, i) => {
           return (
