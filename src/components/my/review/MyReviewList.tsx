@@ -6,14 +6,24 @@ import MyReviewItem from "./MyReviewItem";
 import MyReviewWaitingItem from "./MyReviewWaitingItem";
 import Button from "@/components/ui/Button";
 import RightArrowIcon from "@/components/ui/icons/RightArrowIcon";
+import { MoonLoader } from "react-spinners";
 
 type Props = {
   tab: string;
 };
 
 export default function MyReviewList({ tab }: Props) {
-  const { orders } = useReviewWatingOrders();
-  const { reviews } = useUserReviews();
+  const { orders, isValidating: isValidatingWaitingReviews } =
+    useReviewWatingOrders();
+  const { reviews, isValidating: isValidatingReviews } = useUserReviews();
+
+  if (isValidatingReviews || isValidatingWaitingReviews) {
+    return (
+      <div className="h-[375px] flex justify-center items-center">
+        <MoonLoader color="#9b9b9b" speedMultiplier={0.7} />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#ededed] pb-2.5 flex flex-col">

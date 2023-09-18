@@ -3,9 +3,14 @@ import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 
 export function useUserReviews() {
-  const { data: reviews, isLoading, error } = useSWR<Review[]>(`/api/reviews`);
+  const {
+    data: reviews,
+    isLoading,
+    isValidating,
+    error,
+  } = useSWR<Review[]>(`/api/reviews`);
 
-  return { reviews, error, isLoading };
+  return { reviews, error, isLoading, isValidating };
 }
 
 export function usePostReviews(postId: string) {
