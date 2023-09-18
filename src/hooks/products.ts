@@ -22,10 +22,11 @@ export function useProducts(path?: string) {
   const {
     data: products,
     isLoading,
+    isValidating,
     error,
   } = useSWR<Product[]>(path ? `/api/products/${path}` : `/api/products`);
 
-  return { products, error, isLoading };
+  return { products, error, isLoading, isValidating };
 }
 
 export function useNewProducts() {

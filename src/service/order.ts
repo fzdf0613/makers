@@ -30,8 +30,7 @@ export async function getPost(postId: string) {
 export async function getOrders(orderIds: string[]) {
   const ordersQuery = query(
     collection(db, "orders"),
-    where(documentId(), "in", orderIds),
-    limit(10)
+    where(documentId(), "in", orderIds)
   );
   return getDocs(ordersQuery);
 }
