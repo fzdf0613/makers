@@ -1,20 +1,14 @@
-"use client";
-import MyOrderItem from "@/components/my/order/MyOrderItem";
-import { useOrders } from "@/hooks/orders";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import MyOrderList from "@/components/my/order/MyOrderList";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-export default function MyOrderPage() {
-  const { orders } = useOrders();
-  return (
-    <div className="bg-[#ededed]">
-      <div className="grid">
-        {orders &&
-          orders.map((order) => (
-            <MyOrderItem
-              key={`${order.userId}_${order.orderedAt}`}
-              order={order}
-            />
-          ))}
-      </div>
-    </div>
-  );
+export default async function MyOrderPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect(`/login`);
+  }
+
+  return <MyOrderList />;
 }
