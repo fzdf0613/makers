@@ -21,10 +21,11 @@ export function useUserInquirys() {
   const {
     data: inquirys,
     isLoading,
+    isValidating,
     error,
   } = useSWR<Inquiry[]>(`/api/inquirys`);
 
-  return { inquirys, error, isLoading };
+  return { inquirys, error, isLoading, isValidating };
 }
 
 export function usePostInquirys(postId: string) {
