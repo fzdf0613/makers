@@ -4,6 +4,10 @@ const nextConfig = {
     domains: ["firebasestorage.googleapis.com"],
   },
   reactStrictMode: false,
+  webpack: (config) => {
+    config.externals = [...config.externals, "canvas", "jsdom"];
+    return config;
+  },
 };
 
 module.exports = nextConfig;

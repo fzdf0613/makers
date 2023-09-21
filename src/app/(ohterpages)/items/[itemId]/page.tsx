@@ -13,6 +13,7 @@ import { useProduct } from "@/hooks/product";
 import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import DOMPurify from "isomorphic-dompurify";
 
 export default function ItemPage({ params }: { params: { itemId: string } }) {
   const { data: session, status } = useSession();
@@ -121,7 +122,9 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
                 />
               )}
               <div
-                dangerouslySetInnerHTML={{ __html: post.htmlText }}
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(post.htmlText),
+                }}
                 ref={contentRef}
               ></div>
             </div>
