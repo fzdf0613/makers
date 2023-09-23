@@ -4,9 +4,11 @@ import Image from "next/image";
 import Button from "../ui/Button";
 import AddImageIcon from "../ui/icons/AddImageIcon";
 import { signIn } from "next-auth/react";
+import { MoonLoader } from "react-spinners";
 
 export default function CreateAccountForm() {
   const [alert, setAlert] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState<File>();
   const idRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -37,7 +39,8 @@ export default function CreateAccountForm() {
     formData.append("password", password);
     formData.append("username", name);
 
-    // 로딩 처리 필요
+    setIsLoading(true);
+
     fetch("/api/create_account", { method: "POST", body: formData }) //
       .then((res) => {
         if (!res.ok) {
@@ -52,7 +55,10 @@ export default function CreateAccountForm() {
           password,
         });
       })
-      .catch((err) => window.alert(err.toString()));
+      .catch((err) => window.alert(err.toString()))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   return (
     <div className="md:w-[580px] md:border w-full md:justify-center border-neutral-200  flex flex-col py-[55px] mx-auto">
@@ -126,8 +132,17 @@ export default function CreateAccountForm() {
             {alert}
           </span>
         )}
-        <Button className="bg-blue-200 h-[50px] border-0 text-md rounded hover:brightness-95 mt-[30px]">
-          회원가입
+        <Button
+          className={`bg-blue-200 h-[50px] border-0 text-md rounded mt-[30px] ${
+            isLoading ? "brightness-75" : "hover:brightness-95"
+          }`}
+          disabled={isLoading}
+        >
+          {!isLoading ? (
+            "회원가입"
+          ) : (
+            <MoonLoader color="#060f11" speedMultiplier={0.7} size={20} />
+          )}
         </Button>
       </form>
     </div>
