@@ -11,6 +11,7 @@ type Props = {
 export default function InquiryList({ postId, inquiryCount }: Props) {
   const { data, error, isLoading, isValidating, size, setSize } =
     usePostInquirys(postId);
+
   return (
     <div>
       {data?.map((inquirys) => {
@@ -18,12 +19,12 @@ export default function InquiryList({ postId, inquiryCount }: Props) {
           <InquiryComment key={inquiry.id} inquiry={inquiry} />
         ));
       })}
-      {Math.ceil(inquiryCount / 10) !== size && (
+      {Math.ceil(inquiryCount / 10) !== size - 1 && (
         <button
           className="bg-[#f9f9f9] py-3.5 text-[13px] flex justify-center items-center w-full border-t border-[#e4e4e4]"
           onClick={() => setSize((prev) => prev + 1)}
         >
-          제품 문의 더보기 {size}
+          제품 문의 더보기
           <DropDownIcon className="ml-2" />
         </button>
       )}
