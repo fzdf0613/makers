@@ -7,7 +7,7 @@ type Props = {
 
 export default function ItemImage({ imageUrl, alt }: Props) {
   return (
-    <div className="w-full h-[460px] relative bg-blue-200 ">
+    <div className="w-full h-[calc(55vw+16px)] sm:h-[460px] relative bg-blue-200 ">
       <Image
         priority
         src={imageUrl}

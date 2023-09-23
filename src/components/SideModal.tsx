@@ -88,9 +88,9 @@ export default function SideModal({ closeModal, user }: Props) {
             width={60}
             height={60}
           />
-          <div className="absolute right-4 top-4">
+          {/* <div className="absolute right-4 top-4">
             <SettingIcon />
-          </div>
+          </div> */}
           <div className="pl-4 flex flex-col justify-center">
             {user && (
               <>

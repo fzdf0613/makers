@@ -14,6 +14,7 @@ import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
+import SkeletonItemPage from "@/components/items/SkeletonItemPage";
 
 export default function ItemPage({ params }: { params: { itemId: string } }) {
   const { data: session, status } = useSession();
@@ -91,6 +92,10 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
     }
     setActiveAnchor(anchors[anchors.length - 1].name);
   }, [Y, anchors]);
+
+  if (!post || !product) {
+    return <SkeletonItemPage />;
+  }
 
   return (
     <div className="w-full">
