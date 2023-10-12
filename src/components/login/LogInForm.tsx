@@ -60,14 +60,18 @@ export default function LogInForm({ callbackUrl }: Props) {
           placeholder="아이디 (이메일 형식으로 입력해주세요.)"
           required
         />
-        <input
-          type="password"
-          name="password"
-          ref={passwordRef}
-          className="border-neutral-300 border-b pb-2 outline-none focus:border-black"
-          placeholder="비밀번호"
-          required
-        />
+        <form>
+          <input
+            type="password"
+            name="password"
+            ref={passwordRef}
+            autoComplete="off"
+            className="border-neutral-300 border-b pb-2 outline-none focus:border-black w-full"
+            placeholder="비밀번호"
+            required
+          />
+        </form>
+
         {alert && (
           <span className="bg-[#fafafa] text-[#e65f3e] text-[13px] font-semibold w-full p-5">
             {alert}

@@ -15,7 +15,6 @@ type Props = {
 export type CartItem = { optionIndex: number; count: number };
 
 const OrderBar = ({ product, post }: Props) => {
-  console.log("OrderBar is Rendered !");
   const router = useRouter();
   const { data: session, status } = useSession();
   const [cart, setCart] = useState<CartItem[]>([]);

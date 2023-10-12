@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Image from "next/image";
 
 type Props = {
@@ -5,7 +6,7 @@ type Props = {
   alt: string;
 };
 
-export default function ItemImage({ imageUrl, alt }: Props) {
+const ItemImage = ({ imageUrl, alt }: Props) => {
   return (
     <div className="w-full h-[calc(55vw+16px)] sm:h-[460px] relative bg-blue-200 ">
       <Image
@@ -18,4 +19,6 @@ export default function ItemImage({ imageUrl, alt }: Props) {
       />
     </div>
   );
-}
+};
+
+export default memo(ItemImage);
