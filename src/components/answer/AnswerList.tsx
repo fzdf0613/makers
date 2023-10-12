@@ -4,6 +4,7 @@ import { useState } from "react";
 import AnswerTab from "./AnswerTab";
 import AnswerItem from "./AnswerItem";
 import { useInquirys } from "@/hooks/inquirys";
+import { MoonLoader } from "react-spinners";
 
 export default function AnswerList() {
   const [tab, setTab] = useState<"answered" | "waiting">("waiting");
@@ -18,6 +19,11 @@ export default function AnswerList() {
         }}
       />
       <div className="bg-[#ededed] pb-2.5 flex flex-col">
+        {isValidating && (
+          <div className="h-[400px] flex justify-center items-center">
+            <MoonLoader color="#9b9b9b" speedMultiplier={0.7} />
+          </div>
+        )}
         {!isValidating &&
           inquirys &&
           inquirys.length > 0 &&

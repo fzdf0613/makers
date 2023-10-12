@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import VerticalDotsIcon from "../ui/icons/VerticalDotsIcon";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   handleDelete: () => void;
 };
 
-export default function ModifyButton({ handleDelete, handleModify }: Props) {
+const ModifyButton = ({ handleDelete, handleModify }: Props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -60,4 +60,6 @@ export default function ModifyButton({ handleDelete, handleModify }: Props) {
       )}
     </>
   );
-}
+};
+
+export default memo(ModifyButton);

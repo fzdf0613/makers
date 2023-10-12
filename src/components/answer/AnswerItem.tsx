@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import Badge from "../ui/Badge";
 import Description from "../ui/Description";
@@ -31,9 +31,13 @@ export default function AnswerItem({ inquiry, tab }: Props) {
     setOpenInput(false);
   };
 
-  const handleModify = () => {
+  const handleModify = useCallback(() => {
     setOpenInput(true);
-  };
+  }, []);
+
+  const handleDelete = useCallback(() => {
+    removeAnswer(inquiry.id);
+  }, [inquiry.id, removeAnswer]);
 
   return (
     <div className="flex flex-col p-3.5 mb-2.5 bg-white">
@@ -69,9 +73,7 @@ export default function AnswerItem({ inquiry, tab }: Props) {
         <div className="pt-5 relative">
           <ModifyButton
             handleModify={handleModify}
-            handleDelete={() => {
-              removeAnswer(inquiry.id);
-            }}
+            handleDelete={handleDelete}
           />
           <p className="text-sm text-[#db635d] font-bold">답변</p>
           <Description text={inquiry.answer} />
