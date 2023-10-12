@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Product } from "@/customType/product";
 import { getRemaingTimeFormat } from "@/util/date";
 import ProgressBar from "./ProgressBar";
@@ -6,7 +7,7 @@ type Props = {
   product: Product;
 };
 
-export default function OrderInfo({ product }: Props) {
+const OrderInfo = ({ product }: Props) => {
   return (
     <>
       <section className="pt-[30px] px-4">
@@ -45,7 +46,9 @@ export default function OrderInfo({ product }: Props) {
       </section>
     </>
   );
-}
+};
+
+export default memo(OrderInfo);
 
 function getProgress(current: number, total: number): number {
   return Math.round((current / total) * 100);

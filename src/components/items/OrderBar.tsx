@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import Portal from "../ui/Portal";
 import OrderModal from "./OrderModal";
 import { Product } from "@/customType/product";
@@ -14,7 +14,8 @@ type Props = {
 
 export type CartItem = { optionIndex: number; count: number };
 
-export default function OrderBar({ product, post }: Props) {
+const OrderBar = ({ product, post }: Props) => {
+  console.log("OrderBar is Rendered !");
   const router = useRouter();
   const { data: session, status } = useSession();
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -106,4 +107,6 @@ export default function OrderBar({ product, post }: Props) {
       )}
     </div>
   );
-}
+};
+
+export default memo(OrderBar);

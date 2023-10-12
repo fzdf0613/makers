@@ -1,3 +1,4 @@
+import { memo } from "react";
 import LikeButton from "../LikeButton";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
   productId: string;
 };
 
-export default function BaseInfo({ name, price, productId }: Props) {
+const BaseInfo = ({ name, price, productId }: Props) => {
   return (
     <section className="border-b border-t border-neutral-200 rounded-t-2xl p-5 -translate-y-[10px] bg-white">
       <h2 className="text-md font-semibold">{name}</h2>
@@ -19,4 +20,6 @@ export default function BaseInfo({ name, price, productId }: Props) {
       </div>
     </section>
   );
-}
+};
+
+export default memo(BaseInfo);
