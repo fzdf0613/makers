@@ -1,9 +1,12 @@
+import { memo } from "react";
+
 type Props = {
   style?: string;
   text: string;
   className?: string;
 };
-export default function Badge({ style = "default", text, className }: Props) {
+
+const Badge = ({ style = "default", text, className }: Props) => {
   return (
     <div
       className={`${getStyle(
@@ -13,7 +16,9 @@ export default function Badge({ style = "default", text, className }: Props) {
       {text}
     </div>
   );
-}
+};
+
+export default memo(Badge);
 
 function getStyle(style: string): string {
   switch (style) {

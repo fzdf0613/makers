@@ -1,20 +1,20 @@
+import { memo } from "react";
+
 type Props = {
   style?: "default" | "disabled";
   customStyle?: string;
   text: string;
 };
 
-export default function Feature({
-  style = "default",
-  customStyle,
-  text,
-}: Props) {
+const Feature = ({ style = "default", customStyle, text }: Props) => {
   return (
     <strong className={`${getStyle(style)} text-[13px] py-4 ${customStyle}`}>
       {text}
     </strong>
   );
-}
+};
+
+export default memo(Feature);
 
 function getStyle(style: string): string {
   switch (style) {
