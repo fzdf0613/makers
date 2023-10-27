@@ -9,7 +9,7 @@ export async function GET() {
   const user = session.user;
 
   if (!user) {
-    return NextResponse.error();
+    return new Response("로그인이 필요합니다.", { status: 401 });
   }
 
   try {

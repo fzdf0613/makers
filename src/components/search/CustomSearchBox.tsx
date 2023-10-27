@@ -30,14 +30,21 @@ export default function CustomSearchBox({
   ...props
 }: Props) {
   const [text, setText] = useState("");
+  const [tempHistory, setTempHistory] = useState<string[]>([]);
   const { updateSearchHistory } = useCurrentUser();
   const { refine } = useSearchBox(props);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setIsSearched(true);
-    updateSearchHistory(text, true);
+    if (user) {
+      updateSearchHistory(text, true);
+    } else {
+      setTempHistory((prev) => [text, ...prev.filter((item) => item !== text)]);
+    }
     refine(text);
   };
+
   const handleChange = () => {
     if (!inputRef.current) {
       return;
@@ -49,12 +56,25 @@ export default function CustomSearchBox({
     setText(keyWord);
     refine(keyWord);
     setIsSearched(true);
-    updateSearchHistory(keyWord, true);
+    if (user) {
+      updateSearchHistory(keyWord, true);
+    } else {
+      setTempHistory((prev) => [
+        keyWord,
+        ...prev.filter((item) => item !== keyWord),
+      ]);
+    }
   };
 
   const handleKeyWordDelete = (keyWord: string) => {
     setIsSearched(false);
-    updateSearchHistory(keyWord, false);
+    if (user) {
+      updateSearchHistory(keyWord, false);
+    } else {
+      setTempHistory((prev) => {
+        return prev.filter((item) => item !== keyWord);
+      });
+    }
   };
 
   return (
@@ -89,7 +109,7 @@ export default function CustomSearchBox({
         <SearchHistory
           handleKeyWordClick={handleKeyWordClick}
           handleKeyWordDelete={handleKeyWordDelete}
-          searchList={user?.search || []}
+          searchList={user ? user?.search || [] : tempHistory}
         />
       )}
     </div>

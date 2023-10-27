@@ -37,5 +37,5 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  return NextResponse.json({ message: "상품 등록 성공" });
+  return NextResponse.json({ message: "상품 주문 성공" });
 }

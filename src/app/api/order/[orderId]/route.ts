@@ -23,7 +23,7 @@ export async function GET(_: NextRequest, { params: { orderId } }: Context) {
   } catch (error) {
     console.log("getOrder Error : ", error);
     return NextResponse.json(
-      { message: "주먼 정보 불러오기에 실패하였습니다." },
+      { message: "주문 정보 불러오기에 실패하였습니다." },
       { status: 500 }
     );
   }
