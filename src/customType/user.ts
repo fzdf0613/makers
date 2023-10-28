@@ -7,6 +7,7 @@ export type SessionUser = {
 };
 
 export type User = {
+  id: string;
   username: string;
   userid: string;
   review: string[];

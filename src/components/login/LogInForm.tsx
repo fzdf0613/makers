@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Button from "../ui/Button";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
@@ -21,7 +21,8 @@ export default function LogInForm({ callbackUrl }: Props) {
   const [alert, setAlert] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
     if (!idRef.current || !passwordRef.current) {
       return;
     }
@@ -52,15 +53,18 @@ export default function LogInForm({ callbackUrl }: Props) {
   return (
     <div className="md:w-[580px] md:border w-full md:justify-center border-neutral-200  flex flex-col py-[55px] mx-auto">
       <div className="md:w-[440px] w-full flex flex-col mx-auto">
-        <input
-          type="email"
-          name="userId"
-          ref={idRef}
-          className="border-neutral-300 border-b pb-2 mb-5 outline-none focus:border-black"
-          placeholder="아이디 (이메일 형식으로 입력해주세요.)"
-          required
-        />
-        <form>
+        <form
+          className="md:w-[440px] w-full flex flex-col mx-auto"
+          onSubmit={handleLogin}
+        >
+          <input
+            type="email"
+            name="userId"
+            ref={idRef}
+            className="border-neutral-300 border-b pb-2 mb-5 outline-none focus:border-black"
+            placeholder="아이디 (이메일 형식으로 입력해주세요.)"
+            required
+          />
           <input
             type="password"
             name="password"
@@ -70,27 +74,26 @@ export default function LogInForm({ callbackUrl }: Props) {
             placeholder="비밀번호"
             required
           />
-        </form>
 
-        {alert && (
-          <span className="bg-[#fafafa] text-[#e65f3e] text-[13px] font-semibold w-full p-5">
-            {alert}
+          {alert && (
+            <span className="bg-[#fafafa] text-[#e65f3e] text-[13px] font-semibold w-full p-5">
+              {alert}
+            </span>
+          )}
+          <Button
+            disabled={isLoading}
+            className={`${
+              isLoading ? "brightness-75" : "hover:brightness-95"
+            } h-[50px] border-0 text-md rounded mt-[50px] bg-[#fee500]`}
+          >
+            로그인
+          </Button>
+          <span
+            className={`${beforeStyle} ${afterStyle} text-xs flex w-full my-2`}
+          >
+            <span className="mx-2 whitespace-nowrap">또는</span>
           </span>
-        )}
-        <Button
-          disabled={isLoading}
-          className={`${
-            isLoading ? "brightness-75" : "hover:brightness-95"
-          } h-[50px] border-0 text-md rounded mt-[50px] bg-[#fee500]`}
-          onClick={handleLogin}
-        >
-          로그인
-        </Button>
-        <span
-          className={`${beforeStyle} ${afterStyle} text-xs flex w-full my-2`}
-        >
-          <span className="mx-2 whitespace-nowrap">또는</span>
-        </span>
+        </form>
         <Button
           disabled={isLoading}
           className={`bg-[#f0f0f0] h-[50px] border-0 text-md rounded w-full ${

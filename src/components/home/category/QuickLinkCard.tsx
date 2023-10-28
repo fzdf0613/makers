@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Description from "@/components/ui/Description";
 import Link from "next/link";

@@ -1,5 +1,5 @@
 import { User } from "@/customType/user";
-import { getUserById, getUserByUserId } from "@/service/user";
+import { getUserByUserId } from "@/service/user";
 import { verifyPassword } from "@/util/bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -43,7 +43,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       if (user) {
         token.id = user.id;
         token.userid = user.userid;
@@ -53,7 +53,7 @@ export const authOptions = {
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       const user = {
         id: token.id,
         userid: token.userid,

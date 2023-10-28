@@ -1,7 +1,8 @@
 import { getProducts } from "@/service/product";
 import { getFomattedProduct } from "@/util/productFormat";
-import { getDateByTimestamp } from "@/util/timestamp";
 import { NextResponse } from "next/server";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
