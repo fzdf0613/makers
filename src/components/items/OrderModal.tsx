@@ -58,7 +58,6 @@ export default function OrderModal({
       closeModal();
     }, 500);
   };
-
   return (
     <div
       id="modal-bg"

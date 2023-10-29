@@ -46,9 +46,9 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
     const navBottomY = navRef.current.getBoundingClientRect().bottom;
     const contentTopY = contentRef.current!.getBoundingClientRect().top;
     setIsOverlap(navBottomY >= contentTopY - 12);
-  }, [Y]);
+  }, [Y, post]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const elements = document.getElementsByClassName("anchor");
     if (!elements || !contentRef.current) {
       return;
@@ -96,6 +96,8 @@ export default function ItemPage({ params }: { params: { itemId: string } }) {
   if (!post || !product) {
     return <SkeletonItemPage />;
   }
+
+  console.log("anchors :", anchors);
 
   return (
     <div className="w-full">

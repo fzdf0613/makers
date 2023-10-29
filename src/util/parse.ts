@@ -1,5 +1,5 @@
 export function parseOptions(input: string) {
-  const parsed = input.replace(/\s/g, "").split(",");
+  const parsed = input.trim().split(",");
   if (parsed.every((item) => item.length > 0)) {
     return parsed;
   }
@@ -7,7 +7,7 @@ export function parseOptions(input: string) {
 }
 
 export function parseOptionsPrices(input: string) {
-  const parsed = input.replace(/\s/g, "").split(",");
+  const parsed = input.trim().split(",");
   const parsedNumbers = parsed.map((item) => parseInt(item));
   const isValidPrices = parsedNumbers.every((item, i) => {
     return item.toString().length === parsed[i].length;
