@@ -1,32 +1,60 @@
+"use client";
+import { useState, useEffect } from "react";
+import { useScrollYContext } from "@/context/ScrollYContext";
+
 type Props = {
-  isOverlap: boolean;
-  isScrollDown: boolean;
-  anchors: { name: string; y: number }[];
-  activeAnchor: string;
+  anchors: { name: string; id: string }[];
 };
 
-export default function AnchorBar({
-  isOverlap,
-  isScrollDown,
-  anchors,
-  activeAnchor,
-}: Props) {
+export default function AnchorBar({ anchors }: Props) {
+  const { Y, isScrollDown } = useScrollYContext();
+  const [activeAnchor, setActiveAnchor] = useState<string>("");
+
+  console.log("AnchorBar is Rendered !");
+  useEffect(() => {
+    for (let i = 0; i < anchors.length; i++) {
+      const anchor = document.querySelector(`#${anchors[i].id}`);
+      if (!anchor) {
+        return;
+      }
+      const offset = anchor.id === "summary" ? 111 : 121;
+      const anchorY = anchor.getBoundingClientRect().top + Y - offset;
+      if (i == 0 && Y < anchorY - 10) {
+        setActiveAnchor("");
+        return;
+      }
+      if (Y < anchorY - 10) {
+        setActiveAnchor(anchors[i - 1].name);
+        return;
+      }
+    }
+    setActiveAnchor(anchors[anchors.length - 1].name);
+  }, [Y, anchors]);
+
   return (
     <div
       id="anchorList"
-      className={`h-16 flex gap-2 py-3 px-4 sticky bg-white ${
-        isOverlap ? "z-[5]" : "z-[4]"
-      } ${isScrollDown ? "top-[53px]" : "top-[110px]"} ease-in duration-100`}
+      className={`h-16 flex gap-2 py-3 px-4 sticky bg-white z-[5] ${
+        isScrollDown ? "top-[53px]" : "top-[110px]"
+      } ease-in duration-100`}
     >
       {anchors.map((anchor, i) => (
         <div
           key={i}
-          className={`${
-            activeAnchor === anchor.name ? "bg-[#1a1a1a] text-white" : ""
-          } cursor-pointer px-4 border-neutral-200 border rounded-3xl h-10 flex justify-center items-center`}
+          className={`
+          ${activeAnchor === anchor.name ? "bg-[#1a1a1a] text-white" : ""}
+           cursor-pointer px-4 border-neutral-200 border rounded-3xl h-10 flex justify-center items-center`}
           onClick={() => {
+            console.log("Y :", Y);
+            console.log("isScrollDown :", isScrollDown);
+
+            const el = document.querySelector(`#${anchor.id}`);
+            if (!el) {
+              return;
+            }
+            const offset = anchor.id === "summary" ? 111 : 121;
             window.scrollTo({
-              top: anchor.y,
+              top: el.getBoundingClientRect().top + window.scrollY - offset,
               behavior: "smooth",
             });
           }}

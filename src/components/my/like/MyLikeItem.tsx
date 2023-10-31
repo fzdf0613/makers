@@ -9,7 +9,7 @@ type Props = {
 
 export default function MyLikeItem({ product }: Props) {
   return (
-    <Link className="pb-6" href={"/"}>
+    <Link className="pb-6" href={`/items/${product.id}`}>
       <div className="relative py-5 bg-[#f1f1f1]">
         <Image
           className="w-full object-cover aspect-square"

@@ -27,6 +27,9 @@ export async function GET(_: NextRequest, { params: { category } }: Context) {
 
   try {
     const snapshot = await getCategoryProducts(categoryQueryNames);
+    if (snapshot.empty) {
+      NextResponse.json(null);
+    }
     const products = snapshot.docs.map((doc) => doc.data());
     const randomProduct = products[Math.floor(Math.random() * products.length)];
     return NextResponse.json(randomProduct);

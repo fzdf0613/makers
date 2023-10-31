@@ -11,16 +11,19 @@ type ScrollYValue = {
   Y: number;
 };
 
-export const ScrollYContext = createContext<ScrollYValue>({
+const ScrollYContext = createContext<ScrollYValue>({
   isScrollDown: false,
   Y: 0,
 });
 
 export default function ScrollYContextProvider({ children }: Props) {
   const { isScrolled: isScrollDown, Y } = useScrollYHandler();
-  const values = useMemo(() => ({ isScrollDown, Y }), [isScrollDown, Y]);
+  // const values = useMemo(() => ({ isScrollDown, Y }), [isScrollDown, Y]);
   return (
-    <ScrollYContext.Provider value={values}>{children}</ScrollYContext.Provider>
+    // <ScrollYContext.Provider value={values}>{children}</ScrollYContext.Provider>
+    <ScrollYContext.Provider value={{ isScrollDown, Y }}>
+      {children}
+    </ScrollYContext.Provider>
   );
 }
 

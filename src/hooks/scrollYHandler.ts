@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
-import useThrottle from "./throttle";
+import { useState, useEffect, useCallback } from "react";
 
 export default function useScrollYHandler(threshhold: number = 40) {
   const [Y, setY] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [throttle, setThrottle] = useState(false);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
+    if (throttle) {
+      return;
+    }
+    setThrottle(true);
     const currentY = window.scrollY;
     if (currentY - Y < 0) {
       // 스크롤 올렸을 때
@@ -19,19 +23,17 @@ export default function useScrollYHandler(threshhold: number = 40) {
       }
     }
     setY(currentY);
-  };
-
-  const throttledCallback = useThrottle(handleScroll, 100);
+    setTimeout(() => {
+      setThrottle(false);
+    }, 10);
+  }, [Y, throttle]);
 
   useEffect(() => {
-    if (!throttledCallback) {
-      return;
-    }
-    window.addEventListener("scroll", throttledCallback);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", throttledCallback);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [Y, throttledCallback]);
+  }, [handleScroll]);
 
   return { Y, isScrolled };
 }

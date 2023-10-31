@@ -4,16 +4,27 @@ import Description from "@/components/ui/Description";
 import Link from "next/link";
 import { CategoryValue } from "@/customType/category";
 import { useQuickLinkProduct } from "@/hooks/product";
+import Heading from "@/components/ui/Heading";
 
 type Props = {
   category: CategoryValue;
 };
 
 export default function QuickLinkCard({ category }: Props) {
-  const { product } = useQuickLinkProduct(category);
+  const { product, isLoading } = useQuickLinkProduct(category);
+
+  if (isLoading) {
+    return <Skeleton />;
+  }
 
   if (!product) {
-    return <Skeleton />;
+    return (
+      <div className="">
+        <div className="h-[600px] flex items-center justify-center bg-[#fafafa]">
+          <Heading text="해당 카테고리에 등록된 상품이 없습니다." />
+        </div>
+      </div>
+    );
   }
 
   return (
