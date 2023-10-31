@@ -10,7 +10,6 @@ export default function AnchorBar({ anchors }: Props) {
   const { Y, isScrollDown } = useScrollYContext();
   const [activeAnchor, setActiveAnchor] = useState<string>("");
 
-  console.log("AnchorBar is Rendered !");
   useEffect(() => {
     for (let i = 0; i < anchors.length; i++) {
       const anchor = document.querySelector(`#${anchors[i].id}`);
