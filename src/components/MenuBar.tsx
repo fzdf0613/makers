@@ -8,11 +8,11 @@ import { usePathname } from "next/navigation";
 import SkeletonMenubar from "./SkeletonMenubar";
 
 const menus = [
-  { title: "임팩트", url: "/impact" },
-  { title: "최근 본", url: "/seen" },
-  { title: "홈", url: "/" },
-  { title: "오픈예정", url: "/preorder" },
-  { title: "마이", url: "/my/order" },
+  { title: "임팩트", url: "/", isAvaliable: false },
+  { title: "최근 본", url: "/seen", isAvaliable: true },
+  { title: "홈", url: "/", isAvaliable: true },
+  { title: "오픈예정", url: "/preorder", isAvaliable: true },
+  { title: "마이", url: "/my/order", isAvaliable: true },
 ];
 
 export default function MenuBar() {
@@ -47,18 +47,31 @@ export default function MenuBar() {
         isScrollDown ? "my-[-40px]" : ""
       }`}
     >
-      {menus.map((item, index) => (
-        <Link
-          href={item.url}
-          key={index}
-          className={`p-2 -mb-[1px] relative
+      {menus.map((item, index) => {
+        if (item.isAvaliable) {
+          return (
+            <Link
+              href={item.url}
+              key={index}
+              className={`p-2 -mb-[1px] relative
             ${menu === item.title && "border-b-[2px] border-black"}
             `}
-        >
-          {item.title}
-          <RedDot />
-        </Link>
-      ))}
+            >
+              {item.title}
+            </Link>
+          );
+        } else {
+          return (
+            <div
+              key={index}
+              className={`p-2 -mb-[1px] relative text-[#9b9b9b]
+          `}
+            >
+              {item.title}
+            </div>
+          );
+        }
+      })}
     </div>
   );
 }
