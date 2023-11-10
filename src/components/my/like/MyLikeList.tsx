@@ -11,9 +11,9 @@ export default function MyLikeList() {
         products?.map((product) => (
           <MyLikeItem key={product.id} product={product} />
         ))}
-      {isValidating && products?.length === 0 && (
-        <div className="col-span-2 h-[375px] flex justify-center items-center">
-          현재 판매중인 제품이 없습니다.
+      {!isValidating && products?.length === 0 && (
+        <div className="col-span-2 h-[375px] flex justify-center items-center font-bold">
+          좋아요 누른 제품이 없습니다.
         </div>
       )}
       {isValidating && (

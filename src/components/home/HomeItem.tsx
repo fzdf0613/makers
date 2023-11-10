@@ -16,7 +16,6 @@ type Props = {
 };
 
 export default function HomeItem({ product, imagePriority = false }: Props) {
-  console.log(`${product.name} : ${product.likeCount}`);
   const [badgeState] = useState(getBadgeState(product));
   return (
     <div className="mb-9">

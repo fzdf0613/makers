@@ -24,7 +24,7 @@ export default function MenuBar() {
     if (!pathName) {
       return;
     }
-    if (pathName.startsWith("/new")) {
+    if (pathName.startsWith("/new") || pathName === "/") {
       setMenu("홈");
       return;
     } else if (pathName.startsWith("/my")) {
