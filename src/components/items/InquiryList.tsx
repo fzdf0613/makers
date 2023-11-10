@@ -19,7 +19,7 @@ export default function InquiryList({ postId, inquiryCount }: Props) {
           <InquiryComment key={inquiry.id} inquiry={inquiry} />
         ));
       })}
-      {Math.ceil(inquiryCount / 10) !== size - 1 && (
+      {Math.ceil(inquiryCount / 10) > size && (
         <button
           className="bg-[#f9f9f9] py-3.5 text-[13px] flex justify-center items-center w-full border-t border-[#e4e4e4]"
           onClick={() => setSize((prev) => prev + 1)}

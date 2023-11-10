@@ -34,8 +34,10 @@ export default function MyInquiryItem({ inquiry }: Props) {
       {inquiry.answer && (
         <div className="pt-5">
           <p className="text-sm text-[#db635d] font-bold">답변</p>
-          <Description text={getInquiryTimeFormat(inquiry.answeredAt!)} />
-          <p className="mt-2 text-[#9b9b9b] text-xs">2023-08-31 00:59:47</p>
+          <Description text={inquiry.answer} />
+          <p className="mt-2 text-[#9b9b9b] text-xs">
+            {getInquiryTimeFormat(inquiry.answeredAt!)}
+          </p>
         </div>
       )}
     </div>

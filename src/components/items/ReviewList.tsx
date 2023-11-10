@@ -18,7 +18,7 @@ export default function ReviewList({ postId, reviewCount }: Props) {
           <ReviewComment key={review.id} review={review} />
         ));
       })}
-      {Math.ceil(reviewCount / 10) !== size - 1 && (
+      {Math.ceil(reviewCount / 10) > size && (
         <button
           className="bg-[#f9f9f9] py-3.5 text-[13px] flex justify-center items-center w-full border-t border-[#e4e4e4]"
           onClick={() => setSize((prev) => prev + 1)}

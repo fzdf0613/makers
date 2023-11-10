@@ -30,6 +30,10 @@ export default function LikeButton({
     setIsActive(user.like.includes(productId));
   }, [user, productId]);
 
+  useLayoutEffect(() => {
+    setLikeCount(count);
+  }, [count]);
+
   const handleLike = (e: MouseEvent) => {
     e.preventDefault();
     if (!user) {

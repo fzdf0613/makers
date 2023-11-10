@@ -29,9 +29,7 @@ export default function MyReviewWaitingItem({ order }: Props) {
         </p>
       </div>
       <Link
-        href={`/inquiry/write/product/${
-          order.productId
-        }?returnUrl=${encodeURIComponent(
+        href={`/review/write/${order.productId}?returnUrl=${encodeURIComponent(
           pathName + "?" + searchParams.toString()
         )}`}
       >
