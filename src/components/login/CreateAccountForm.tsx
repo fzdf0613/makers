@@ -17,9 +17,17 @@ export default function CreateAccountForm() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const files = e.target?.files;
-    if (files && files[0]) {
-      setFile(files[0]);
+    if (!files) {
+      return;
     }
+    const fileType = files[0].type;
+    if (!fileType.includes("image")) {
+      window.alert("이미지 파일이 아닙니다.");
+      setFile(undefined);
+      return;
+    }
+
+    setFile(files[0]);
   };
 
   const handleSubmit = (e: FormEvent) => {
