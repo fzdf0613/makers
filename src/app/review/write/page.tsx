@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 export default async function ReviewWritePage({
   searchParams,
 }: {
-  searchParams: { orderId: string };
+  searchParams: { orderId: string; returnUrl: string };
 }) {
   const session = await getServerSession(authOptions);
   const user = session?.user;
