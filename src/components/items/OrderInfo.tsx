@@ -44,6 +44,7 @@ const OrderInfo = ({ product }: Props) => {
           <strong className="font-bold">배송비 3,000원</strong>
         </div>
       </section>
+      <div className="invisible" id="nav-scroll-target" />
     </>
   );
 };

@@ -189,7 +189,7 @@ function getFieldBySort(sort: string): { name: string; order: "desc" | "asc" } {
     case "CLOSING":
       return { name: "orderEndTime", order: "asc" };
     case "ORDER":
-      return { name: "currentOrderCount", order: "desc" };
+      return { name: "orderUserCount", order: "desc" };
     default:
       return { name: "id", order: "desc" };
   }

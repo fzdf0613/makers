@@ -24,18 +24,20 @@ export default function ReviewComment({ review }: Props) {
         <p>{getDateText(review.createdAt)}</p>
       </div>
       <pre className="py-2.5 whitespace-pre-wrap">{review.text}</pre>
-      <button
-        onClick={() => {
-          setOpenImage((prev) => !prev);
-        }}
-        className={`h-[74px] w-[74px] relative`}
-      >
-        {openImage && (
-          <div className="absolute inset-0 border-[3px] border-[#4a4a4a] bg-[#0000004a] z-10" />
-        )}
-        <Image src={review.imageUrl} alt="review-thumbnail" fill />
-      </button>
-      {openImage && (
+      {review.imageUrl && (
+        <button
+          onClick={() => {
+            setOpenImage((prev) => !prev);
+          }}
+          className={`h-[74px] w-[74px] relative`}
+        >
+          {openImage && (
+            <div className="absolute inset-0 border-[3px] border-[#4a4a4a] bg-[#0000004a] z-10" />
+          )}
+          <Image src={review.imageUrl} alt="review-thumbnail" fill />
+        </button>
+      )}
+      {review.imageUrl && openImage && (
         <div className="w-full aspect-square bg-[#f1f1f1] relative mt-4">
           <Image
             className="object-contain"
