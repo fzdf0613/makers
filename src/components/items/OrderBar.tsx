@@ -92,7 +92,7 @@ const OrderBar = ({ product, post }: Props) => {
         </div>
         <button
           className={`bg-[#ed554d] rounded-md ml-2 w-[72%] flex justify-center items-center cursor-pointer ${
-            isOrderNow && "brightness-50"
+            !isOrderNow && "brightness-50"
           }`}
           onClick={handleOrderClick}
           disabled={!isOrderNow}
