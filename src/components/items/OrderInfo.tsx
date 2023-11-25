@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Product } from "@/customType/product";
-import { getRemaingTimeFormat } from "@/util/date";
+import { getOrderRemaingTimeFormat } from "@/util/date";
 import ProgressBar from "./ProgressBar";
 
 type Props = {
@@ -32,11 +32,7 @@ const OrderInfo = ({ product }: Props) => {
         <div className="text-[13px]">
           <p className="w-[78px] inline-block">주문 기간</p>
           <strong className="font-bold">
-            주문 마감{" "}
-            {getRemaingTimeFormat(
-              new Date(product.orderStartTime),
-              new Date(product.orderEndTime)
-            )}
+            {getOrderRemaingTimeFormat(new Date(product.orderEndTime))}
           </strong>
         </div>
         <div className="text-[13px]">

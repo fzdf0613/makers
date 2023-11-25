@@ -7,7 +7,7 @@ export default async function MyOrderPage() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    redirect(`/login`);
+    redirect(`/`);
   }
 
   return <MyOrderList />;

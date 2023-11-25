@@ -1,11 +1,15 @@
-export function getRemaingTimeFormat(startDate: Date, endDate: Date) {
-  const sec = (endDate.getTime() - startDate.getTime()) / 1000;
+export function getOrderRemaingTimeFormat(endDate: Date) {
+  const currentTime = new Date();
+  if (currentTime.getTime() > endDate.getTime()) {
+    return "주문 종료";
+  }
+  const sec = (endDate.getTime() - currentTime.getTime()) / 1000;
   if (sec < 3600) {
-    return Math.floor(sec / 60) + "분 전";
+    return "주문 마감 " + Math.floor(sec / 60) + "분 전";
   } else if (sec < 86400) {
-    return Math.floor(sec / 3600) + "시간 전";
+    return "주문 마감 " + Math.floor(sec / 3600) + "시간 전";
   } else {
-    return Math.floor(sec / 86400) + "일 전";
+    return "주문 마감 " + Math.floor(sec / 86400) + "일 전";
   }
 }
 

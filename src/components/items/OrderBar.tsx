@@ -1,11 +1,12 @@
 "use client";
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useMemo } from "react";
 import Portal from "../ui/Portal";
 import OrderModal from "./OrderModal";
 import { Product } from "@/customType/product";
 import { Post } from "@/customType/post";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { isOnOrder } from "@/util/date";
 
 type Props = {
   product: Product;
@@ -19,6 +20,10 @@ const OrderBar = ({ product, post }: Props) => {
   const { data: session, status } = useSession();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const isOrderNow = useMemo(
+    () => isOnOrder(new Date(product.orderEndTime)),
+    [product.orderEndTime]
+  );
 
   useEffect(() => {
     if (post && !post.itemOptions) {
@@ -85,12 +90,15 @@ const OrderBar = ({ product, post }: Props) => {
         <div className="bg-[#1a1a1a] rounded-md w-[28%] flex justify-center items-center cursor-pointer">
           선물하기
         </div>
-        <div
-          className="bg-[#ed554d] rounded-md ml-2 w-[72%] flex justify-center items-center cursor-pointer"
+        <button
+          className={`bg-[#ed554d] rounded-md ml-2 w-[72%] flex justify-center items-center cursor-pointer ${
+            isOrderNow && "brightness-50"
+          }`}
           onClick={handleOrderClick}
+          disabled={!isOrderNow}
         >
-          주문하기
-        </div>
+          {isOrderNow ? "주문하기" : "주문 종료"}
+        </button>
       </div>
       {modalOpen && (
         <Portal>
