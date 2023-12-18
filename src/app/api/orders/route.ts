@@ -25,6 +25,8 @@ export async function GET() {
     const snapshot = await getOrders(orderIds);
     const orders = snapshot.docs.map((doc) => doc.data());
 
+    orders.sort((a, b) => b.orderedAt - a.orderedAt);
+
     return NextResponse.json(orders);
   } catch (error) {
     console.log("getOrders Error : ", error);
