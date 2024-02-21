@@ -21,7 +21,7 @@ export const categoriesForUI = [
     title: "뷰티",
     value: "beauty",
     url: "/home/category?category=beauty&subcategory=0&sort=LATEST",
-    subcategories: ["스킨케어", "바디·헤어", "메이크업"],
+    subcategories: ["전체", "스킨케어", "바디·헤어", "메이크업"],
   },
   {
     title: "생활",
