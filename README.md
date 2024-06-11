@@ -6,8 +6,10 @@
 
 <br/><br/>
 
-# 기술 스택
+## 목적
+> 본 프로젝트는 NextJS를 이용한 웹페이지의 CRUD 기능 및 실제 사이트의 다양한 UI 구현을 목표로 합니다.
 
+## 기술 스택
 > Next.js 13 / React / TS / FireBase
 
 ## 배포
@@ -30,7 +32,7 @@
 
 ### 계정
 
-- 계정 생성 및 로그인, 로그아웃 기능은 NextAuth로 구현되어 있습니다.
+- 계정 생성 및 로그인, 로그아웃 기능은 NextAuth로 구현되어 있습니다. <br/>
   <img src="https://github.com/fzdf0613/makers/assets/135721168/45092083-e31d-4002-8ea6-3df8d99bbdcc" height="45%" width="45%" />
   <img src="https://github.com/fzdf0613/makers/assets/135721168/21d4faea-0590-48fb-99cb-87aa174da77e" height="45%" width="45%" />
 
@@ -40,23 +42,25 @@
 
 - 등록된 상품 목록을 보여주며, 상단의 카테고리 바를 통해 카테고리별 상품 목록을 확인할 수 있습니다.
 - 최신 순, 주문 많은 순, 마감 임박 순 으로 상품을 정렬해주는 기능을 제공합니다.
-- 상품 목록을 확인할 수 있는 페이지에서 사용자는 버튼을 통해 상품을 '좋아요' 등록할 수 있으며, **Optimistic UI**로 동작합니다.
+- 상품 목록을 확인할 수 있는 페이지에서 사용자는 버튼을 통해 상품을 '좋아요' 등록할 수 있으며, **Optimistic UI**로 동작합니다. <br/>
+
   <img src="https://github.com/fzdf0613/makers/assets/135721168/4fc618b8-4953-4caa-a929-01f7777dd378" height="50%" width="50%" /><br><br>
+
 
 ### 최근 본 페이지
 
-- 사용자가 최근 조회산 상품 목록을 보여줍니다. 로그인 시에만 사용 가능합니다.
+- 사용자가 최근 조회산 상품 목록을 보여줍니다. 로그인 시에만 사용 가능합니다. <br/>
   <img src="https://github.com/fzdf0613/makers/assets/135721168/bb6fa011-ea48-4ba6-a8ce-25723572c74d" height="45%" width="45%" />
   <img src="https://github.com/fzdf0613/makers/assets/135721168/f283a89a-616c-4c36-abdb-76542c8fb8cf" height="45%" width="45%" /><br><br>
 
 ### 오픈예정 페이지
 
-- 오픈 예정할 상품 목록이 존재할 경우, 상품 목록을 보여줍니다.
+- 오픈 예정할 상품 목록이 존재할 경우, 상품 목록을 보여줍니다. <br/>
   <img src="https://github.com/fzdf0613/makers/assets/135721168/e726ff6b-3dec-4c3f-8115-529ce9180379" height="50%" width="50%" /><br><br>
 
 ### 검색 페이지
 
-- 등록된 상품을 검색할 수 있습니다. 로그인 시에는 최근 검색한 키워드를 보여줍니다.
+- 등록된 상품을 검색할 수 있습니다. 로그인 시에는 최근 검색한 키워드를 보여줍니다. <br/>
   <img src="https://github.com/fzdf0613/makers/assets/135721168/e3ce6ed5-bdfb-4a08-a572-577db5a6afb2" height="50%" width="50%" /><br><br>
 
 <br/><br/>
@@ -118,3 +122,6 @@
 ##### 문의 작성
 
 <img src="https://github.com/fzdf0613/makers/assets/135721168/f92a2646-607c-4c8b-896d-fd25ec3fa534" height="50%" width="50%" /><br><br><br>
+
+
+##### 프로젝트의 [Discussions](https://github.com/fzdf0613/makers/discussions)에 트러블 슈팅을 작성해두었습니다. 
