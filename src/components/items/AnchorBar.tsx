@@ -44,9 +44,6 @@ export default function AnchorBar({ anchors }: Props) {
           ${activeAnchor === anchor.name ? "bg-[#1a1a1a] text-white" : ""}
            cursor-pointer px-4 border-neutral-200 border rounded-3xl h-10 flex justify-center items-center`}
           onClick={() => {
-            console.log("Y :", Y);
-            console.log("isScrollDown :", isScrollDown);
-
             const el = document.querySelector(`#${anchor.id}`);
             if (!el) {
               return;

@@ -17,7 +17,7 @@ export default function MyOrderList() {
           ))}
         {!isValidating && orders?.length === 0 && (
           <div className="py-15 font-bold text-center text-base">
-            좋아요 누른 제품이 없습니다
+            주문 내역이 없습니다.
           </div>
         )}
         {isValidating && (
